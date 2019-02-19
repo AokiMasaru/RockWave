@@ -1,0 +1,1079 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Wed Feb 20 06:02:53 2019
+# Process ID: 30313
+# Current directory: /home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.runs/synth_1
+# Command line: vivado -log top_zedboard.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top_zedboard.tcl
+# Log file: /home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.runs/synth_1/top_zedboard.vds
+# Journal file: /home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source top_zedboard.tcl -notrace
+Command: synth_design -top top_zedboard -part xc7z020clg484-1 -verilog_define INST_ROM_FILE_NAME=rv32ui-p-add.hex
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 30331 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 1391.109 ; gain = 0.000 ; free physical = 1248 ; free virtual = 8347
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top_zedboard' [/home/aokim/RockWave/HDL_SRC/Zedboard/top_zedboard.v:1]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+WARNING: [Synth 8-2898] ignoring malformed $readmem task [/home/aokim/RockWave/HDL_SRC/Zedboard/top_zedboard.v:8]
+INFO: [Synth 8-6157] synthesizing module 'top_core' [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:22]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'statemachine' [/home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v:23]
+	Parameter INITIAL bound to: 5'b00000 
+	Parameter FETCH bound to: 5'b00001 
+	Parameter DECODE bound to: 5'b00010 
+	Parameter EXECUTE bound to: 5'b00100 
+	Parameter MEMORYACCESS bound to: 5'b01000 
+	Parameter WRITEBACK bound to: 5'b10000 
+INFO: [Synth 8-6155] done synthesizing module 'statemachine' (1#1) [/home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v:23]
+INFO: [Synth 8-6157] synthesizing module 'writeback' [/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-226] default block is never used [/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v:68]
+INFO: [Synth 8-6155] done synthesizing module 'writeback' (2#1) [/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v:23]
+WARNING: [Synth 8-350] instance 'u_writeback' of module 'writeback' requires 12 connections, but only 11 given [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:98]
+INFO: [Synth 8-6157] synthesizing module 'top_fetch' [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v:29]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'top_fetch' (3#1) [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v:29]
+INFO: [Synth 8-6157] synthesizing module 'instruction_decode' [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter LUI bound to: 7'b0110111 
+	Parameter AUIPC bound to: 7'b0010111 
+	Parameter JAL bound to: 7'b1101111 
+	Parameter JALR bound to: 7'b1100111 
+	Parameter BRANCH bound to: 7'b1100011 
+	Parameter LOAD bound to: 7'b0000011 
+	Parameter STORE bound to: 7'b0100011 
+	Parameter OP_IMM bound to: 7'b0010011 
+	Parameter OP bound to: 7'b0110011 
+	Parameter MISC_MEM bound to: 7'b0001111 
+	Parameter SYSTEM bound to: 7'b1110011 
+INFO: [Synth 8-6157] synthesizing module 'obuf' [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+	Parameter WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'obuf' (4#1) [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+INFO: [Synth 8-6157] synthesizing module 'obuf__parameterized0' [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+	Parameter WIDTH bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'obuf__parameterized0' (4#1) [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+INFO: [Synth 8-6157] synthesizing module 'obuf__parameterized1' [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+	Parameter WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'obuf__parameterized1' (4#1) [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+INFO: [Synth 8-6157] synthesizing module 'obuf__parameterized2' [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+	Parameter WIDTH bound to: 9 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'obuf__parameterized2' (4#1) [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'instruction_decode' (5#1) [/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:23]
+INFO: [Synth 8-6157] synthesizing module 'top_execute' [/home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter LATCH_LEN bound to: 111 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'alu' [/home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'alu' (6#1) [/home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v:23]
+INFO: [Synth 8-6157] synthesizing module 'comp' [/home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'comp' (7#1) [/home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'top_execute' (8#1) [/home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v:23]
+INFO: [Synth 8-6157] synthesizing module 'top_memoryaccess' [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+	Parameter LATCH_LEN bound to: 79 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'top_memoryaccess' (9#1) [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v:23]
+INFO: [Synth 8-6157] synthesizing module 'register_file' [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-226] default block is never used [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:223]
+INFO: [Synth 8-226] default block is never used [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:223]
+INFO: [Synth 8-6157] synthesizing module 'reg_rw' [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v:23]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'reg_rw' (10#1) [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'register_file' (11#1) [/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v:23]
+INFO: [Synth 8-6155] done synthesizing module 'top_core' (12#1) [/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v:22]
+INFO: [Synth 8-6157] synthesizing module 'rom' [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:25]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'v_rams_20c' [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:42]
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:48]
+INFO: [Synth 8-6155] done synthesizing module 'v_rams_20c' (13#1) [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:42]
+INFO: [Synth 8-6155] done synthesizing module 'rom' (14#1) [/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v:25]
+INFO: [Synth 8-6157] synthesizing module 'ram' [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:27]
+	Parameter XLEN bound to: 32 - type: integer 
+	Parameter DWIDTH bound to: 32 - type: integer 
+	Parameter AWIDTH bound to: 12 - type: integer 
+	Parameter WORDS bound to: 4096 - type: integer 
+	Parameter RESET_VECTOR bound to: -2147483648 - type: integer 
+	Parameter OPLEN bound to: 9 - type: integer 
+	Parameter USE_ALU_IN1_BIT bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_PC bound to: 0 - type: integer 
+	Parameter USE_ALU_IN1_RS1DATA bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_BIT bound to: 1 - type: integer 
+	Parameter USE_ALU_IN2_IMM bound to: 0 - type: integer 
+	Parameter USE_ALU_IN2_RS2DATA bound to: 1 - type: integer 
+	Parameter USE_RD_BIT_L bound to: 2 - type: integer 
+	Parameter USE_RD_BIT_M bound to: 3 - type: integer 
+	Parameter USE_RD_ALU bound to: 2'b00 
+	Parameter USE_RD_PC bound to: 2'b01 
+	Parameter USE_RD_MEMORY bound to: 2'b10 
+	Parameter USE_RD_COMP bound to: 2'b11 
+	Parameter FUNCT3_BIT_L bound to: 4 - type: integer 
+	Parameter FUNCT3_BIT_M bound to: 6 - type: integer 
+	Parameter FUNCT3_B bound to: 3'b000 
+	Parameter FUNCT3_H bound to: 3'b001 
+	Parameter FUNCT3_W bound to: 3'b010 
+	Parameter FUNCT3_D bound to: 3'b011 
+	Parameter FUNCT3_BU bound to: 3'b100 
+	Parameter FUNCT3_HU bound to: 3'b101 
+	Parameter FUNCT3_WU bound to: 3'b110 
+	Parameter FUNCT3_BEQ bound to: 3'b000 
+	Parameter FUNCT3_BNE bound to: 3'b001 
+	Parameter FUNCT3_JUMP bound to: 3'b010 
+	Parameter FUNCT3_BLT bound to: 3'b100 
+	Parameter FUNCT3_BGE bound to: 3'b101 
+	Parameter FUNCT3_BLTU bound to: 3'b110 
+	Parameter FUNCT3_BGEU bound to: 3'b111 
+	Parameter FUNCT3_SLT bound to: 3'b010 
+	Parameter FUNCT3_SLTU bound to: 3'b011 
+	Parameter DATA_MEM_WE_BIT bound to: 7 - type: integer 
+	Parameter JUMP_EN_BIT bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'bytewrite_ram_1b' [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:63]
+	Parameter SIZE bound to: 4096 - type: integer 
+	Parameter ADDR_WIDTH bound to: 12 - type: integer 
+	Parameter COL_WIDTH bound to: 8 - type: integer 
+	Parameter NB_COL bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'bytewrite_ram_1b' (15#1) [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:63]
+INFO: [Synth 8-6155] done synthesizing module 'ram' (16#1) [/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:27]
+INFO: [Synth 8-6155] done synthesizing module 'top_zedboard' (17#1) [/home/aokim/RockWave/HDL_SRC/Zedboard/top_zedboard.v:1]
+WARNING: [Synth 8-3331] design ram has unconnected port rst_n
+WARNING: [Synth 8-3331] design rom has unconnected port rst_n
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[8]
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[7]
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[3]
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[2]
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[1]
+WARNING: [Synth 8-3331] design comp has unconnected port decoded_op_de[0]
+WARNING: [Synth 8-3331] design writeback has unconnected port phase_writeback
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[7]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[6]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[5]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[4]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[1]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[0]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1409.496 ; gain = 18.387 ; free physical = 1245 ; free virtual = 8346
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1409.496 ; gain = 18.387 ; free physical = 1246 ; free virtual = 8347
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1409.496 ; gain = 18.387 ; free physical = 1246 ; free virtual = 8347
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
+Finished Parsing XDC File [/home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_zedboard_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/top_zedboard_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1783.027 ; gain = 0.000 ; free physical = 964 ; free virtual = 8064
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1783.027 ; gain = 0.000 ; free physical = 964 ; free virtual = 8065
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1783.027 ; gain = 0.000 ; free physical = 964 ; free virtual = 8065
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1783.027 ; gain = 0.000 ; free physical = 964 ; free virtual = 8065
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 1038 ; free virtual = 8138
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 1038 ; free virtual = 8138
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 1040 ; free virtual = 8140
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'current_reg' in module 'statemachine'
+INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "current" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [/home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v:39]
+INFO: [Synth 8-5546] ROM "rst_n" won't be mapped to RAM because it is too sparse
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 INITIAL |                           000001 |                            00000
+                   FETCH |                           000010 |                            00001
+                  DECODE |                           000100 |                            00010
+                 EXECUTE |                           001000 |                            00100
+            MEMORYACCESS |                           010000 |                            01000
+               WRITEBACK |                           100000 |                            10000
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_reg' using encoding 'one-hot' in module 'statemachine'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 1029 ; free virtual = 8130
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
+	   3 Input     32 Bit       Adders := 1     
+	   2 Input      8 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	              111 Bit    Registers := 1     
+	               79 Bit    Registers := 1     
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 39    
+	                9 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 1     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---RAMs : 
+	             128K Bit         RAMs := 1     
++---Muxes : 
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 10    
+	   7 Input     32 Bit        Muxes := 1     
+	   9 Input     32 Bit        Muxes := 1     
+	   2 Input      8 Bit        Muxes := 2     
+	   6 Input      6 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 6     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module top_zedboard 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input      8 Bit       Adders := 1     
++---Registers : 
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	   2 Input      8 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module statemachine 
+Detailed RTL Component Info : 
++---Muxes : 
+	   6 Input      6 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 5     
+Module writeback 
+Detailed RTL Component Info : 
++---Muxes : 
+	   4 Input     32 Bit        Muxes := 1     
+Module top_fetch 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 1     
++---Registers : 
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+Module obuf 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+Module obuf__parameterized0 
+Detailed RTL Component Info : 
++---Registers : 
+	                4 Bit    Registers := 1     
+Module obuf__parameterized1 
+Detailed RTL Component Info : 
++---Registers : 
+	                5 Bit    Registers := 1     
+Module obuf__parameterized2 
+Detailed RTL Component Info : 
++---Registers : 
+	                9 Bit    Registers := 1     
+Module instruction_decode 
+Detailed RTL Component Info : 
++---Muxes : 
+	   7 Input     32 Bit        Muxes := 1     
+	   2 Input      6 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 1     
+	   2 Input      3 Bit        Muxes := 1     
+	   4 Input      2 Bit        Muxes := 1     
+	   5 Input      1 Bit        Muxes := 1     
+	   3 Input      1 Bit        Muxes := 1     
+Module alu 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Muxes : 
+	   9 Input     32 Bit        Muxes := 1     
+Module top_execute 
+Detailed RTL Component Info : 
++---Registers : 
+	              111 Bit    Registers := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 3     
+Module top_memoryaccess 
+Detailed RTL Component Info : 
++---Registers : 
+	               79 Bit    Registers := 1     
+Module reg_rw 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+Module v_rams_20c 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
+Module bytewrite_ram_1b 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
++---RAMs : 
+	             128K Bit         RAMs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 6     
+	   2 Input      8 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+WARNING: [Synth 8-6026] Ignoring keep related attribute (keep/mark_debug/dont_touch) applied on memory
+INFO: [Synth 8-5546] ROM "rst_n" won't be mapped to RAM because it is too sparse
+WARNING: [Synth 8-3331] design writeback has unconnected port phase_writeback
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[7]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[6]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[5]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[4]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[1]
+WARNING: [Synth 8-3331] design writeback has unconnected port decoded_op_mw[0]
+warning: Removed RAM u_inst_memory/U_ram/ram_reg due to inactive write enable
+WARNING: [Synth 8-6014] Unused sequential element u_inst_memory/U_ram/ram_reg was removed. 
+INFO: [Synth 8-3886] merging instance 'u_top_core/u_top_fetch/latch_fetch_reg[0]' (FDCE) to 'u_top_core/u_top_fetch/latch_fetch_reg[32]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[25]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[26]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[27]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[28]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[29]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[20]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[21]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[22]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[23]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[24]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[31]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[30]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[15]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[16]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[17]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[18]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[19]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[8]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[9]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[10]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[11]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[7]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[13]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[12]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[2]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[5]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[4]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[3]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[6]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[1]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[0]'
+INFO: [Synth 8-3886] merging instance 'i_3/u_inst_memory/U_ram/dout_reg[0]' (FD) to 'i_3/u_inst_memory/U_ram/dout_reg[14]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (i_3/\u_inst_memory/U_ram/dout_reg[14] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 1012 ; free virtual = 8118
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 1783.027 ; gain = 391.918 ; free physical = 893 ; free virtual = 7998
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 864 ; free virtual = 7967
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 863 ; free virtual = 7968
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 863 ; free virtual = 7969
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 863 ; free virtual = 7969
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 865 ; free virtual = 7969
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 865 ; free virtual = 7969
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 866 ; free virtual = 7970
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 866 ; free virtual = 7970
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    16|
+|3     |LUT1   |    37|
+|4     |LUT2   |    34|
+|5     |LUT3   |     2|
+|6     |LUT4   |     3|
+|7     |LUT5   |     3|
+|8     |LUT6   |     2|
+|9     |FDCE   |  1125|
+|10    |FDPE   |     2|
+|11    |FDRE   |     2|
+|12    |FDSE   |     7|
+|13    |IBUF   |     1|
+|14    |OBUF   |     8|
++------+-------+------+
+
+Report Instance Areas: 
++------+-------------------------+---------------------+------+
+|      |Instance                 |Module               |Cells |
++------+-------------------------+---------------------+------+
+|1     |top                      |                     |  1243|
+|2     |  u_top_core             |top_core             |  1213|
+|3     |    u_instruction_decode |instruction_decode   |    67|
+|4     |      u_o3               |obuf                 |    66|
+|5     |      u_o8               |obuf__parameterized2 |     1|
+|6     |    u_register_file      |register_file        |   993|
+|7     |      x1                 |reg_rw               |    32|
+|8     |      x11                |reg_rw_0             |    32|
+|9     |      x12                |reg_rw_1             |    32|
+|10    |      x13                |reg_rw_2             |    32|
+|11    |      x14                |reg_rw_3             |    32|
+|12    |      x15                |reg_rw_4             |    32|
+|13    |      x16                |reg_rw_5             |    32|
+|14    |      x17                |reg_rw_6             |    32|
+|15    |      x18                |reg_rw_7             |    32|
+|16    |      x19                |reg_rw_8             |    32|
+|17    |      x2                 |reg_rw_9             |    32|
+|18    |      x20                |reg_rw_10            |    32|
+|19    |      x21                |reg_rw_11            |    32|
+|20    |      x22                |reg_rw_12            |    32|
+|21    |      x23                |reg_rw_13            |    32|
+|22    |      x24                |reg_rw_14            |    32|
+|23    |      x25                |reg_rw_15            |    32|
+|24    |      x26                |reg_rw_16            |    32|
+|25    |      x27                |reg_rw_17            |    32|
+|26    |      x28                |reg_rw_18            |    32|
+|27    |      x29                |reg_rw_19            |    32|
+|28    |      x3                 |reg_rw_20            |    32|
+|29    |      x30                |reg_rw_21            |    33|
+|30    |      x31                |reg_rw_22            |    32|
+|31    |      x4                 |reg_rw_23            |    32|
+|32    |      x5                 |reg_rw_24            |    32|
+|33    |      x6                 |reg_rw_25            |    32|
+|34    |      x7                 |reg_rw_26            |    32|
+|35    |      x8                 |reg_rw_27            |    32|
+|36    |      x9                 |reg_rw_28            |    32|
+|37    |    u_statemachine       |statemachine         |     7|
+|38    |    u_top_execute        |top_execute          |    40|
+|39    |      U_alu              |alu                  |     8|
+|40    |    u_top_fetch          |top_fetch            |    74|
+|41    |    u_top_memoryaccess   |top_memoryaccess     |    32|
++------+-------------------------+---------------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.027 ; gain = 410.918 ; free physical = 866 ; free virtual = 7970
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 9 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1802.027 ; gain = 37.387 ; free physical = 922 ; free virtual = 8027
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 1802.035 ; gain = 410.918 ; free physical = 922 ; free virtual = 8027
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 16 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1818.035 ; gain = 0.000 ; free physical = 865 ; free virtual = 7969
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Common 17-83] Releasing license: Synthesis
+98 Infos, 27 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 1818.035 ; gain = 427.039 ; free physical = 926 ; free virtual = 8032
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1818.035 ; gain = 0.000 ; free physical = 926 ; free virtual = 8033
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint '/home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.runs/synth_1/top_zedboard.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file top_zedboard_utilization_synth.rpt -pb top_zedboard_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Wed Feb 20 06:03:22 2019...

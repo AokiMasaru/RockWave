@@ -1,0 +1,22 @@
+0.6
+2018.3
+Dec  6 2018
+23:39:36
+/home/aokim/RockWave/HDL_SIM/CORE/_top/top_zedboard_tb.v,1550515559,verilog,,,,top_zedboard_tb,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v,1548268921,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,alu,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,comp,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,top_execute,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v,1550518839,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,rom;v_rams_20c,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v,1548275369,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,top_fetch,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v,1548790516,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,bytewrite_ram_1b;ram,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v,1548790516,verilog,,/home/aokim/RockWave/HDL_SRC/Zedboard/top_zedboard.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,top_memoryaccess,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/reg_rw.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,reg_rw,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,register_file,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v,1548268921,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v,,statemachine,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SIM/CORE/_top/top_zedboard_tb.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,writeback,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v,1548790516,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,top_core,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,1550606755,verilog,,,,,,,,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v,1550353692,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,instruction_decode,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v,1548268921,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v,,obuf,,,../../../../../CORE,,,,,
+/home/aokim/RockWave/HDL_SRC/Zedboard/Zedboard.sim/sim_1/behav/xsim/glbl.v,1550606801,verilog,,,,glbl,,,,,,,,
+/home/aokim/RockWave/HDL_SRC/Zedboard/top_zedboard.v,1550520605,verilog,,/home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v,/home/aokim/RockWave/HDL_SRC/CORE/core_general.vh,top_zedboard,,,../../../../../CORE,,,,,

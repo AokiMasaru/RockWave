@@ -5,8 +5,8 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/01/25 17:56
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2019/02/20 05:58
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -48,8 +48,8 @@ wire phase_writeback;
 wire stall_writeback;
 wire jump_state_wf;             // PCの次のアドレスがJumpアドレス//////
 wire [XLEN-1:0] regdata_for_pc; // Jump先アドレス
-wire [XLEN-1:0] inst_data;      // InstMemory Data
-wire [AWIDTH-1:0] inst_addr;   // InstMemory Address
+// wire [XLEN-1:0] inst_data;      // InstMemory Data
+// wire [AWIDTH-1:0] inst_addr;   // InstMemory Address
 wire [XLEN-1:0] curr_pc_fd;    // Current PC Address for Decode
 wire [XLEN-1:0] next_pc_fd;    //    Next PC Address for Decode
 wire [31:0] inst;          // Instruction

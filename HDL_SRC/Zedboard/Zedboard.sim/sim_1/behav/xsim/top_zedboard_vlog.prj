@@ -1,0 +1,23 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "../../../../../CORE" \
+"../../../../../CORE/Execute/alu.v" \
+"../../../../../CORE/Execute/comp.v" \
+"../../../../../CORE/instruction_decode/instruction_decode.v" \
+"../../../../../CORE/instruction_decode/obuf.v" \
+"../../../../../CORE/MemoryAccess/ram.v" \
+"../../../../../CORE/RegisterFile/reg_rw.v" \
+"../../../../../CORE/RegisterFile/register_file.v" \
+"../../../../../CORE/Fetch/rom.v" \
+"../../../../../CORE/StateMachine/statemachine.v" \
+"../../../../../CORE/_top/top_core.v" \
+"../../../../../CORE/Execute/top_execute.v" \
+"../../../../../CORE/Fetch/top_fetch.v" \
+"../../../../../CORE/MemoryAccess/top_memoryaccess.v" \
+"../../../../../CORE/WriteBack/writeback.v" \
+"../../../../top_zedboard.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
