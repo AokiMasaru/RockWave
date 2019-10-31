@@ -17,6 +17,7 @@
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
  * 2019/10/07	kidtak51	First Version
+ * 2019/10/30   kidtak51	hdmi出力機能追加
  * *****************************************************************
  */
 
@@ -53,10 +54,10 @@ module top_zynqberry(
     input csi_d_lp_p,//CSI
     input [1:0] csi_d_n,//CSI
     input [1:0] csi_d_p,//CSI
-    //output hdmi_clk_n,//HDMI
-    //output hdmi_clk_p,//HDMI
-    //output[2:0] hdmi_data_n,//HDMI
-    //output[2:0] hdmi_data_p,//HDMI
+    output hdmi_clk_n,//HDMI
+    output hdmi_clk_p,//HDMI
+    output[2:0] hdmi_data_n,//HDMI
+    output[2:0] hdmi_data_p,//HDMI
     output led,//LED (GPIO出力 外付けLED）
     input clk_from_gpio_cn//clock(GPIO入力 外付け水晶による16MHz)
 );
@@ -72,6 +73,33 @@ clk_wiz_0 u_clk_wiz_0(
   .clk_in1(clk_from_gpio_cn)//16MHz
  );
 
+wire rst_n = 1'b1;
+wire[11:0] h_pos;
+wire[11:0] v_pos;
+wire[23:0] data;
+
+//hdmi出力
+hdmi u_hdmi(
+    .clk_pix(clk_pix),
+    .clk_pix_x5(clk_pix_x5),
+    .rst_n(rst_n),
+    .h_pos(h_pos),
+    .v_pos(v_pos),
+    .data(data),
+    .hdmi_clk_n(hdmi_clk_n),
+    .hdmi_clk_p(hdmi_clk_p),
+    .hdmi_data_n(hdmi_data_n),
+    .hdmi_data_p(hdmi_data_p)
+);
+
+//テスト用HDMI画像データ生成
+hdmi_test u_hdmi_test(
+    .clk_pix(clk_pix),
+    .rst_n(rst_n),
+    .h_pos(h_pos),
+    .v_pos(v_pos),
+    .data(data)
+);
 
 led_test u_led_test(
       .clk(clk_pix),
@@ -132,3 +160,50 @@ always @(posedge clk or negedge rst_n) begin
 end
 endmodule
 
+//テスト用HDMI画像データ出力回路
+module hdmi_test(
+	input clk_pix,//画像クロック
+	input rst_n,//リセット
+	input[11:0] h_pos,//水平画素位置
+	input[11:0] v_pos,//垂直画素位置
+	output reg[23:0] data//画素位置に対応するRGBデータ
+);
+always @(posedge clk_pix) begin
+    if(h_pos >= 'd600) begin
+        if(h_pos >= 'd1000) begin
+            data[23:16] <= 8'b1111_1111;
+        end
+        else if(h_pos >= 'd700)begin
+            data[7:0] <= 8'b1111_1111;
+        end
+        else if(h_pos >= 'd500)begin
+            data[15:8] <= 8'b1111_1111;            
+        end
+        else if(h_pos == 'd0)begin
+            data <= 'd0;
+        end            
+    end
+    else if (v_pos >= 'd300) begin
+        if(h_pos >= 'd1000) begin
+            data[7:0] <= 8'b1111_1111;
+        end
+        else if(h_pos >= 'd700)begin
+            data[15:8] <= 8'b1111_1111;
+        end
+        else if(h_pos >= 'd500)begin
+            data[23:16] <= 8'b1111_1111;
+        end
+        else if(h_pos == 'd0)begin
+            data <= 'd0;
+        end
+    end
+    else begin
+        if (h_pos[6:0] == 7'b1000000) begin
+            data <= {data[15:8], data[7:0], data[23:16]};
+        end
+        else if (h_pos == 'd0) begin
+            data <= 23'h0000FF;
+        end
+    end
+end
+endmodule
