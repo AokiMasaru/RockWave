@@ -1,11 +1,11 @@
 /*
  * *****************************************************************
- * File: hdmi_tb.v
+ * File: top_hdmicontroller_tb.v
  * Category: hdmi
  * File Created: 2019/10/24 06:56
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/10/26 06:49
+ * Last Modified: 2019/11/12 22:18
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -161,7 +161,7 @@ end
 //h_posとv_posが指定範囲で推移していることを確認する
 always @(h_pos) begin
     assert_compare_m(h_pos, 0, ">=", "h_pos check",`__LINE__);
-    assert_compare_m(h_pos, h_valid_max - h_valid_min, "<", "h_pos check",`__LINE__);
+    assert_compare_m(h_pos, h_valid_max - h_valid_min + 1'b1, "<", "h_pos check",`__LINE__);
 end
 always @(v_pos) begin
     assert_compare_m(v_pos, 0, ">=", "v_pos check",`__LINE__);

@@ -96,7 +96,7 @@ always @(posedge clk or negedge rst_n) begin
     end
     else if(h_valid_min <= h_cnt && h_cnt < h_valid_max) begin
         h_valid <= 1'b1;
-        h_pos <= h_cnt - h_valid_min;
+        h_pos <= h_cnt - h_valid_min + 1'b1;
     end
     else begin
         h_valid <= 1'b0;
