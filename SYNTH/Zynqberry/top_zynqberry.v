@@ -17,7 +17,7 @@
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
  * 2019/10/07	kidtak51	First Version
- * 2019/10/30   kidtak51	hdmio—Í‹@”\’Ç‰Á
+ * 2019/10/30   kidtak51	hdmiå‡ºåŠ›æ©Ÿèƒ½è¿½åŠ 
  * *****************************************************************
  */
 
@@ -58,8 +58,8 @@ module top_zynqberry(
     output hdmi_clk_p,//HDMI
     output[2:0] hdmi_data_n,//HDMI
     output[2:0] hdmi_data_p,//HDMI
-    output led,//LED (GPIOo—Í ŠO•t‚¯LEDj
-    input clk_from_gpio_cn//clock(GPIO“ü—Í ŠO•t‚¯…»‚É‚æ‚é16MHz)
+    output led,//LED (GPIOå‡ºåŠ› å¤–ä»˜ã‘LEDï¼‰
+    input clk_from_gpio_cn//clock(GPIOå…¥åŠ› å¤–ä»˜ã‘æ°´æ™¶ã«ã‚ˆã‚‹16MHz)
 );
 
 wire clk_pix;//hdmi pix_clk
@@ -69,7 +69,7 @@ clk_wiz_0 u_clk_wiz_0(
   .clk_out1(clk_pix),//hdmi pix_clk
   .clk_out2(clk_pix_x5),//hdmi pix_clk_x5
   .reset(1'b0),
-  .locked(locked),//–¢g—p
+  .locked(locked),//æœªä½¿ç”¨
   .clk_in1(clk_from_gpio_cn)//16MHz
  );
 
@@ -78,7 +78,7 @@ wire[11:0] h_pos;
 wire[11:0] v_pos;
 wire[23:0] data;
 
-//hdmio—Í
+//hdmiå‡ºåŠ›
 hdmi u_hdmi(
     .clk_pix(clk_pix),
     .clk_pix_x5(clk_pix_x5),
@@ -92,7 +92,7 @@ hdmi u_hdmi(
     .hdmi_data_p(hdmi_data_p)
 );
 
-//ƒeƒXƒg—pHDMI‰æ‘œƒf[ƒ^¶¬
+//ãƒ†ã‚¹ãƒˆç”¨HDMIç”»åƒãƒ‡ãƒ¼ã‚¿ç”Ÿæˆ
 hdmi_test u_hdmi_test(
     .clk_pix(clk_pix),
     .rst_n(rst_n),
@@ -108,8 +108,8 @@ led_test u_led_test(
     );
 
 
-//–¢g—pGPIO‚Ìó‘Ôİ’è
-//ŠO•t‚¯‚Ì‰ñ˜H‚ÆƒVƒ‡[ƒg‚ğ”ğ‚¯‚é‚½‚ß‚Éhigh-z‚ÉŒÅ’è
+//æœªä½¿ç”¨GPIOã®çŠ¶æ…‹è¨­å®š
+//å¤–ä»˜ã‘ã®å›è·¯ã¨ã‚·ãƒ§ãƒ¼ãƒˆã‚’é¿ã‘ã‚‹ãŸã‚ã«high-zã«å›ºå®š
 assign GPIO_1_tri_io[0] = 1'bz;
 assign GPIO_1_tri_io[1] = 1'bz;
 assign GPIO_1_tri_io[2] = 1'bz;
@@ -137,11 +137,11 @@ assign GPIO_1_tri_io[23] = 1'bz;//
 
 endmodule
 
-//ƒeƒXƒg—pLED“_–Å‰ñ˜H
+//ãƒ†ã‚¹ãƒˆç”¨LEDç‚¹æ»…å›è·¯
 module led_test(
-	input clk,//ƒNƒƒbƒN
-	input rst_n,//ƒŠƒZƒbƒg
-	output reg led_out//LED‚ÉÚ‘±
+	input clk,//ã‚¯ãƒ­ãƒƒã‚¯
+	input rst_n,//ãƒªã‚»ãƒƒãƒˆ
+	output reg led_out//LEDã«æ¥ç¶š
 );
 parameter brink_interval = 32'h01FFFFFF;
 reg[31:0] led_counter;
@@ -160,13 +160,13 @@ always @(posedge clk or negedge rst_n) begin
 end
 endmodule
 
-//ƒeƒXƒg—pHDMI‰æ‘œƒf[ƒ^o—Í‰ñ˜H
+//ãƒ†ã‚¹ãƒˆç”¨HDMIç”»åƒãƒ‡ãƒ¼ã‚¿å‡ºåŠ›å›è·¯
 module hdmi_test(
-	input clk_pix,//‰æ‘œƒNƒƒbƒN
-	input rst_n,//ƒŠƒZƒbƒg
-	input[11:0] h_pos,//…•½‰æ‘fˆÊ’u
-	input[11:0] v_pos,//‚’¼‰æ‘fˆÊ’u
-	output reg[23:0] data//‰æ‘fˆÊ’u‚É‘Î‰‚·‚éRGBƒf[ƒ^
+	input clk_pix,//ç”»åƒã‚¯ãƒ­ãƒƒã‚¯
+	input rst_n,//ãƒªã‚»ãƒƒãƒˆ
+	input[11:0] h_pos,//æ°´å¹³ç”»ç´ ä½ç½®
+	input[11:0] v_pos,//å‚ç›´ç”»ç´ ä½ç½®
+	output reg[23:0] data//ç”»ç´ ä½ç½®ã«å¯¾å¿œã™ã‚‹RGBãƒ‡ãƒ¼ã‚¿
 );
 always @(posedge clk_pix) begin
     if(h_pos >= 'd600) begin
