@@ -31,15 +31,19 @@ Then update the package cache and install the package using:
         $ sudo apt-get update
         $ sudo apt-get install code
 
-### GNU Make (Windowsのみ)
-Windowsには、makeが含まれていないため、GNU Makeを別途インストールします。  
-本家[Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm "Make for Windows")の
-[Complete package, except sources](http://gnuwin32.sourceforge.net/downlinks/make.php "")を使用してもパスが通らなようです。 
-環境変数で、`C:\Program Files (x86)\GnuWin32\bin`にパスを通してください。
 
-### GIT (必要なら)
-Windowsでは、SSH鍵を作成するために使用します。  
+### GIT (Windowsのみ)
+Windowsでは、SSH鍵を作成するために使用します。
 Linuxの場合、ssh-keygenが標準(?)のため必要ありません。
+
+Git for Windowsをインストールします。
+
+### Make (Windowsのみ)
+Windowsには、makeが含まれていないため、Makeを別途インストールします。ここでは、git bashからMakeを実行できるようにします。
+
+https://sourceforge.net/projects/ezwinports/
+
+上記URLからmake-4.2.1-without-guile-w32-bin.zipをダウンロードします。解凍したフォルダ群をC:\Program Files\Git\mingw64にコピーします。
 
 ---
 ## 開発環境の設定
@@ -69,6 +73,14 @@ VS Codeで、「ファイル」→「基本設定」→「設定」
             ["authoremail","masaru.aoki.1972@gmail.com"]
         ]
     }
+### デフォルトシェルの変更(Windowsのみ必須)
+LinuxコマンドをVSCodeから使用できるようにするために、Git Bashをデフォルトのシェルに変更します。
+
+「ファイル」→「基本設定」→「設定」を開き、検索ウィンドウに"shell"と入力します。
+
+「Terminal › Integrated › Automation Shell: Windows」の項目を探しEdit in settings.jsonをクリックして以下を追加します。
+
+        "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
 
 ### Verilog HDLの設定  
 「拡張機能」→「Verilog configuration」でLinting:Linterをiverilogにします  
