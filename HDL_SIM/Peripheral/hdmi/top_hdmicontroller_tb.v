@@ -5,7 +5,7 @@
  * File Created: 2019/10/24 06:56
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/11/18 23:46
+ * Last Modified: 2019/12/12 07:08
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -99,7 +99,8 @@ wire[31:0] v_valid_min = u_top_hdmicontroller.u_hdmi.v_valid_min;
 wire[11:0] v_pos  = u_top_hdmicontroller.v_pos;
 wire[11:0] h_pos_tmp = u_top_hdmicontroller.h_pos -1;
 wire[11:0] h_pos = (h_valid_max - h_valid_min) < h_pos_tmp ? 0 : h_pos_tmp;
-wire[31:0] ref_data = h_pos + v_pos*(h_valid_max - h_valid_min);
+wire[31:0] ref_data = h_pos/4 + v_pos/4*(h_valid_max - h_valid_min)/4;
+wire[7:0] ref_data_subset = ref_data[7:0];
 
 initial begin
     $dumpfile("top_hdmicontroller_tb.vcd");
@@ -153,14 +154,19 @@ initial begin
     //VRAMに書き込んで読みだす確認
     
     //VRAMに検証用データを1画面分格納
-    for (i = 0; i < h_max*v_max ; i = i + 1) begin
+    //blockramの容量を減らすために水平側と垂直側の解像度を1/4にする
+    for (i = 0; i < h_max/4*v_max/4 ; i = i + 1) begin
         cpu_wr(32'h0020_0000 + i, i);
     end
     @(posedge clk_pix) #1;
 
     //検証用データを1画面分チェック
-    for (i = 0; i < h_max*v_max ; i = i + 1) begin
-        assert_compare_m(u_top_hdmicontroller.pix_data[7:0], ref_data[7:0], "==", i, `__LINE__);
+    //blockramの容量を減らすために水平側と垂直側の解像度を1/4にする。また4画素に1回の判定にする。
+    for (i = 0; i < h_max/4*v_max/4 ; i = i + 1) begin
+        assert_compare_m(u_top_hdmicontroller.pix_data[7:0], ref_data_subset[7:0], "==", i, `__LINE__);
+        @(posedge clk_pix);
+        @(posedge clk_pix);
+        @(posedge clk_pix);
         @(posedge clk_pix);
     end
 

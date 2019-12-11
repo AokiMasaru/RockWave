@@ -5,7 +5,7 @@
  * File Created: 2019/10/31 21:02
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/11/18 23:43
+ * Last Modified: 2019/12/10 22:57
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -68,19 +68,22 @@ wire [XLEN-1:0] qout = {{(XLEN-7){1'b0}}, douta};
 wire[31:0] h_max       = u_hdmi.h_max;
 wire[31:0] h_valid_max = h_max;
 wire[31:0] h_valid_min = u_hdmi.h_valid_min;
+//wire[31:0] h_valid_width = h_valid_max - h_valid_min;
+parameter[31:0] h_valid_width = 'd1280;
 
-
-wire[19:0] addrb = (h_pos + v_pos*(h_valid_max - h_valid_min));
+wire[15:0] addrb = (h_pos/4 + v_pos/4*(h_valid_width/4));
 hdmi_vram u_hdmi_vram (
     .clka         (clk),
     .ena          (vram_sel),
     .wea          (we[2]&(~we[1])&(~we[0])),
-    .addra        (addr[19:0]),
+    .addra        (addr[15:0]),
     .dina         (qin[7:0]),
     .douta        (douta),
     .clkb         (clk_pix),
     .enb          (1'b1),
-    .addrb        (addrb),
+    .web          (1'b0),
+    .addrb        (addrb[15:0]),
+    .dinb         (8'd0),
     .doutb        (pix_data)
 );
 endmodule
