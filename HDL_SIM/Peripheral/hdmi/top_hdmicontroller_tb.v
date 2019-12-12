@@ -5,7 +5,7 @@
  * File Created: 2019/10/24 06:56
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/12/12 07:08
+ * Last Modified: 2019/12/12 21:40
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -18,6 +18,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2019/12/12	kidtak51	vramに使用しているblockramの容量削減
  * 2019/10/24	kidtak51	First Version
  * *****************************************************************
  */
@@ -163,7 +164,9 @@ initial begin
     //検証用データを1画面分チェック
     //blockramの容量を減らすために水平側と垂直側の解像度を1/4にする。また4画素に1回の判定にする。
     for (i = 0; i < h_max/4*v_max/4 ; i = i + 1) begin
-        assert_compare_m(u_top_hdmicontroller.pix_data[7:0], ref_data_subset[7:0], "==", i, `__LINE__);
+        if (u_top_hdmicontroller.u_hdmi.h_valid) begin
+            assert_compare_m(u_top_hdmicontroller.pix_data[7:0], ref_data_subset[7:0], "==", i, `__LINE__);
+        end
         @(posedge clk_pix);
         @(posedge clk_pix);
         @(posedge clk_pix);

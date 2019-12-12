@@ -5,7 +5,7 @@
  * File Created: 2019/10/31 21:02
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/12/10 22:57
+ * Last Modified: 2019/12/12 21:57
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -40,9 +40,38 @@ module top_hdmicontroller(
 `include "core_general.vh"
 
 wire vram_sel = sel & ((addr & 32'h00F0_0000) == 32'h0020_0000);
-wire [XLEN-1:0] qout_reg;
-
 wire [7:0] pix_data;
+
+// VRAM
+// dual port ramを使用
+// portaはcpuからの書き込み用、portbはhdmiモジュールからの読み出し用
+wire [7:0] douta;
+assign qout = {{(XLEN-8){1'b0}}, douta};
+
+//水平軸解像度の算出
+//parameter[31:0] h_valid_width = 'd1280;
+wire[31:0] h_max       = u_hdmi.h_max;
+wire[31:0] h_valid_max = h_max;
+wire[31:0] h_valid_min = u_hdmi.h_valid_min;
+wire[31:0] h_valid_width = h_valid_max - h_valid_min;
+
+//h_posとv_posからblockramのaddr求める
+//blockramの容量を減らすために水平側と垂直側の解像度を1/4にする
+wire[15:0] addrb = (h_pos/4 + v_pos/4*(h_valid_width/4));
+hdmi_vram u_hdmi_vram (
+    .clka         (clk),
+    .ena          (vram_sel),
+    .wea          (we[2]&(~we[1])&(~we[0])),//byteアクセスのみ許可
+    .addra        (addr[15:0]),
+    .dina         (qin[7:0]),
+    .douta        (douta),
+    .clkb         (clk_pix),
+    .enb          (1'b1),
+    .web          (1'b0),//write機能未使用
+    .addrb        (addrb[15:0]),
+    .dinb         (8'd0),//write機能未使用
+    .doutb        (pix_data)
+);
 
 //hdmi制御
 wire [11:0] h_pos;
@@ -60,30 +89,4 @@ hdmi u_hdmi(
     .hdmi_data_p(hdmi_data_p)             //hdmiデータ(rgbの3bit), IOに接続
 );
 
-// VRAM
-// True Dual Port RAMで生成し、PORTB側をROMとして使用
-wire [7:0] douta;
-wire [XLEN-1:0] qout = {{(XLEN-7){1'b0}}, douta};
-
-wire[31:0] h_max       = u_hdmi.h_max;
-wire[31:0] h_valid_max = h_max;
-wire[31:0] h_valid_min = u_hdmi.h_valid_min;
-//wire[31:0] h_valid_width = h_valid_max - h_valid_min;
-parameter[31:0] h_valid_width = 'd1280;
-
-wire[15:0] addrb = (h_pos/4 + v_pos/4*(h_valid_width/4));
-hdmi_vram u_hdmi_vram (
-    .clka         (clk),
-    .ena          (vram_sel),
-    .wea          (we[2]&(~we[1])&(~we[0])),
-    .addra        (addr[15:0]),
-    .dina         (qin[7:0]),
-    .douta        (douta),
-    .clkb         (clk_pix),
-    .enb          (1'b1),
-    .web          (1'b0),
-    .addrb        (addrb[15:0]),
-    .dinb         (8'd0),
-    .doutb        (pix_data)
-);
 endmodule

@@ -5,7 +5,7 @@
  * File Created: 2019/10/07 21:53
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/12/11 18:31
+ * Last Modified: 2019/12/13 24:01
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,8 +16,9 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
- * 2019/10/07	kidtak51	First Version
+ * 2019/12/12	kidtak51	hdmiにvramを実装
  * 2019/10/30   kidtak51	hdmi出力機能追加
+ * 2019/10/07	kidtak51	First Version
  * *****************************************************************
  */
 
@@ -62,6 +63,8 @@ module top_zynqberry(
     input clk_from_gpio_cn//clock(GPIO入力 外付け水晶による16MHz)
 );
 
+`include "core_general.vh"
+
 wire clk_pix;//hdmi pix_clk
 wire clk_pix_x5;
 wire locked;
@@ -81,17 +84,17 @@ always @(posedge clk_pix) begin
 end
 
 clk_wiz_0 u_clk_wiz_0(
-  .clk_out1(clk_pix),//hdmi pix_clk
-  .clk_out2(clk_pix_x5),//hdmi pix_clk_x5
-  .reset(1'b0),
-  .locked(locked),//未使用
+  .clk_out1(clk_pix),       //hdmi pix_clk
+  .clk_out2(clk_pix_x5),    //hdmi pix_clk_x5
+  .reset(1'b0),             //とりあえず非リセット状態で固定
+  .locked(locked),          //未使用
   .clk_in1(clk_from_gpio_cn)//16MHz
  );
 
-//wire rst_n = 1'b1;
+
 wire[11:0] h_pos;
 wire[11:0] v_pos;
-wire[23:0] data;
+wire[7:0] data;
 
 //hdmi出力
 wire[31:0] addr;
@@ -108,23 +111,23 @@ top_hdmicontroller u_top_hdmicontroller(
     .sel((32'h0020_0000 + 57600 - 1) > addr), // Select this Memory Block
     .addr(addr),                              // Address
     .we(3'b100),                              // Write Enable
-    .qin(data),                               // Write Data
+    .qin({{(XLEN-8){1'b0}}, data}),           // Write Data
     .qout(qout)                               // Read Data
 );
 
-
+//テスト用、CPUに代わってHDMIのVRAMにWriteするモジュール
 hdmi_test u_hdmi_test(
     .clk(clk_pix),
     .addr(addr),
     .data(data)
 );
 
-
+//テスト用、Lチカ
 led_test u_led_test(
       .clk(clk_pix),
-	  .rst_n(1'b1),
+	  .rst_n(rst_n),
       .led_out(led)
-    );
+);
 
 
 //未使用GPIOの状態設定
@@ -179,11 +182,13 @@ always @(posedge clk or negedge rst_n) begin
 end
 endmodule
 
-//テスト用CPU Writeモジュール
+//テスト用、CPUに代わってHDMIのVRAMにWriteするモジュール
+//32'h0020_0000から1アドレスづつデータをデクリメントすることで
+//水平軸方向に輝度を変化させるテストパターン
 module hdmi_test(
 	input clk,//画像クロック
-	output reg[31:0] addr = 32'h0020_0000,//画素位置に対応するRGBデータ
-    output reg[7:0] data = 8'd0
+	output reg[31:0] addr = 32'h0020_0000,//vramのアドレス
+    output reg[7:0] data = 8'hFF           //画素位置に対応するグレースケールデータ(data = R=G=B)
 );
 reg[11:0] xPos = 12'd1;
 reg[11:0] yPos = 12'd1;
