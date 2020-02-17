@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/13 03:49
- * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
+ * Last Modified: 2019/12/23 22:24
+ * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -55,6 +55,7 @@
     parameter GPIO_BASE = 32'h7000_0000;
     parameter ROM_BASE  = 32'h8000_0000;
     parameter RAM_BASE  = 32'h9000_0000;
+    parameter HDMI_BASE = 32'hA000_0000;
 
     /////////////////////////////////////////////
     // Doecode

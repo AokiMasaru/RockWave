@@ -3,12 +3,14 @@
 ##################################################################
 set_property IOSTANDARD LVCMOS33 [get_ports clk_from_gpio_cn]
 set_property PACKAGE_PIN L12 [get_ports clk_from_gpio_cn]
+create_clock -period 62.5 [get_ports clk_from_gpio_cn]
 
 set_property IOSTANDARD LVCMOS33 [get_ports led]
 set_property PACKAGE_PIN R12 [get_ports led]
 
 set_property IOSTANDARD LVCMOS33 [get_ports {GPIO_1_tri_io[*]}]
 # GPIO Pins
+
 # GPIO2
 set_property PACKAGE_PIN K15 [get_ports {GPIO_1_tri_io[0]}]
 # GPIO3
@@ -33,18 +35,42 @@ set_property PACKAGE_PIN J15 [get_ports {GPIO_1_tri_io[9]}]
 set_property PACKAGE_PIN M15 [get_ports {GPIO_1_tri_io[10]}]
 # GPIO13
 set_property PACKAGE_PIN R13 [get_ports {GPIO_1_tri_io[11]}]
+
+# GPIO14(pin8)
+# set_property PACKAGE_PIN M12 [get_ports {GPIO_1_tri_io[xx]}]
+set_property PACKAGE_PIN M12 [get_ports {gpio14_pin8_push_sw}]
+set_property IOSTANDARD LVCMOS33 [get_ports {gpio14_pin8_push_sw}]
+set_property PULLUP true [get_ports {gpio14_pin8_push_sw}]
+
+# GPIO15(pin10)
+# set_property PACKAGE_PIN N13 [get_ports {GPIO_1_tri_io[xx]}]
+set_property PACKAGE_PIN N13 [get_ports {gpio15_pin10_push_sw}]
+set_property IOSTANDARD LVCMOS33 [get_ports {gpio15_pin10_push_sw}]
+set_property PULLUP true [get_ports {gpio15_pin10_push_sw}]
+
 # GPIO16
 set_property PACKAGE_PIN L13 [get_ports {GPIO_1_tri_io[12]}]
 # GPIO17
 set_property PACKAGE_PIN G11 [get_ports {GPIO_1_tri_io[13]}]
-# GPIO18
-set_property PACKAGE_PIN H11 [get_ports {GPIO_1_tri_io[14]}]
+
+# GPIO18(pin12)
+# set_property PACKAGE_PIN H11 [get_ports {GPIO_1_tri_io[14]}]
+set_property PACKAGE_PIN H11 [get_ports {gpio18_pin12_push_sw}]
+set_property IOSTANDARD LVCMOS33 [get_ports {gpio18_pin12_push_sw}]
+set_property PULLUP true [get_ports {gpio18_pin12_push_sw}]
+
 # GPIO19
 # set_property PACKAGE_PIN R12 [get_ports {GPIO_1_tri_io[15]}]
 # GPIO20
 set_property PACKAGE_PIN M14 [get_ports {GPIO_1_tri_io[16]}]
-# GPIO21
-set_property PACKAGE_PIN P15 [get_ports {GPIO_1_tri_io[17]}]
+
+# GPIO21(pin40)
+# set_property PACKAGE_PIN P15 [get_ports {GPIO_1_tri_io[17]}]
+set_property PACKAGE_PIN P15 [get_ports {gpio21_pin40_push_sw}]
+set_property IOSTANDARD LVCMOS33 [get_ports {gpio21_pin40_push_sw}]
+set_property PULLUP true [get_ports {gpio21_pin40_push_sw}]
+
+
 # GPIO22
 set_property PACKAGE_PIN H13 [get_ports {GPIO_1_tri_io[18]}]
 # GPIO23

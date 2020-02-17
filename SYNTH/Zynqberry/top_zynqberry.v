@@ -5,7 +5,7 @@
  * File Created: 2019/10/07 21:53
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/12/13 24:01
+ * Last Modified: 2020/02/13 20:56
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -59,11 +59,24 @@ module top_zynqberry(
     output hdmi_clk_p,//HDMI
     output[2:0] hdmi_data_n,//HDMI
     output[2:0] hdmi_data_p,//HDMI
-    output led,//LED (GPIO出力 外付けLED）
-    input clk_from_gpio_cn//clock(GPIO入力 外付け水晶による16MHz)
+    output reg led,//LED (GPIO出力 外付けLED）
+    input clk_from_gpio_cn,//clock(GPIO入力 外付け水晶による16MHz)
+    input gpio21_pin40_push_sw,//low-level if press
+    input gpio18_pin12_push_sw,//low-level if press
+    input gpio15_pin10_push_sw,//low-level if press
+    input gpio14_pin8_push_sw//low-level if press
+
 );
 
 `include "core_general.vh"
+
+`ifdef __ICARUS__
+initial begin
+    //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
+    $readmemh("../../../fw/night.hex", u_inst_memory.U_ram.ram);
+end
+`endif
+
 
 wire clk_pix;//hdmi pix_clk
 wire clk_pix_x5;
@@ -83,22 +96,124 @@ always @(posedge clk_pix) begin
 	end
 end
 
-clk_wiz_0 u_clk_wiz_0(
-  .clk_out1(clk_pix),       //hdmi pix_clk
-  .clk_out2(clk_pix_x5),    //hdmi pix_clk_x5
-  .reset(1'b0),             //とりあえず非リセット状態で固定
-  .locked(locked),          //未使用
-  .clk_in1(clk_from_gpio_cn)//16MHz
- );
+//clocking
+`ifdef __ICARUS__
+    assign clk_pix = clk_from_gpio_cn;
+    assign clk_pix_x5 = clk_from_gpio_cn;
+    assign clk = clk_from_gpio_cn;
+`else
+    clk_wiz_0 u_clk_wiz_0(
+        .clk_out1(clk_pix),       //hdmi pix_clk
+        .clk_out2(clk_pix_x5),    //hdmi pix_clk_x5
+        .reset(1'b0),             //とりあえず非リセット状態で固定
+        .locked(locked),          //未使用
+        .clk_in1(clk_from_gpio_cn)//16MHz
+    );
+    assign clk = clk_pix;
+`endif
 
 
-wire[11:0] h_pos;
-wire[11:0] v_pos;
-wire[7:0] data;
+//instruction memory
+wire [AWIDTH-1:0] inst_addr;
+wire [XLEN-1:0] inst_data;
 
-//hdmi出力
-wire[31:0] addr;
-wire[31:0] qout;
+//data memory
+wire [XLEN-1:0] data_mem_out;
+wire [XLEN-1:0] data_mem_addr;
+wire [XLEN-1:0] data_mem_wdata;
+wire [2:0] data_mem_we;
+
+top_core u_top_core(
+	.clk            (clk            ),
+    .rst_n          (rst_n          ),
+    .inst_addr      (inst_addr      ),
+    .inst_data      (inst_data      ),
+    .data_mem_out   (data_mem_out   ),
+    .data_mem_addr  (data_mem_addr  ),
+    .data_mem_wdata (data_mem_wdata ),
+    .data_mem_we    (data_mem_we    )
+);
+wire[XLEN-1:0] addr = data_mem_addr;
+wire[XLEN-1:0] qin = data_mem_wdata;
+wire[2:0] we = data_mem_we;
+// Local BUS としてのReadData出力
+assign data_mem_out = ram_qout_sel | gpio_qout_sel | hdmi_qout_sel;
+
+rom u_inst_memory
+(
+    .clk(clk),
+    .rst_n(rst_n),
+    .addr(inst_addr),
+    .qout(inst_data)
+);
+
+////////////////////////////////////////////////////////////////
+// RAM領域
+//    Xilinx Block RAMは常時選択なためsel信号を追加
+wire ram_sel = ((addr & BASE_MASK) == RAM_BASE);
+wire [2:0] ram_we = ram_sel ? we : 3'b000;
+
+wire [XLEN-1:0] ram_qout_sel;              // Selected RAM Read data out (領域選択されていないと0出力)
+wire [XLEN-1:0] ram_qout;                  // 常時RAM read data
+assign ram_qout_sel = ram_sel ? ram_qout : {XLEN{1'b0}};
+ram U_data_memory(
+    .clk    (clk),
+    .rst_n  (rst_n),
+    .addr   (addr[AWIDTH-1:0]),
+    .qin    (qin),
+    .we     (ram_we),
+    .qout   (ram_qout)
+);
+
+////////////////////////////////////////////////////////////////
+// GPIO領域
+parameter INNUM = 13;      // 入力端子 本数
+parameter OUTNUM = 8;      // 出力端子 本数
+wire [OUTNUM-1:0] gpio_pin_out;
+wire [INNUM-1:0] gpio_pin_in;
+wire  gpio_sel  = ((addr & BASE_MASK) == GPIO_BASE);
+wire [XLEN-1:0] gpio_qout_sel;             // Selected GPIO Read data out
+top_gpio #(
+    .INNUM(INNUM),
+    .OUTNUM(OUTNUM)
+)
+U_top_gpio(
+    .clk            (clk),
+    .rst_n          (rst_n),
+    .sel            (gpio_sel),
+    .addr           (addr[AWIDTH-1:0]),
+    .wdata          (qin),
+    .we             (we),
+    .rdata          (gpio_qout_sel),
+    .gpio_pin_in    (gpio_pin_in),
+    .gpio_pin_out   (gpio_pin_out)
+);
+wire gpio_in[3:0];
+/*assign gpio_in = {
+    gpio21_pin40_push_sw,
+    gpio18_pin12_push_sw,
+    gpio15_pin10_push_sw,
+    gpio14_pin8_push_sw
+};*/
+assign gpio_in[3] = ~gpio21_pin40_push_sw;//left
+assign gpio_in[2] = ~gpio15_pin10_push_sw;//down
+assign gpio_in[1] = ~gpio18_pin12_push_sw;//right
+assign gpio_in[0] = ~gpio14_pin8_push_sw;//a
+
+assign gpio_pin_in[INNUM-1:4] = 'd0;
+assign gpio_pin_in[3] = gpio_in[3];
+assign gpio_pin_in[2] = gpio_in[2];
+assign gpio_pin_in[1] = gpio_in[1];
+assign gpio_pin_in[0] = gpio_in[0];
+
+////////////////////////////////////////////////////////////////
+// hdmi出力
+wire hdmi_sel = ((addr & BASE_MASK) == HDMI_BASE);
+wire [2:0] hdmi_we = hdmi_sel ? we : 3'b000;
+
+wire [XLEN-1:0] hdmi_qout_sel;              // Selected VRAM Read data out
+wire [XLEN-1:0] hdmi_qout;                  // 常時 VRAM Read data out
+assign hdmi_qout_sel = hdmi_sel ? hdmi_qout : {XLEN{1'b0}};
 top_hdmicontroller u_top_hdmicontroller(
     .clk(clk_pix),                            //汎用ロジッククロック
     .clk_pix(clk_pix),                        //画像クロック 720pでは74.25MHz
@@ -108,25 +223,37 @@ top_hdmicontroller u_top_hdmicontroller(
     .hdmi_clk_p(hdmi_clk_p),                  //hdmiクロック, IOに接続
     .hdmi_data_n(hdmi_data_n),                //hdmiデータ(rgbの3bit), IOに接続
     .hdmi_data_p(hdmi_data_p),                //hdmiデータ(rgbの3bit), IOに接続
-    .sel((32'h0020_0000 + 57600 - 1) > addr), // Select this Memory Block
+    .sel(hdmi_sel),                           // Select this Memory Block
     .addr(addr),                              // Address
-    .we(3'b100),                              // Write Enable
-    .qin({{(XLEN-8){1'b0}}, data}),           // Write Data
-    .qout(qout)                               // Read Data
+    .we(hdmi_we),                                  // Write Enable
+    .qin(qin),                                // Write Data
+    .qout(hdmi_qout)                          // Read Data
 );
 
-//テスト用、CPUに代わってHDMIのVRAMにWriteするモジュール
-hdmi_test u_hdmi_test(
-    .clk(clk_pix),
-    .addr(addr),
-    .data(data)
-);
+always @(*) begin
+    if(gpio_pin_out[0])begin
+        led = 1'b0;
+    end
+    else if(gpio_pin_out[1])begin
+        led = 1'b1;
+    end
+    else if(gpio_pin_out[2])begin
+        led = 1'b0;
+    end
+    else if(gpio_pin_out[3])begin
+        led = 1'b1;
+    end
+    else begin
+        led = led_brink;
+    end
+end
 
 //テスト用、Lチカ
+wire led_brink;
 led_test u_led_test(
       .clk(clk_pix),
 	  .rst_n(rst_n),
-      .led_out(led)
+      .led_out(led_brink)
 );
 
 
@@ -157,6 +284,83 @@ assign GPIO_1_tri_io[21] = 1'bz;
 assign GPIO_1_tri_io[22] = 1'bz;
 assign GPIO_1_tri_io[23] = 1'bz;//
 
+//for simulation
+wire [XLEN-1:0] pc = u_top_core.u_top_fetch.program_counter;
+wire [XLEN-1:0] x01_ra = u_top_core.u_register_file.x1out;
+wire [XLEN-1:0] x02_sp = u_top_core.u_register_file.x2out;
+wire [XLEN-1:0] x03_gp = u_top_core.u_register_file.x3out;
+wire [XLEN-1:0] x04_tp = u_top_core.u_register_file.x4out;
+wire [XLEN-1:0] x05_t0 = u_top_core.u_register_file.x5out;
+wire [XLEN-1:0] x06_t1 = u_top_core.u_register_file.x6out;
+wire [XLEN-1:0] x07_t2 = u_top_core.u_register_file.x7out;
+wire [XLEN-1:0] x08_s0_fp = u_top_core.u_register_file.x8out;
+wire [XLEN-1:0] x09_s1 = u_top_core.u_register_file.x9out;
+wire [XLEN-1:0] x10_a0 = u_top_core.u_register_file.x10out;
+wire [XLEN-1:0] x11_a1 = u_top_core.u_register_file.x11out;
+wire [XLEN-1:0] x12_a2 = u_top_core.u_register_file.x12out;
+wire [XLEN-1:0] x13_a3 = u_top_core.u_register_file.x13out;
+wire [XLEN-1:0] x14_a4 = u_top_core.u_register_file.x14out;
+wire [XLEN-1:0] x15_a5 = u_top_core.u_register_file.x15out;
+wire [XLEN-1:0] x16_a6 = u_top_core.u_register_file.x16out;
+wire [XLEN-1:0] x17_a7 = u_top_core.u_register_file.x17out;
+wire [XLEN-1:0] x18_s2 = u_top_core.u_register_file.x18out;
+wire [XLEN-1:0] x19_s3 = u_top_core.u_register_file.x19out;
+wire [XLEN-1:0] x20_s4 = u_top_core.u_register_file.x20out;
+wire [XLEN-1:0] x21_s5 = u_top_core.u_register_file.x21out;
+wire [XLEN-1:0] x22_s6 = u_top_core.u_register_file.x22out;
+wire [XLEN-1:0] x23_s7 = u_top_core.u_register_file.x23out;
+wire [XLEN-1:0] x24_s8 = u_top_core.u_register_file.x24out;
+wire [XLEN-1:0] x25_s9 = u_top_core.u_register_file.x25out;
+wire [XLEN-1:0] x26_s10 = u_top_core.u_register_file.x26out;
+wire [XLEN-1:0] x27_s11 = u_top_core.u_register_file.x27out;
+wire [XLEN-1:0] x28_t3 = u_top_core.u_register_file.x28out;
+wire [XLEN-1:0] x29_t4 = u_top_core.u_register_file.x29out;
+wire [XLEN-1:0] x30_t5 = u_top_core.u_register_file.x30out;
+wire [XLEN-1:0] x31_t6 = u_top_core.u_register_file.x31out;
+
+`ifdef __ICARUS__
+`else
+vio_0 u_core_vio (
+  .clk(clk),                // input wire clk
+  .probe_in0 (pc     ),    // input wire [31 : 0] probe_in0
+  .probe_in1 (x01_ra ),    // input wire [31 : 0] probe_in1
+  .probe_in2 (x02_sp ),    // input wire [31 : 0] probe_in2
+  .probe_in3 (x03_gp ),    // input wire [31 : 0] probe_in3
+  .probe_in4 (x04_tp ),    // input wire [31 : 0] probe_in4
+  .probe_in5 (x05_t0 ),    // input wire [31 : 0] probe_in5
+  .probe_in6 (x06_t1 ),    // input wire [31 : 0] probe_in6
+  .probe_in7 (x07_t2 ),    // input wire [31 : 0] probe_in7
+  .probe_in8 (x08_s0_fp),    // input wire [31 : 0] probe_in8
+  .probe_in9 (x09_s1 ),    // input wire [31 : 0] probe_in9
+  .probe_in10(x10_a0 ),  // input wire [31 : 0] probe_in10
+  .probe_in11(x11_a1 ),  // input wire [31 : 0] probe_in11
+  .probe_in12(x12_a2 ),  // input wire [31 : 0] probe_in12
+  .probe_in13(x13_a3 ),  // input wire [31 : 0] probe_in13
+  .probe_in14(x14_a4 ),  // input wire [31 : 0] probe_in14
+  .probe_in15(x15_a5 ),  // input wire [31 : 0] probe_in15
+  .probe_in16(x16_a6 ),  // input wire [31 : 0] probe_in16
+  .probe_in17(x17_a7 ),  // input wire [31 : 0] probe_in17
+  .probe_in18(x18_s2 ),  // input wire [31 : 0] probe_in18
+  .probe_in19(x19_s3 ),  // input wire [31 : 0] probe_in19
+  .probe_in20(x20_s4 ),  // input wire [31 : 0] probe_in20
+  .probe_in21(x21_s5 ),  // input wire [31 : 0] probe_in21
+  .probe_in22(x22_s6 ),  // input wire [31 : 0] probe_in22
+  .probe_in23(x23_s7 ),  // input wire [31 : 0] probe_in23
+  .probe_in24(x24_s8 ),  // input wire [31 : 0] probe_in24
+  .probe_in25(x25_s9 ),  // input wire [31 : 0] probe_in25
+  .probe_in26(x26_s10),  // input wire [31 : 0] probe_in26
+  .probe_in27(x27_s11),  // input wire [31 : 0] probe_in27
+  .probe_in28(x28_t3 ),  // input wire [31 : 0] probe_in28
+  .probe_in29(x29_t4 ),  // input wire [31 : 0] probe_in29
+  .probe_in30(U_top_gpio.U_reg_gpio.addr ),  // input wire [31 : 0] probe_in30
+  .probe_in31(U_top_gpio.U_reg_gpio.sel ),  // input wire [31 : 0] probe_in31
+  .probe_in32(gpio_pin_in),
+  .probe_in33(gpio_pin_out),
+  .probe_in34(U_top_gpio.U_reg_gpio.reg10),
+  .probe_in35(U_top_gpio.U_reg_gpio.adsel10)
+);
+`endif
+
 endmodule
 
 //テスト用LED点滅回路
@@ -179,27 +383,5 @@ always @(posedge clk or negedge rst_n) begin
 	else begin
 		led_counter <= led_counter + 1'b1;
 	end
-end
-endmodule
-
-//テスト用、CPUに代わってHDMIのVRAMにWriteするモジュール
-//32'h0020_0000から1アドレスづつデータをデクリメントすることで
-//水平軸方向に輝度を変化させるテストパターン
-module hdmi_test(
-	input clk,//画像クロック
-	output reg[31:0] addr = 32'h0020_0000,//vramのアドレス
-    output reg[7:0] data = 8'hFF           //画素位置に対応するグレースケールデータ(data = R=G=B)
-);
-reg[11:0] xPos = 12'd1;
-reg[11:0] yPos = 12'd1;
-always @(posedge clk) begin
-    if(addr >= 32'h0020_0000 + 57600 - 1) begin
-        addr <= addr;//32'h0020_0000;
-        data <= 8'h7F;
-    end
-    else begin
-        addr <= addr + 1'b1;
-        data <= data - 1'b1;
-    end
 end
 endmodule
