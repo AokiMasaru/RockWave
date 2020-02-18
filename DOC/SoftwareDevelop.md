@@ -12,31 +12,17 @@ lakehipでは、構築済みなので、`/opt/riscv32i/bin`にパスを通して
 ### リポジトリのクローン
 すべてのサブモジュールも含めてクローンします
 
-    $ git clone https://github.com/riscv/riscv-tools.git
-    $ cd riscv-tools
-    $ git submodule update --init --recursive
+    $ git clone --recursive https://github.com/riscv/riscv-gnu-toolchain
 
-### インスール先
-インストール先は、/opt/riscv32iにします
+### コンパイラのビルド
+今回のプロジェクトに合わせて、RV32Iコア用のコンパイラを生成します。
 
-    $ export RISCV=/opt/riscv32i
-    $ sudo mkdir /opt/riscv32i
-    $ sudo chown aokim:aokim /opt/riscv32i
+    $ cd riscv-gnu-toolchain
+    $ ./configure --prefix=/opt/riscv --with-arch=rv32i --with-abi=ilp32
+    $ sudo make
 
-### 設定変更
-デフォルトでは、64bit版が生成されます。  
-今回のプロジェクトでは、RV32Iコアなので、ビルドスクリプトを修正します。
-
-    $ sed -e 's/rv32ima/rv32i/g' build-rv32ima.sh > build-rv32i.sh
-    $ chmod +x build-rv32i.sh
-
-ホストPCに複数のコアがあるなら、並列ビルドを行うためにbuild.commonファイルを修正します。
-
-    $ sed -i -e 's/$MAKE/$MAKE -j4/g' build.common
-
-### configure & compile & install
-
-    $ sudo ./build-rv32i.sh
+### パスを通す
+    $ export PATH=$PATH:/opt/riscv/bin/
 
 ---
 ## 動作確認
