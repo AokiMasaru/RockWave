@@ -5,7 +5,7 @@
  * File Created: 2019/10/07 21:53
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2020/02/13 20:56
+ * Last Modified: 2020/02/20 23:31
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -73,7 +73,7 @@ module top_zynqberry(
 `ifdef __ICARUS__
 initial begin
     //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
-    $readmemh("../../../fw/night.hex", u_inst_memory.U_ram.ram);
+    $readmemh("../../../fw/synth.hex", u_inst_memory.U_ram.ram);
 end
 `endif
 
@@ -137,7 +137,7 @@ wire[XLEN-1:0] addr = data_mem_addr;
 wire[XLEN-1:0] qin = data_mem_wdata;
 wire[2:0] we = data_mem_we;
 // Local BUS としてのReadData出力
-assign data_mem_out = ram_qout_sel | gpio_qout_sel | hdmi_qout_sel;
+assign data_mem_out = ram_qout_sel | gpio_qout_sel | hdmi_qout_sel | freerun_cnt_qout_sel;
 
 rom u_inst_memory
 (
@@ -189,12 +189,7 @@ U_top_gpio(
     .gpio_pin_out   (gpio_pin_out)
 );
 wire gpio_in[3:0];
-/*assign gpio_in = {
-    gpio21_pin40_push_sw,
-    gpio18_pin12_push_sw,
-    gpio15_pin10_push_sw,
-    gpio14_pin8_push_sw
-};*/
+
 assign gpio_in[3] = ~gpio21_pin40_push_sw;//left
 assign gpio_in[2] = ~gpio15_pin10_push_sw;//down
 assign gpio_in[1] = ~gpio18_pin12_push_sw;//right
@@ -229,6 +224,21 @@ top_hdmicontroller u_top_hdmicontroller(
     .qin(qin),                                // Write Data
     .qout(hdmi_qout)                          // Read Data
 );
+
+////////////////////////////////////////////////////////////////
+// Freerun counter領域
+wire freerun_cnt_sel = ((addr & BASE_MASK) == FREERUNCNT_BASE);
+wire [XLEN-1:0] freerun_cnt_qout_sel;             // Selected GPIO Read data out
+freerun_counter U_freerun_counter(
+    .clk            (clk),
+    .rst_n          (rst_n),
+    .sel            (freerun_cnt_sel),
+    .addr           (addr[AWIDTH-1:0]),
+    .rdata          (freerun_cnt_qout_sel)
+);
+
+
+
 
 always @(*) begin
     if(gpio_pin_out[0])begin

@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/12/23 22:24
+ * Last Modified: 2020/02/18 23:25
  * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -56,6 +56,7 @@
     parameter ROM_BASE  = 32'h8000_0000;
     parameter RAM_BASE  = 32'h9000_0000;
     parameter HDMI_BASE = 32'hA000_0000;
+    parameter FREERUNCNT_BASE = 32'hB000_0000;
 
     /////////////////////////////////////////////
     // Doecode
