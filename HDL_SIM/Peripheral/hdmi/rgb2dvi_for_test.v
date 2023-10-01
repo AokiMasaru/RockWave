@@ -5,8 +5,8 @@
  * File Created: 2019/10/24 06:55
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/10/25 24:37
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2023/09/26 05:00
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -22,7 +22,7 @@
  * *****************************************************************
  */
 
-module rgb2dvi_for_test
+module rgb2dvi
 (
     output TMDS_Clk_p,//画像クロック 720pでは74.25MHz
     output TMDS_Clk_n,//5逓倍した画像クロック

@@ -25,7 +25,7 @@ module top_zedboard(
 `ifdef __ICARUS__
 initial begin
     //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
-    $readmemh("../../../fw/night.hex", u_inst_memory.U_ram.ram);
+    $readmemh("../../../fw/martos.hex", u_inst_memory.U_ram.ram);
 end
 `endif
 

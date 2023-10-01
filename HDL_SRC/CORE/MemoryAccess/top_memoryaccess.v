@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/03 15:54
+ * Last Modified: 2023/09/30 07:37
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/09/27	Masaru Aoki	CSR機能追加
  * 2019/01/24	Masaru Aoki	RV64I対応
  * 2019/01/02	Masaru Aoki	First Version
  * *****************************************************************
@@ -28,6 +29,8 @@ module top_memoryaccess(
     input phase_memoryaccess,        // Fetch Phase
     // From DataMemory
     input [XLEN-1:0] data_mem_out,   // Output
+    // From CSR
+    input  [XLEN-1:0] csr_rdata,    // Read Data
     // From Execute
     input [OPLEN-1:0] decoded_op_em, // Decoded OPcode
     input jump_state_em,             // PCの次のアドレスがJumpアドレス
@@ -39,6 +42,11 @@ module top_memoryaccess(
     output [XLEN-1:0] data_mem_addr,// Address
     output [XLEN-1:0] data_mem_wdata,// Write Data
     output [2:0] data_mem_we,        // Write Enable
+    // For CSR
+    output [11:0]     csr_addr,     // Address
+    output [XLEN-1:0] csr_wdata,    // Write Data
+    output            csr_we,       // Write Enable
+
     // For WriteBack
     output [OPLEN-1:0] decoded_op_mw,// Decoded OPcode
     output jump_state_mw,            // PCの次のアドレスがJumpアドレス
@@ -88,6 +96,14 @@ module top_memoryaccess(
         endcase
     end
     endfunction
+
+    /////////////////////////////////////////////
+    // CSR系
+    assign csr_addr = decoded_op_em[CSR_BIT_H:CSR_BIT_L];
+    assign csr_wdata = alu_out_em;
+    assign csr_we = (we & phase_memoryaccess);
+
+
     /////////////////////////////////////////////
     // 次ステージのためのラッチ
     always @(posedge clk or negedge rst_n) begin

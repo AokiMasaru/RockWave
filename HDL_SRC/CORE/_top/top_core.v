@@ -5,7 +5,7 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/03/03 15:54
+ * Last Modified: 2023/09/27 04:37
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -80,6 +80,11 @@ wire [4:0] rs1sel;           // RS1 選択
 wire [4:0] rs2sel;           // RS2 選択
 wire [XLEN-1:0] rs1data_rd;  // 出力データ (rs1)
 wire [XLEN-1:0] rs2data_rd;   // 出力データ (rs2)
+
+wire [11:0]     csr_addr;       // csr アドレス
+wire [XLEN-1:0] csr_wdata;      // CSR ライトデータ
+wire            csr_we;         // CSR ライトイネーブル
+wire [XLEN-1:0] csr_rdata;      // CSR リードデータ
 
 statemachine u_statemachine(
 	.clk                (clk             ),
@@ -186,6 +191,10 @@ top_memoryaccess u_top_memoryaccess(
     .data_mem_addr      (data_mem_addr      ),
     .data_mem_wdata     (data_mem_wdata     ),
     .data_mem_we        (data_mem_we        ),
+    .csr_addr           (csr_addr           ),
+    .csr_wdata          (csr_wdata          ),
+    .csr_we             (csr_we             ),
+    .csr_rdata          (csr_rdata          ),
     .decoded_op_mw      (decoded_op_mw      ),
     .jump_state_mw      (jump_state_mw      ),
     .rdsel_mw           (rdsel_mw           ),
@@ -194,6 +203,17 @@ top_memoryaccess u_top_memoryaccess(
     .mem_out_mw         (mem_out_mw         ),
     .stall_memoryaccess (stall_memoryaccess )
 );
+
+reg_csr u_reg_csr(
+	.clk             (clk             ),
+    .rst_n           (rst_n           ),
+
+    .csr_addr        (csr_addr        ),
+    .csr_wdata       (csr_wdata       ),
+    .csr_we          (csr_we          ),
+    .csr_rdata       (csr_rdata       )
+);
+
 
 register_file u_register_file(
 	.clk             (clk             ),

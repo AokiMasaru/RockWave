@@ -61,7 +61,7 @@
     /////////////////////////////////////////////
     // Doecode
     /////////////////////////////////////////////
-    parameter OPLEN = 10;
+    parameter OPLEN = 22;
 
     // RS1/RS2
     parameter USE_ALU_IN1_BIT = 0;
@@ -110,6 +110,10 @@
 
     // must jump
     parameter MUST_JUMP_BIT = 9;
+
+    // CSR addr
+    parameter CSR_BIT_L = 10;
+    parameter CSR_BIT_H = 21;
 
     /////////////////////////////////////////////
     // Common

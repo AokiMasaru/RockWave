@@ -5,8 +5,8 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/26 12:23
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2023/09/30 07:42
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -47,17 +47,17 @@ module instruction_decode(
 `include "core_general.vh"
 
 //common
-localparam LUI = 7'b01_101_11;
-localparam AUIPC = 7'b00_101_11;
-localparam JAL = 7'b11_011_11;
-localparam JALR = 7'b11_001_11;
-localparam BRANCH = 7'b11_000_11;
-localparam LOAD = 7'b00_000_11;
-localparam STORE = 7'b01_000_11;
-localparam OP_IMM = 7'b00_100_11;
-localparam OP = 7'b01_100_11;
+localparam LUI      = 7'b01_101_11;
+localparam AUIPC    = 7'b00_101_11;
+localparam JAL      = 7'b11_011_11;
+localparam JALR     = 7'b11_001_11;
+localparam BRANCH   = 7'b11_000_11;
+localparam LOAD     = 7'b00_000_11;
+localparam STORE    = 7'b01_000_11;
+localparam OP_IMM   = 7'b00_100_11;
+localparam OP       = 7'b01_100_11;
 localparam MISC_MEM = 7'b00_011_11;
-localparam SYSTEM = 7'b11_100_11;
+localparam SYSTEM   = 7'b11_100_11;
 
 //commom
 assign stall_decode = 1'b0;
@@ -122,6 +122,9 @@ wire[4:0] rd_sel = rd_no_write_case ? 5'd0 : inst_rd;
 wire[2:0] inst_funct3_raw = inst[14:12];
 wire[2:0] inst_funct3 = ((inst_op == JAL) || (inst_op == JALR)) ? FUNCT3_JUMP : inst_funct3_raw;
 
+// CSR addr
+wire [11:0] inst_csr_adr = inst[31:20];
+
 //funct_alu
 wire[6:0] inst_funct7_raw = inst[31:25];
 //OPとOP_IMMの一部の条件以外はfunct7は未使用。aluにfunct7[5]をそのまま入力するので、未使用の条件では0固定にする。
@@ -179,6 +182,7 @@ assign decoded_op_pre[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
 assign decoded_op_pre[JUMP_EN_BIT] = jump_en;
 assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 assign decoded_op_pre[MUST_JUMP_BIT] = must_jump;
+assign decoded_op_pre[CSR_BIT_H:CSR_BIT_L] = inst_csr_adr;
 
 
 //FF
