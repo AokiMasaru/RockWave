@@ -5,7 +5,7 @@
  * File Created: 2018/12/30 06:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/02/22 04:52
+ * Last Modified: 2023/10/09 10:12
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -63,8 +63,10 @@ endmodule
 
 module bytewrite_ram_1b (clk, we, addr, di, do);
 
-parameter SIZE = 4096; 
-parameter ADDR_WIDTH = 12; 
+`include "core_general.vh"
+
+parameter SIZE = 2**AWIDTH; 
+parameter ADDR_WIDTH = AWIDTH; 
 parameter COL_WIDTH = 8; 
 parameter NB_COL = 4;
 

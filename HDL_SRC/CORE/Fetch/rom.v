@@ -5,7 +5,7 @@
  * File Created: 2018/12/16 07:11
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/02/22 04:30
+ * Last Modified: 2023/10/09 10:13
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -60,12 +60,14 @@ module rom(
 endmodule
 
 module  v_rams_20c  (clk, we,  addr,  din,  dout);
+    `include "core_general.vh"
+
     input  clk;
     input  we;
-    input  [11:0]    addr;
+    input  [AWIDTH-1:0]    addr;
     input  [31:0]    din;
     output  [31:0]    dout;
-    reg  [31:0]  ram  [0:4095];
+    reg  [31:0]  ram  [0:2**AWIDTH-1];
     reg  [31:0]  dout;
     
    

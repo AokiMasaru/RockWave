@@ -5,7 +5,7 @@
  * File Created: 2019/01/21 12:11
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/03/25 05:29
+ * Last Modified: 2023/10/09 10:15
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -33,7 +33,7 @@ wire [3:0]   rdata;
 wire [3:0]   gdata;
 wire [3:0]   bdata;
 
-wire [11:0] pc = u_top_zedboard.u_top_core.u_top_fetch.program_counter;
+wire [13:0] pc = u_top_zedboard.u_top_core.u_top_fetch.program_counter;
 
 top_zedboard u_top_zedboard(
 	.clk            (clk            ),

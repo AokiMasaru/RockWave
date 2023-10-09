@@ -5,8 +5,8 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2020/02/18 23:25
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2023/10/09 10:04
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -41,7 +41,7 @@
     // InstMemory Data Width
     parameter DWIDTH = XLEN;
     // InstMemory Address Width
-    parameter AWIDTH = 12;
+    parameter AWIDTH = 14;
     // InstMemory Words size
     parameter WORDS = (2**AWIDTH);
     // Reset Vector
@@ -61,7 +61,7 @@
     /////////////////////////////////////////////
     // Doecode
     /////////////////////////////////////////////
-    parameter OPLEN = 22;
+    parameter OPLEN = 23;
 
     // RS1/RS2
     parameter USE_ALU_IN1_BIT = 0;
@@ -114,6 +114,7 @@
     // CSR addr
     parameter CSR_BIT_L = 10;
     parameter CSR_BIT_H = 21;
+    parameter CSR_WE_BIT = 22;
 
     /////////////////////////////////////////////
     // Common
