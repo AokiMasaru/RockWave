@@ -3,8 +3,8 @@
 # File Created: 2018/12/19 12:12
 # Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
-# Last Modified: 2019/02/05 21:41
-# Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+# Last Modified: 2023/10/09 14:48
+# Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project top_core
 ######################################################################
@@ -12,16 +12,21 @@
 # 
 ######################################################################
 
-SRCDIR = ../../HDL_SRC/CORE/
 testbench = core_tb.v
-allVerilogFiles := $(wildcard $(SRCDIR)*/*.v)#
+
+SRCDIR = ../../HDL_SRC/
+INCDIR = ../../HDL_SRC/CORE/
+
+SRCDIRS := $(shell find $(SRCDIR) -type d)
+
+allVerilogFiles := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.v))
 hexFiles := $(wildcard *.hex)#
 
 all: wave
 iverilog: wave
 
 define F
-	iverilog -o $(1).test -I $(SRCDIR) -D INST_ROM_FILE_NAME=\"$(1)\" $(testbench) $(allVerilogFiles)
+	iverilog -o $(1).test -I $(INCDIR) -D INST_ROM_FILE_NAME=\"$(1)\" $(testbench) $(allVerilogFiles)
 
 	vvp $(1).test>>allResult_tmp.txt
 

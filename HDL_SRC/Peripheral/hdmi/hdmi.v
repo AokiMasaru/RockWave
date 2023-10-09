@@ -133,11 +133,9 @@ end
 
 //digiのモジュールインスタンス
 //ただし、digiのモジュールは自分で作ったところではないためテストベンチでは評価しない
-`ifdef test
-rgb2dvi_for_test u_rgb2dvi(
+`ifndef HDMI
 `else
 rgb2dvi u_rgb2dvi(
-`endif
     .TMDS_Clk_p(hdmi_clk_p),
     .TMDS_Clk_n(hdmi_clk_n),
     .TMDS_Data_p(hdmi_data_p),
@@ -151,4 +149,5 @@ rgb2dvi u_rgb2dvi(
     .PixelClk(clk_pix),
     .SerialClk(clk_pix_x5)
 );
+`endif
 endmodule
