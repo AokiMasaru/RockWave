@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/09 09:51
+ * Last Modified: 2023/10/10 04:12
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -105,10 +105,10 @@ function [USE_RD_BIT_M-USE_RD_BIT_L:0] fnc_rd_data_sel(
 );
 begin
     case (op)
-        JAL, JALR : fnc_rd_data_sel = USE_RD_PC;
-        LOAD : fnc_rd_data_sel = USE_RD_MEMORY;
-        OP_IMM : fnc_rd_data_sel = rd_data_sel_opimm;
-        default : fnc_rd_data_sel = USE_RD_ALU;
+        JAL, JALR   : fnc_rd_data_sel = USE_RD_PC;
+        LOAD        : fnc_rd_data_sel = USE_RD_MEMORY;
+        OP,OP_IMM   : fnc_rd_data_sel = rd_data_sel_opimm;
+        default     : fnc_rd_data_sel = USE_RD_ALU;
     endcase
 end  
 endfunction

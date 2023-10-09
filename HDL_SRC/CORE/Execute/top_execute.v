@@ -5,8 +5,8 @@
  * File Created: 2019/01/16 23:22
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/21 12:25
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2023/10/10 04:46
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -73,7 +73,7 @@ module top_execute(
     assign aluin2 = ( use_alu_in2 == USE_ALU_IN2_RS2DATA)? rs2data_de : imm;
     //For comp
     assign use_comp_in2 = decoded_op_de[FUNCT3_BIT_M:FUNCT3_BIT_L];
-    assign compin2 = ( use_comp_in2 == FUNCT3_SLT )? imm : rs2data_de;
+    assign compin2 = ( use_comp_in2 == FUNCT3_SLT || use_comp_in2 == FUNCT3_SLTU)? imm : rs2data_de;
     assign use_alu_in1 = decoded_op_de[USE_ALU_IN1_BIT];
     assign use_alu_in2 = decoded_op_de[USE_ALU_IN2_BIT];
     //From comp

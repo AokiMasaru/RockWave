@@ -5,8 +5,8 @@
  * File Created: 2019/01/14 18:57
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/02/21 12:26
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2023/10/10 04:05
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -41,14 +41,14 @@ module comp (
 
         begin
             case( funct3 )
-                   FUNCT3_BEQ   : comp = ( rs1data_de == rs2data_de )? 1:0 ; 
-                   FUNCT3_BNE   : comp = ( rs1data_de != rs2data_de )? 1:0 ; 
+                   FUNCT3_BEQ   :            comp = (         rs1data_de  ==         rs2data_de )? 1:0 ; 
+                   FUNCT3_BNE   :            comp = (         rs1data_de  !=         rs2data_de )? 1:0 ; 
                    //FUNCT3_JUMP  : comp = 1 ; //must jump SLTの追加により削除した
-                   FUNCT3_BLT   : comp = ( $signed(rs1data_de) <  $signed(rs2data_de))? 1:0 ; 
-                   FUNCT3_BGE   : comp = ( $signed(rs1data_de) >= $signed(rs2data_de))? 1:0 ;
-                   FUNCT3_BLTU  : comp = ( rs1data_de < rs2data_de)? 1:0 ; 
-                   FUNCT3_BGEU  : comp = ( rs1data_de >= rs2data_de)? 1:0 ;
-                   FUNCT3_SLT   : comp = ( $signed(rs1data_de) < $signed(rs2data_de))? 1:0 ;
+                   FUNCT3_BLT ,FUNCT3_SLT  : comp = ( $signed(rs1data_de) <  $signed(rs2data_de))? 1:0 ; 
+                   FUNCT3_BGE              : comp = ( $signed(rs1data_de) >= $signed(rs2data_de))? 1:0 ;
+                   FUNCT3_BLTU,FUNCT3_SLTU : comp = (         rs1data_de  <          rs2data_de )? 1:0 ; 
+                   FUNCT3_BGEU             : comp = (         rs1data_de  >=         rs2data_de )? 1:0 ;
+//                   FUNCT3_SLT   : comp = ( $signed(rs1data_de) <  $signed(rs2data_de))? 1:0 ;
                    default : comp = 1'bx;
             endcase
         end
