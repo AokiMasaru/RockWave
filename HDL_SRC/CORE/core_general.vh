@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 10:04
+ * Last Modified: 2023/10/09 12:42
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -50,12 +50,13 @@
     /////////////////////////////////////////////
     // Memory Map
     /////////////////////////////////////////////]
-    parameter BASE_MASK = 32'hFF00_0000;
-    parameter VGA_BASE  = 32'h6000_0000;
-    parameter GPIO_BASE = 32'h7000_0000;
-    parameter ROM_BASE  = 32'h8000_0000;
-    parameter RAM_BASE  = 32'h9000_0000;
-    parameter HDMI_BASE = 32'hA000_0000;
+    parameter BASE_MASK  = 32'hFF00_0000;
+    parameter TIMER_BASE = 32'h0200_0000;
+    parameter VGA_BASE   = 32'h6000_0000;
+    parameter GPIO_BASE  = 32'h7000_0000;
+    parameter ROM_BASE   = 32'h8000_0000;
+    parameter RAM_BASE   = 32'h9000_0000;
+    parameter HDMI_BASE  = 32'hA000_0000;
     parameter FREERUNCNT_BASE = 32'hB000_0000;
 
     /////////////////////////////////////////////

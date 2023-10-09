@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/06 06:20
+ * Last Modified: 2023/10/09 13:07
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -54,13 +54,16 @@ module localbus(
     wire [XLEN-1:0] gpio_qout_sel;             // Selected GPIO Read data out
     wire [XLEN-1:0] vga_qout;                  // 常時 VRAM Read data out
     wire [XLEN-1:0] vga_qout_sel;              // Selected VRAM Read data out
+    wire [XLEN-1:0] timer_qout;                // 常時 Timer Read data out
+    wire [XLEN-1:0] timer_qout_sel;            // Selected Timer Read data out
 
     // Local BUS としてのReadData出力
-    assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel;
+    assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel | timer_qout_sel;
 
     wire  ram_sel   = ((addr & BASE_MASK) ==  RAM_BASE);
     wire  gpio_sel  = ((addr & BASE_MASK) == GPIO_BASE);
     wire  vga_sel   = ((addr & BASE_MASK) ==  VGA_BASE);
+    wire  timer_sel = ((addr & BASE_MASK) == TIMER_BASE);
 
 
     ////////////////////////////////////////////////////////////////
@@ -114,6 +117,21 @@ module localbus(
         .we             (vga_we),
         .qout           (vga_qout)
     );
+
+    ////////////////////////////////////////////////////////////////
+    // Timer領域
+    wire [2:0] timer_we = timer_sel ? we : 3'b000;
+    assign timer_qout_sel = timer_sel ? timer_qout : {XLEN{1'b0}};
+    top_timer U_top_timer(
+        .clk            (clk),
+        .rst_n          (rst_n),
+        .sel            (timer_sel),
+        .addr           (addr[15:0]),
+        .wdata          (qin),
+        .we             (timer_we),
+        .rdata          (timer_qout)
+    );
+    
 
 
 endmodule
