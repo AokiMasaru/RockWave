@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/09/30 07:42
+ * Last Modified: 2023/10/09 09:51
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -89,7 +89,7 @@ function fnc_use_alu_in2(
 );
 begin
     case (op)
-        OP : fnc_use_alu_in2 = USE_ALU_IN2_RS2DATA;
+        OP,SYSTEM : fnc_use_alu_in2 = USE_ALU_IN2_RS2DATA;
         BRANCH, LUI, AUIPC, JAL, JALR, LOAD, STORE, OP_IMM : fnc_use_alu_in2 = USE_ALU_IN2_IMM;
         default : fnc_use_alu_in2 = 1'bx;
     endcase
@@ -170,6 +170,9 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 //data memory write enable
 wire data_mem_we = (inst_op == STORE);
 
+// CSR write enable 
+wire csr_we = (inst_op == SYSTEM);
+
 //must_jump
 wire must_jump = (inst_op == JAL) || (inst_op == JALR);
 
@@ -183,6 +186,8 @@ assign decoded_op_pre[JUMP_EN_BIT] = jump_en;
 assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 assign decoded_op_pre[MUST_JUMP_BIT] = must_jump;
 assign decoded_op_pre[CSR_BIT_H:CSR_BIT_L] = inst_csr_adr;
+assign decoded_op_pre[CSR_WE_BIT] = csr_we;
+
 
 
 //FF

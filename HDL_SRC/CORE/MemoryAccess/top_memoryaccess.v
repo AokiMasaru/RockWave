@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/09/30 07:37
+ * Last Modified: 2023/10/09 09:50
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -101,7 +101,7 @@ module top_memoryaccess(
     // CSR系
     assign csr_addr = decoded_op_em[CSR_BIT_H:CSR_BIT_L];
     assign csr_wdata = alu_out_em;
-    assign csr_we = (we & phase_memoryaccess);
+    assign csr_we = decoded_op_em[CSR_WE_BIT] & phase_memoryaccess;
 
 
     /////////////////////////////////////////////

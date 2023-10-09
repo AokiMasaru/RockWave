@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/06 04:44
+ * Last Modified: 2023/10/06 06:20
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -68,7 +68,7 @@ module localbus(
     //    Xilinx Block RAMは常時選択なためsel信号を追加
     wire [2:0] ram_we = ram_sel ? we : 3'b000;
     assign ram_qout_sel = ram_sel ? ram_qout : {XLEN{1'b0}};
-    wire [AWIDTH:0] ram_addr = (addr - RAM_BASE) >> 2;     // 1word = 4Byteなため2bitシフト
+    wire [AWIDTH-1:0] ram_addr = (addr - RAM_BASE) >> 2;     // 1word = 4Byteなため2bitシフト
 
     ram U_data_memory(
         .clk    (clk),

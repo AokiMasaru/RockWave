@@ -3,7 +3,7 @@
 # File Created: 2018/12/19 12:12
 # Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
-# Last Modified: 2023/10/06 05:15
+# Last Modified: 2023/10/06 05:17
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project top_core
@@ -20,7 +20,7 @@ INCDIR = ../../../HDL_SRC/CORE/
 SRCDIRS := $(shell find $(SRCDIR) -type d)
 
 allVerilogFiles := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.v))
-TOPMODULE = ../../../SYNTH/zynqberry/top_zedboard.v
+TOPMODULE = ../../../SYNTH/Zedboard/top_zedboard.v
 
 all: iverilog wave
 
