@@ -5,7 +5,7 @@
  * File Created: 2023/10/09 11:00
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 15:17
+ * Last Modified: 2023/10/10 04:04
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -81,14 +81,14 @@ module reg_timer(
         .clk(clk), .rst_n(rst_n),
         .wdata(wdata  ), .we(wenble4000),
         .rdata(reg4000), .re(adsel4000),
-        .dataout(mtimecmp[63:32])
+        .dataout(mtimecmp[31: 0])
     );
 
     reg_rw #(32) U_reg4004(
         .clk(clk), .rst_n(rst_n),
         .wdata(wdata  ), .we(wenble4004),
         .rdata(reg4004), .re(adsel4004),
-        .dataout(mtimecmp[31: 0])
+        .dataout(mtimecmp[63:32])
     );
 
     reg_ronly #(32) U_regBFF8(

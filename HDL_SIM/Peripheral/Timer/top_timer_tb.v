@@ -5,7 +5,7 @@
  * File Created: 2023/10/09 13:56
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 15:30
+ * Last Modified: 2023/10/09 16:51
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -149,7 +149,7 @@ initial begin
     $display("Write %h:mtimecmp_h",addr);
     assert_eq(rdata,32'hFFFF_FFFF);
 
-    assert_eq(U_top_timer.mtimecmp,64'hAAAA_AAAA_FFFF_FFFF);
+    assert_eq(U_top_timer.mtimecmp,64'hFFFF_FFFF_AAAA_AAAA);
 
     //////////////////////////////////////////////////////////////////
     // Read
