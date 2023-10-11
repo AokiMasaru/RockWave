@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/12 04:24
+ * Last Modified: 2023/10/12 04:39
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -107,7 +107,7 @@ begin
     case (op)
         JAL, JALR   : fnc_rd_data_sel = USE_RD_PC;
         LOAD        : fnc_rd_data_sel = USE_RD_MEMORY;
-        OP,OP_IMM   : fnc_rd_data_sel = USE_RD_COMP;
+        OP,OP_IMM   : fnc_rd_data_sel = USE_RD_ALU;
         default     : fnc_rd_data_sel = USE_RD_ALU;
     endcase
 end  
@@ -171,7 +171,7 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 wire data_mem_we = (inst_op == STORE);
 
 // CSR write enable 
-wire csr_we = (inst_op == SYSTEM);
+wire csr_we = (inst_op == SYSTEM) ? inst_funct3_raw[1:0] : 2'b00;
 
 //must_jump
 wire must_jump = (inst_op == JAL) || (inst_op == JALR);
@@ -185,8 +185,8 @@ assign decoded_op_pre[FUNCT3_BIT_M:FUNCT3_BIT_L] = inst_funct3;
 assign decoded_op_pre[JUMP_EN_BIT] = jump_en;
 assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 assign decoded_op_pre[MUST_JUMP_BIT] = must_jump;
-assign decoded_op_pre[CSR_BIT_H:CSR_BIT_L] = inst_csr_adr;
-assign decoded_op_pre[CSR_WE_BIT] = csr_we;
+assign decoded_op_pre[CSR_ADR_BIT_H:CSR_ADR_BIT_L] = inst_csr_adr;
+assign decoded_op_pre[CSR_WE_BIT_H :CSR_WE_BIT_L ] = csr_we;
 
 
 
