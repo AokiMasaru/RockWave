@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/10 04:12
+ * Last Modified: 2023/10/12 04:24
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -107,7 +107,7 @@ begin
     case (op)
         JAL, JALR   : fnc_rd_data_sel = USE_RD_PC;
         LOAD        : fnc_rd_data_sel = USE_RD_MEMORY;
-        OP,OP_IMM   : fnc_rd_data_sel = rd_data_sel_opimm;
+        OP,OP_IMM   : fnc_rd_data_sel = USE_RD_COMP;
         default     : fnc_rd_data_sel = USE_RD_ALU;
     endcase
 end  

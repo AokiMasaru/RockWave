@@ -5,8 +5,8 @@
  * File Created: 2018/12/19 23:48
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/15 12:33
- * Modified By: Takuya Shono ( ta.shono+1@gmail.com )
+ * Last Modified: 2023/10/11 05:00
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
  * *****************************************************************
@@ -37,14 +37,16 @@ module alu (
 
         begin
             case( funct_alu )
-                   4'b0000  : calc = aluin1 + aluin2; //ADD//ADDI 加算
-                   4'b1000  : calc = aluin1 - aluin2; //SUB 減算
-                   4'b0001,4'b1001  : calc = aluin1 << aluin2[4:0]; //SLL//SLLI 左論理シフト
-                   4'b0100,4'b1100  : calc = aluin1 ^ aluin2; //XOR 排他的論理和
-                   4'b0101  : calc = aluin1 >> aluin2 [4:0]; //SRL//SRLI 右論理シフト
-                   4'b1101  : calc = $signed(aluin1) >>> aluin2 [4:0]; //SRA//SRAI 右算術シフト
-                   4'b0110,4'b1110  : calc = aluin1 | aluin2; //OR 論理和                   
-                   4'b0111,4'b1111  : calc = aluin1 & aluin2; //AND 論理積
+                   4'b0_000             : calc =           aluin1   +         aluin2;       // ADD//ADDI 加算
+                            4'b1_000    : calc =           aluin1   -         aluin2;       // SUB 減算
+                   4'b0_001,4'b1_001    : calc =           aluin1  <<         aluin2[4:0];  // SLL//SLLI 左論理シフト
+                   4'b0_010,4'b1_010    : calc = ( $signed(aluin1)  < $signed(aluin2))? 1:0;// SLT / SLTI 
+                   4'b0_011,4'b1_011    : calc = (         aluin1   <         aluin2 )? 1:0;// SLTU / SLTIU
+                   4'b0_100,4'b1_100    : calc =           aluin1   ^         aluin2;       // XOR 排他的論理和
+                   4'b0_101             : calc =           aluin1  >>         aluin2 [4:0]; // SRL//SRLI 右論理シフト
+                            4'b1_101    : calc =   $signed(aluin1) >>>        aluin2 [4:0]; // SRA//SRAI 右算術シフト
+                   4'b0_110,4'b1_110    : calc =           aluin1   |         aluin2;       // OR 論理和                   
+                   4'b0_111,4'b1_111    : calc =           aluin1   &         aluin2;       // AND 論理積
                    default : calc = {XLEN{1'bx}};
             endcase
         end
