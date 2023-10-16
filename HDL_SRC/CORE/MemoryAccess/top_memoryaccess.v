@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 09:50
+ * Last Modified: 2023/10/15 16:36
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -45,7 +45,7 @@ module top_memoryaccess(
     // For CSR
     output [11:0]     csr_addr,     // Address
     output [XLEN-1:0] csr_wdata,    // Write Data
-    output            csr_we,       // Write Enable
+    output [1:0]      csr_we,       // Write Enable
 
     // For WriteBack
     output [OPLEN-1:0] decoded_op_mw,// Decoded OPcode
@@ -54,13 +54,14 @@ module top_memoryaccess(
     output [XLEN-1:0] next_pc_mw,    // Next PC Address for Decode
     output [XLEN-1:0] alu_out_mw,    // ALU output
     output [XLEN-1:0] mem_out_mw,    // Data Memory output
+    output [XLEN-1:0] csr_out_mw,    // CSR output
     // For StateMachine
     output stall_memoryaccess        // Stall MemoryAccess Phase
 );
 
     `include "core_general.vh"
 
-    localparam LATCH_LEN = (XLEN*2+5+1+OPLEN);
+    localparam LATCH_LEN = (XLEN*3+5+1+OPLEN);
     reg [LATCH_LEN-1:0] latch_memoryaccess; // Latch for Next Stage
 
     /////////////////////////////////////////////
@@ -99,9 +100,9 @@ module top_memoryaccess(
 
     /////////////////////////////////////////////
     // CSR系
-    assign csr_addr = decoded_op_em[CSR_BIT_H:CSR_BIT_L];
+    assign csr_addr = decoded_op_em[CSR_ADR_BIT_H:CSR_ADR_BIT_L];
     assign csr_wdata = alu_out_em;
-    assign csr_we = decoded_op_em[CSR_WE_BIT] & phase_memoryaccess;
+    assign csr_we =  phase_memoryaccess ? decoded_op_em[CSR_WE_BIT_H:CSR_WE_BIT_L] : 2'b00 ;
 
 
     /////////////////////////////////////////////
@@ -110,12 +111,12 @@ module top_memoryaccess(
         if(!rst_n)
             latch_memoryaccess <= {LATCH_LEN{1'b0}};
         else if(phase_memoryaccess)
-            latch_memoryaccess <= {next_pc_em,alu_out_em,jump_state_em,decoded_op_em,rdsel_em};
+            latch_memoryaccess <= {next_pc_em,alu_out_em,jump_state_em,decoded_op_em,rdsel_em,csr_rdata};
         else
             latch_memoryaccess <= latch_memoryaccess;
     end
 
-    assign {next_pc_mw,alu_out_mw,jump_state_mw,decoded_op_mw,rdsel_mw} = latch_memoryaccess;
+    assign {next_pc_mw,alu_out_mw,jump_state_mw,decoded_op_mw,rdsel_mw,csr_out_mw} = latch_memoryaccess;
 
     /////////////////////////////////////////////
     // For statemachine

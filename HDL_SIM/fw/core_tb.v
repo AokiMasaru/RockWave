@@ -5,7 +5,7 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2019/02/22 05:29
+ * Last Modified: 2023/10/15 16:06
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -71,6 +71,16 @@ wire [XLEN-1:0] x28_t3 = u_top_core.u_register_file.x28out;
 wire [XLEN-1:0] x29_t4 = u_top_core.u_register_file.x29out;
 wire [XLEN-1:0] x30_t5 = u_top_core.u_register_file.x30out;
 wire [XLEN-1:0] x31_t6 = u_top_core.u_register_file.x31out;
+
+//gtk wave 波形表示用 CSR
+wire [XLEN-1:0] mstatus     = u_top_core.u_reg_csr.null_reg300_dataout;
+wire [XLEN-1:0] mie         = u_top_core.u_reg_csr.null_reg304_dataout;
+wire [XLEN-1:0] mtvec       = u_top_core.u_reg_csr.null_reg305_dataout;
+wire [XLEN-1:0] mscratch    = u_top_core.u_reg_csr.null_reg340_dataout;
+wire [XLEN-1:0] mepc        = u_top_core.u_reg_csr.null_reg341_dataout;
+wire [XLEN-1:0] mcause      = u_top_core.u_reg_csr.null_reg342_dataout;
+wire [XLEN-1:0] mtval       = u_top_core.u_reg_csr.null_reg343_dataout;
+wire [XLEN-1:0] mip         = u_top_core.u_reg_csr.null_reg344_dataout;
 
 //clock
 initial

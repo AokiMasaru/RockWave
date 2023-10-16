@@ -5,7 +5,7 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/09/27 04:37
+ * Last Modified: 2023/10/15 16:48
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -74,6 +74,7 @@ wire [4:0] rdsel_mw;           // RD選択
 wire [XLEN-1:0] next_pc_mw;    // Next PC Address for Decode
 wire [XLEN-1:0] alu_out_mw;    // ALU 
 wire [XLEN-1:0] mem_out_mw;        // Data Memory 
+wire [XLEN-1:0] csr_out_mw;        // CSR
 wire [XLEN-1:0] rddata_wr;   // 入力データ
 wire [4:0] rdsel_wr;         // RD 選択
 wire [4:0] rs1sel;           // RS1 選択
@@ -83,7 +84,7 @@ wire [XLEN-1:0] rs2data_rd;   // 出力データ (rs2)
 
 wire [11:0]     csr_addr;       // csr アドレス
 wire [XLEN-1:0] csr_wdata;      // CSR ライトデータ
-wire            csr_we;         // CSR ライトイネーブル
+wire [1:0]      csr_we;         // CSR ライトイネーブル
 wire [XLEN-1:0] csr_rdata;      // CSR リードデータ
 
 statemachine u_statemachine(
@@ -103,6 +104,7 @@ statemachine u_statemachine(
 
 writeback u_writeback(
     .mem_out_mw(mem_out_mw),
+    .csr_out_mw(csr_out_mw),
     .jump_state_mw(jump_state_mw),
     .next_pc_mw(next_pc_mw),
     .alu_out_mw(alu_out_mw),
@@ -201,6 +203,7 @@ top_memoryaccess u_top_memoryaccess(
     .next_pc_mw         (next_pc_mw         ),
     .alu_out_mw         (alu_out_mw         ),
     .mem_out_mw         (mem_out_mw         ),
+    .csr_out_mw         (csr_out_mw         ),
     .stall_memoryaccess (stall_memoryaccess )
 );
 

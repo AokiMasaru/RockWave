@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 12:42
+ * Last Modified: 2023/10/15 16:37
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -62,7 +62,7 @@
     /////////////////////////////////////////////
     // Doecode
     /////////////////////////////////////////////
-    parameter OPLEN = 23;
+    parameter OPLEN = 25;
 
     // RS1/RS2
     parameter USE_ALU_IN1_BIT = 0;
@@ -74,15 +74,16 @@
 
     // RD
     parameter USE_RD_BIT_L = 2;
-    parameter USE_RD_BIT_M = 3;
-      parameter USE_RD_ALU    = 2'b00;
-      parameter USE_RD_PC     = 2'b01;
-      parameter USE_RD_MEMORY = 2'b10;
-      parameter USE_RD_COMP   = 2'b11;
+    parameter USE_RD_BIT_M = 4;
+      parameter USE_RD_ALU    = 3'b000;
+      parameter USE_RD_PC     = 3'b001;
+      parameter USE_RD_MEMORY = 3'b010;
+      parameter USE_RD_COMP   = 3'b011;
+      parameter USE_RD_CSR    = 3'b100;
    
     // funct3
-    parameter FUNCT3_BIT_L = 4;
-    parameter FUNCT3_BIT_M = 6;
+    parameter FUNCT3_BIT_L = 5;
+    parameter FUNCT3_BIT_M = 7;
       // LOAD / STORE
       parameter FUNCT3_B = 3'b000;
       parameter FUNCT3_H = 3'b001;
@@ -104,18 +105,23 @@
       parameter FUNCT3_SLTU = 3'b011;
 
     // Data Memory Write Enable
-    parameter DATA_MEM_WE_BIT = 7;
+    parameter DATA_MEM_WE_BIT = 8;
 
     // Jump Enable
-    parameter JUMP_EN_BIT = 8;
+    parameter JUMP_EN_BIT = 9;
 
     // must jump
-    parameter MUST_JUMP_BIT = 9;
+    parameter MUST_JUMP_BIT = 10;
 
     // CSR addr
-    parameter CSR_BIT_L = 10;
-    parameter CSR_BIT_H = 21;
-    parameter CSR_WE_BIT = 22;
+    parameter CSR_ADR_BIT_L = 11;
+    parameter CSR_ADR_BIT_H = 22;
+    parameter CSR_WE_BIT_L = 23;
+    parameter CSR_WE_BIT_H = 24;
+      parameter CSR_NONE = 2'b00;
+      parameter CSR_CSRW = 2'b01;
+      parameter CSR_CSRS = 2'b10;
+      parameter CSR_CSRC = 2'b11;
 
     /////////////////////////////////////////////
     // Common

@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/12 04:39
+ * Last Modified: 2023/10/17 03:58
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -73,10 +73,10 @@ function fnc_use_alu_in1(
 begin
     case (op)
         //LUIはrs1の値を持たないものの、後段のALUがrs1 = 0を要求するために必要
-        LUI : fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
+        LUI :                           fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
         JALR, LOAD, STORE, OP_IMM, OP : fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
-        SYSTEM : fnc_use_alu_in1 = use_alu_in1_system;
-        BRANCH, AUIPC, JAL : fnc_use_alu_in1 = USE_ALU_IN1_PC;
+        SYSTEM :                        fnc_use_alu_in1 = USE_ALU_IN1_RS1DATA;
+        BRANCH, AUIPC, JAL :            fnc_use_alu_in1 = USE_ALU_IN1_PC;
         default : fnc_use_alu_in1 = 1'bx;
     endcase
 end  
@@ -89,8 +89,8 @@ function fnc_use_alu_in2(
 );
 begin
     case (op)
-        OP,SYSTEM : fnc_use_alu_in2 = USE_ALU_IN2_RS2DATA;
-        BRANCH, LUI, AUIPC, JAL, JALR, LOAD, STORE, OP_IMM : fnc_use_alu_in2 = USE_ALU_IN2_IMM;
+        OP : fnc_use_alu_in2 = USE_ALU_IN2_RS2DATA;
+        BRANCH, LUI, AUIPC, JAL, JALR, LOAD, STORE, OP_IMM, SYSTEM : fnc_use_alu_in2 = USE_ALU_IN2_IMM;
         default : fnc_use_alu_in2 = 1'bx;
     endcase
 end  
@@ -108,6 +108,7 @@ begin
         JAL, JALR   : fnc_rd_data_sel = USE_RD_PC;
         LOAD        : fnc_rd_data_sel = USE_RD_MEMORY;
         OP,OP_IMM   : fnc_rd_data_sel = USE_RD_ALU;
+        SYSTEM      : fnc_rd_data_sel = USE_RD_CSR;
         default     : fnc_rd_data_sel = USE_RD_ALU;
     endcase
 end  
@@ -131,18 +132,21 @@ wire[6:0] inst_funct7_raw = inst[31:25];
 wire funct7_enable = ((inst_op == OP) || ((inst_op == OP_IMM) && (inst_funct3_raw[1:0] == 2'b01)));
 wire[6:0] inst_funct7 = funct7_enable ? inst_funct7_raw : 7'd0;
 //force_add_caseなら強制ADD(4'd0)
-wire force_add_case = (inst_op == BRANCH) || (inst_op == AUIPC) || (inst_op == LOAD) || (inst_op == STORE) || (inst_op == LUI) || (inst_op == JAL);
+wire force_add_case = (inst_op == BRANCH) || (inst_op == AUIPC) || (inst_op == LOAD) || (inst_op == STORE) || (inst_op == LUI) || (inst_op == JAL) || (inst_op == SYSTEM);
 wire[3:0] funct_alu_pre = force_add_case ? 4'd0 : {inst_funct7[5], inst_funct3_raw};
 
 //rs1, rs2 ここはFFを通らない
-assign rs1sel = (inst_op == LUI) ? 5'd0 : inst[19:15];
+wire [4:0] rs1sel_system = (inst_op == SYSTEM & inst_funct3[2] == 1'b1) ? 5'd0 : inst[19:15]; // CSRWI,CSRRSI,CSRRCIでは即値を使用するため0(RS1)とimm(RS2)を加算する
+assign rs1sel = (inst_op == LUI) ? 5'd0 : rs1sel_system;
 assign rs2sel = inst[24:20];
 
 //imm
-wire[XLEN-1:0] imm_pre = fnc_imm(inst_op, inst);
+wire [4:0] imm_system = (inst_funct3[2] == 1'b1) ? inst[19:15] : 5'd0; // CSRW,CSRRS,CSRRCではRS1を使用するためRS1とimm(0)を加算する
+wire[XLEN-1:0] imm_pre = fnc_imm(inst_op, inst, imm_system);
 function [XLEN-1:0] fnc_imm(
     input[6:0] op,
-    input[31:0] inst_data
+    input[31:0] inst_data,
+    input[4:0]  imm_system
 );
 begin
     case (op)
@@ -156,7 +160,9 @@ begin
             fnc_imm = {{(XLEN-12){inst_data[31]}}, inst_data[7], inst_data[30:25], inst_data[11:8], 1'b0};
         STORE : 
             fnc_imm = {{(XLEN-11){inst_data[31]}}, inst_data[30:25], inst_data[11:8], inst_data[7]};
-        OP, MISC_MEM, SYSTEM : 
+        SYSTEM : 
+            fnc_imm = {{(XLEN-5){1'b0}}, imm_system};
+        OP, MISC_MEM : 
             fnc_imm = {XLEN{1'bx}};
         default : 
             fnc_imm = {XLEN{1'bx}}; 
@@ -171,7 +177,7 @@ wire jump_en = (inst_op == JAL) || (inst_op == JALR) || (inst_op == BRANCH);
 wire data_mem_we = (inst_op == STORE);
 
 // CSR write enable 
-wire csr_we = (inst_op == SYSTEM) ? inst_funct3_raw[1:0] : 2'b00;
+wire [1:0] csr_we = (inst_op == SYSTEM) ? inst_funct3_raw[1:0] : 2'b00;
 
 //must_jump
 wire must_jump = (inst_op == JAL) || (inst_op == JALR);

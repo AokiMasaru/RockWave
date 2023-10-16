@@ -5,8 +5,8 @@
  * File Created: 2019/01/23 12:25
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2019/01/28 21:40
- * Modified By: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
+ * Last Modified: 2023/10/15 16:45
+ * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
  * *****************************************************************
@@ -31,6 +31,7 @@ module writeback(
     input [XLEN-1:0] next_pc_mw,       // Next PC Address for Decode
     input [XLEN-1:0] alu_out_mw,       // ALU output
     input [XLEN-1:0] mem_out_mw,       // Data Memory output
+    input [XLEN-1:0] csr_out_mw,       // CSR output
  
     //For RegisterFile
     output [XLEN-1:0] rddata_wr,       //出力データ 
@@ -64,17 +65,19 @@ module writeback(
         input [XLEN-1:0] jump_state_selin;  //データ入力2    
         input [XLEN-1:0] next_pc_mw;        //データ入力3    
         input [XLEN-1:0] alu_out_mw;        //データ入力4
+        input [XLEN-1:0] csr_out_mw;        //データ入力5
         input [USE_RD_BIT_M-USE_RD_BIT_L:0] use_rd;                 //セレクタ
             case( use_rd )
                 USE_RD_ALU    : select = alu_out_mw;
                 USE_RD_PC     : select = next_pc_mw;
                 USE_RD_MEMORY : select = mem_out_mw;
+                USE_RD_CSR    : select = csr_out_mw;
                 USE_RD_COMP   : select = jump_state_selin;
                 default: select =  {XLEN{1'bx}};
             endcase
     endfunction
 
-    assign rddata_wr = select( mem_out_mw, jump_state_selin, next_pc_mw, alu_out_mw, use_rd);
+    assign rddata_wr = select( mem_out_mw, jump_state_selin, next_pc_mw, alu_out_mw, csr_out_mw,use_rd);
 
     assign stall_writeback = 1'b0;
     assign regdata_for_pc = alu_out_mw;
