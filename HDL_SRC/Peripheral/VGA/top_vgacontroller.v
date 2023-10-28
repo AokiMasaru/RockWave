@@ -5,7 +5,7 @@
  * File Created: 2019/03/12 04:06
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/20 05:29
+ * Last Modified: 2023/10/23 04:15
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -33,7 +33,7 @@ module top_vgacontroller(
     // Local BUS
     input               sel,        // Select this Memory Block
     input [XLEN-1:0]    addr,       // Address
-    input [2:0]         we,         // Write Enable
+    input [3:0]         we,         // Write Enable
     input [XLEN-1:0]    qin,        // Write Data
     output [XLEN-1:0]   qout        // Read Data
 );
@@ -98,7 +98,7 @@ module top_vgacontroller(
     vram U_vram (
           .clka         (clk),
           .ena          (vram_sel),
-          .wea          (we[2]),
+          .wea          (we[0]),
           .addra        (addr[18:0]),
           .dina         (qin[11:0]),
           .douta        (douta),

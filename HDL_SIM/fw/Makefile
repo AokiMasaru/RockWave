@@ -3,7 +3,7 @@
 # File Created: 2018/12/19 12:12
 # Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
-# Last Modified: 2023/10/15 16:42
+# Last Modified: 2023/10/20 07:20
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project top_core
@@ -20,13 +20,14 @@ INCDIR = ../../HDL_SRC/CORE/
 SRCDIRS := $(shell find $(SRCDIR) -type d)
 
 allVerilogFiles := $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.v))
-hexFiles := $(wildcard *.hex)#
+hexFiles := $(wildcard *[a-z].hex)#
+hexRamFiles := $(wildcard *[a-z].RAM.hex)#
 hexFiles_m := $(wildcard rv32mi*.hex)#
 
 all: iverilog
 
 define F
-	iverilog -o $(1).test -I $(INCDIR) -D INST_ROM_FILE_NAME=\"$(1)\" $(testbench) $(allVerilogFiles)
+	iverilog -o $(1).test -I $(INCDIR) -D INST_ROM_FILE_NAME=\"$(1)\" -D INST_RAM_FILE_NAME=\"$(basename $(1)).RAM.hex\" $(testbench) $(allVerilogFiles)
 
 	vvp $(1).test>>allResult_tmp.txt
 

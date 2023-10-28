@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/17 03:58
+ * Last Modified: 2023/10/18 03:02
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -28,7 +28,6 @@ module instruction_decode(
     input[XLEN-1:0] rs1data_rd, //レジスタ選択結果1 レジスタ選択信号1の結果
     input[XLEN-1:0] rs2data_rd, //レジスタ選択結果2 レジスタ選択信号2の結果
     input[XLEN-1:0] curr_pc_fd, //現在のプログラムカウンタの値
-    input[XLEN-1:0] next_pc_fd, //次のプログラムカウンタの値
     input phase_decode, //instruction_decodeブロックの出力段FFのEnable信号
     output[4:0] rs1sel, //レジスタ選択信号1 register_fileに接続する
     output[4:0] rs2sel, //レジスタ選択信号2 register_fileに接続する
@@ -36,7 +35,6 @@ module instruction_decode(
     output[XLEN-1:0] rs1data_de, //レジスタ選択結果1 rs1_data_rdを(ほぼ)そのまま出力
     output[XLEN-1:0] rs2data_de, //レジスタ選択結果2 rs2_data_rdを(ほぼ)そのまま出力
     output[XLEN-1:0] curr_pc_de, //現在のプログラムカウンタの値 curr_pc_fdを(ほぼ)そのまま出力
-    output[XLEN-1:0] next_pc_de, //次のプログラムカウンタの値 next_pc_fdを(ほぼ)そのまま出力
     output[3:0] funct_alu, //alu演算器選択信号
     output[4:0] rdsel_de, //データメモリ選択信号
     output stall_decode,
@@ -198,7 +196,6 @@ assign decoded_op_pre[CSR_WE_BIT_H :CSR_WE_BIT_L ] = csr_we;
 
 //FF
 obuf #(.WIDTH(XLEN))  u_o1(.d_in(imm_pre),        .d_out(imm),           .clk(clk), .rst_n(rst_n), .en(phase_decode));
-obuf #(.WIDTH(XLEN))  u_o2(.d_in(next_pc_fd),     .d_out(next_pc_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(XLEN))  u_o3(.d_in(curr_pc_fd),     .d_out(curr_pc_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(XLEN))  u_o4(.d_in(rs1data_rd),     .d_out(rs1data_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));
 obuf #(.WIDTH(XLEN))  u_o5(.d_in(rs2data_rd),     .d_out(rs2data_de),    .clk(clk), .rst_n(rst_n), .en(phase_decode));

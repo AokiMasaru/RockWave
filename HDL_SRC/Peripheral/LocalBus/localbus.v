@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 13:07
+ * Last Modified: 2023/10/28 13:22
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -19,6 +19,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/28	Masaru Aoki	32bitメモリに8bit単位でアクセスする
  * 2019/03/03	Masaru Aoki	First Version
  * *****************************************************************
  */
@@ -29,7 +30,7 @@ module localbus(
     // Local BUS
     input  [XLEN-1:0]   addr,               // Address (32bit)
     input  [XLEN-1:0]   qin,                // Write Data
-    input  [2:0]        we,                 // Write Enable
+    input  [3:0]        we,                 // Write Enable
     output [XLEN-1:0]   qout,               // Read Data
 
     // PIN output / input
@@ -60,23 +61,23 @@ module localbus(
     // Local BUS としてのReadData出力
     assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel | timer_qout_sel;
 
-    wire  ram_sel   = ((addr & BASE_MASK) ==  RAM_BASE);
-    wire  gpio_sel  = ((addr & BASE_MASK) == GPIO_BASE);
-    wire  vga_sel   = ((addr & BASE_MASK) ==  VGA_BASE);
-    wire  timer_sel = ((addr & BASE_MASK) == TIMER_BASE);
+    wire  ram_sel   = ((addr & BASE_MASK>>2) ==   RAM_BASE>>2);
+    wire  gpio_sel  = ((addr & BASE_MASK>>2) ==  GPIO_BASE>>2);
+    wire  vga_sel   = ((addr & BASE_MASK>>2) ==   VGA_BASE>>2);
+    wire  timer_sel = ((addr & BASE_MASK>>2) == TIMER_BASE>>2);
 
 
     ////////////////////////////////////////////////////////////////
     // RAM領域
     //    Xilinx Block RAMは常時選択なためsel信号を追加
-    wire [2:0] ram_we = ram_sel ? we : 3'b000;
+    wire [3:0] ram_we = ram_sel ? we : 4'b0000;
     assign ram_qout_sel = ram_sel ? ram_qout : {XLEN{1'b0}};
-    wire [AWIDTH-1:0] ram_addr = (addr - RAM_BASE) >> 2;     // 1word = 4Byteなため2bitシフト
+    //wire [AWIDTH-1:0] ram_addr = (addr - RAM_BASE) >> 2;     // 1word = 4Byteなため2bitシフト
 
     ram U_data_memory(
         .clk    (clk),
         .rst_n  (rst_n),
-        .addr   (ram_addr),
+        .addr   (addr[13:0]),
         .qin    (qin),
         .we     (ram_we),
         .qout   (ram_qout)
@@ -99,7 +100,7 @@ module localbus(
 
     ////////////////////////////////////////////////////////////////
     // VGA領域
-    wire [2:0] vga_we = vga_sel ? we : 3'b000;
+    wire [3:0] vga_we = vga_sel ? we : 4'b0000;
     assign vga_qout_sel = vga_sel ? vga_qout : {XLEN{1'b0}};
     top_vgacontroller U_top_vgacontroller(
         .clk            (clk),
@@ -120,7 +121,7 @@ module localbus(
 
     ////////////////////////////////////////////////////////////////
     // Timer領域
-    wire [2:0] timer_we = timer_sel ? we : 3'b000;
+    wire [3:0] timer_we = timer_sel ? we : 4'b0000;
     assign timer_qout_sel = timer_sel ? timer_qout : {XLEN{1'b0}};
     top_timer U_top_timer(
         .clk            (clk),

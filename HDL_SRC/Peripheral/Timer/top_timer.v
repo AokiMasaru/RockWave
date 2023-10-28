@@ -5,7 +5,7 @@
  * File Created: 2023/10/09 10:49
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 12:56
+ * Last Modified: 2023/10/23 04:23
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -29,7 +29,7 @@ module top_timer(
     // Local BUS
     input               sel,        // Select this Memory Block
     input [15:0]        addr,       // Address
-    input [2:0]         we,         // Write Enable
+    input [3:0]         we,         // Write Enable
     input [XLEN-1:0]    wdata,      // Write Data
     output [XLEN-1:0]   rdata       // Read Data
 );

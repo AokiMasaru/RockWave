@@ -5,7 +5,7 @@
  * File Created: 2019/03/17 06:11
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/18 05:26
+ * Last Modified: 2023/10/23 04:12
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -33,7 +33,7 @@ module reg_vga_tb;
     // Local BUS
     reg                 sel;        // Select this Memory Block
     reg   [XLEN-1:0]    addr;       // Address
-    reg   [2:0]         we;         // Write Enable
+    reg   [3:0]         we;         // Write Enable
     reg   [XLEN-1:0]    wdata;      // Write Data
     wire  [XLEN-1:0]    rdata;      // Read Data
 
@@ -146,8 +146,9 @@ task cpu_wr;
         sel = 1'b1;
         addr = address;
         wdata = data;
-        we = 3'b110;
+        we = 4'b0001;
         @(posedge clk);
+        we = 4'b0000;
     end
 endtask
 

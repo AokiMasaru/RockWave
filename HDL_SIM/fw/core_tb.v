@@ -5,7 +5,7 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/15 16:06
+ * Last Modified: 2023/10/28 13:08
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/28	Masaru Aoki RAMを別HEXファイルとしてreadmemhする	
  * 2019/01/25	kidtak51	First Version
  * *****************************************************************
  */
@@ -32,7 +33,7 @@ wire [XLEN-1:0] inst_data;//instruction memoryのデータを接続する
 wire [XLEN-1:0] data_mem_out;//データメモリからのデータ出力を接続する
 wire [AWIDTH-1:0] data_mem_addr;//データメモリへのアドレスを接続する
 wire [XLEN-1:0] data_mem_wdata;//データメモリへのデータ入力を接続する
-wire [2:0] data_mem_we;//データメモリへのWriteEnable信号を接続する
+wire [3:0] data_mem_we;//データメモリへのWriteEnable信号を接続する
 reg rst_n;
 reg clk;
 integer i;//forループ用
@@ -82,6 +83,67 @@ wire [XLEN-1:0] mcause      = u_top_core.u_reg_csr.null_reg342_dataout;
 wire [XLEN-1:0] mtval       = u_top_core.u_reg_csr.null_reg343_dataout;
 wire [XLEN-1:0] mip         = u_top_core.u_reg_csr.null_reg344_dataout;
 
+// gtkwave 命令表示用
+wire [9:0] op = {u_top_core.u_instruction_decode.inst[14:12],u_top_core.u_instruction_decode.inst[6:0]};
+wire [9:0][7:0] opcode = decode(op);
+
+function [9:0][7:0] decode(
+    input[9:0] op
+);
+begin
+    casex (op)
+        10'bxxx_0110111: decode = "LUI";
+        10'bxxx_0010111: decode = "AUIPC";
+        10'bxxx_1101111: decode = "JAL";
+        10'b000_1100111: decode = "JALR";
+        10'b000_1100011: decode = "BEQ";
+        10'b001_1100011: decode = "BNE";
+        10'b100_1100011: decode = "BLT";
+        10'b101_1100011: decode = "BGE";
+        10'b110_1100011: decode = "BLTU";
+        10'b111_1100011: decode = "BGEU";
+        10'b000_0000011: decode = "LB";
+        10'b001_0000011: decode = "LH";
+        10'b010_0000011: decode = "LW";
+        10'b100_0000011: decode = "LBU";
+        10'b101_0000011: decode = "LHU";
+        10'b000_0100011: decode = "SB";
+        10'b001_0100011: decode = "SH";
+        10'b010_0100011: decode = "SW";
+        10'b000_0010011: decode = "ADDI";
+        10'b010_0010011: decode = "SLTI";
+        10'b011_0010011: decode = "SLTIU";
+        10'b100_0010011: decode = "XORI";
+        10'b110_0010011: decode = "ORI";
+        10'b111_0010011: decode = "ANDI";
+        10'b001_0010011: decode = "SLLI";
+        10'b101_0010011: decode = "SRLI";
+        10'b101_0010011: decode = "SRAI";
+        10'b000_0110011: decode = "ADD";
+        10'b000_0110011: decode = "SUB";
+        10'b001_0110011: decode = "SLL";
+        10'b010_0110011: decode = "SLT";
+        10'b011_0110011: decode = "SLTU";
+        10'b100_0110011: decode = "XOR";
+        10'b101_0110011: decode = "SRL";
+        10'b101_0110011: decode = "SRA";
+        10'b110_0110011: decode = "OR";
+        10'b111_0110011: decode = "AND";
+        10'b000_0001111: decode = "FENCE";
+        10'b001_0001111: decode = "FENCE.I";
+        10'b000_1110011: decode = "ECALL";
+        10'b000_1110011: decode = "EBREAK";
+        10'b001_1110011: decode = "CSRRW";
+        10'b010_1110011: decode = "CSRRS";
+        10'b011_1110011: decode = "CSRRC";
+        10'b101_1110011: decode = "CSRRWI";
+        10'b110_1110011: decode = "CSRRSI";
+        10'b111_1110011: decode = "CSRRCI";
+        default:         decode = "";
+    endcase
+end  
+endfunction
+
 //clock
 initial
     clk = 0;
@@ -91,7 +153,7 @@ end
 
 reg[AWIDTH-1:0] memDataStartAddr = 'h800;
 initial begin
-    //initial
+    // read hex file
     $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.U_ram.ram);
     $dumpfile({`INST_ROM_FILE_NAME, ".vcd"});
     $dumpvars(0,core_tb);
@@ -100,22 +162,7 @@ initial begin
     //romからramにコピーする
     rst_n = 0;
 
-    //romやram以外の回路が動作しないようにstatemachineを停止する
-    force u_top_core.u_statemachine.current = 0;
-    @(posedge clk) #1;
-    rst_n = 1;
-    @(posedge clk) #1;
-    for (i = 0; i<(2**AWIDTH); i = i + 4) begin
-        force u_data_memory.addr = i;
-        force u_data_memory.qin = u_inst_memory.U_ram.ram[memDataStartAddr + i];
-        force u_data_memory.we = 'b110;
-        @(posedge clk) #1;
-        force u_data_memory.we = 'h00;
-    end
-    release u_data_memory.addr;
-    release u_data_memory.qin;
-    release u_data_memory.we;
-    release u_top_core.u_statemachine.current;
+    $readmemh(`INST_RAM_FILE_NAME, u_data_memory.U_ram.RAM);
 
     rst_n = 0;
 

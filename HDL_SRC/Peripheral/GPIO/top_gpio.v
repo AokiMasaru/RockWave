@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 11:09
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/06 04:48
+ * Last Modified: 2023/10/22 14:43
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -30,7 +30,7 @@ module top_gpio(
     // Local BUS
     input               sel,        // Select this Memory Block
     input [AWIDTH-1:0]  addr,       // Address
-    input [2:0]         we,         // Write Enable
+    input [3:0]         we,         // Write Enable
     input [XLEN-1:0]    wdata,      // Write Data
     output [XLEN-1:0]   rdata       // Read Data
 );

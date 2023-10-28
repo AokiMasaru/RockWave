@@ -5,7 +5,7 @@
  * File Created: 2023/10/09 13:56
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 16:51
+ * Last Modified: 2023/10/23 04:20
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -31,7 +31,7 @@ module top_timer_tb;
 
     reg           sel;        // Select this Memory Block
     reg [15:0]    addr;       // Address
-    reg [2:0]     we;         // Write Enable
+    reg [3:0]     we;         // Write Enable
     reg [31:0]    wdata;      // Write Data
     wire [31:0]   rdata;      // Read Data
 
@@ -90,36 +90,36 @@ initial begin
     // Write -> Read
     addr = 16'h0000;    sel = 1;
     wdata = 32'hAAAAAAAA;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:msip",addr);
     assert_eq(rdata,32'hAAAA_AAAA);
 
     addr = 16'h0000;    sel = 1;
     wdata = 32'hFFFFFFFF;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:msip",addr);
     assert_eq(rdata,32'hFFFF_FFFF);
 
     addr = 16'h0000;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:msip",addr);
     assert_eq(rdata,32'h0000_0000);
 
     addr = 16'h0000;    sel = 1;
     wdata = 32'h55555555;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:msip",addr);
     assert_eq(rdata,32'h5555_5555);
@@ -133,18 +133,18 @@ initial begin
     // Addr 4000 / 4004
     addr = 16'h4000;    sel = 1;
     wdata = 32'hAAAA_AAAA;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:mtimecmp_l",addr);
     assert_eq(rdata,32'hAAAA_AAAA);
 
     addr = 16'h4004;    sel = 1;
     wdata = 32'hFFFFFFFF;
-    we = 3'b1_10;
+    we = 4'b1111;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     $display("Write %h:mtimecmp_h",addr);
     assert_eq(rdata,32'hFFFF_FFFF);

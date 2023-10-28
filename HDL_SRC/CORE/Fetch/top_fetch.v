@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 04:52
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/01/24 05:29
+ * Last Modified: 2023/10/28 13:23
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -21,6 +21,8 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/18	Masaru Aoki	Jump時のProgramCounterのセレクトを
+ *                          WriteBackステートで行う
  * 2018/12/17	Masaru Aoki	First Version
  * *****************************************************************
  */
@@ -33,9 +35,8 @@ module top_fetch(
     // From StateMachine
     input phase_fetch,               // Fetch Phase
     input phase_writeback,           // WriteBack Phase
-    // From MemoryAccess
-    input jump_state_wf,             // PCの次のアドレスがJumpアドレス
-    input [XLEN-1:0] regdata_for_pc, // Jump先アドレス
+    // From WriteBack
+    input [XLEN-1:0] next_pc_wf,     // 次のアドレス
     // From InstMemory
     input [XLEN-1:0] inst_data,      // InstMemory Data
 
@@ -43,7 +44,6 @@ module top_fetch(
     output [AWIDTH-1:0] inst_addr,   // InstMemory Address
     // For Decode
     output [XLEN-1:0] curr_pc_fd,    // Current PC Address for Decode
-    output [XLEN-1:0] next_pc_fd,    //    Next PC Address for Decode
     output [XLEN-1:0] inst,          // Instruction
     // For StateMachine
     output stall_fetch               // Stall Fetch Phase
@@ -52,10 +52,9 @@ module top_fetch(
     `include "core_general.vh"
    
     reg [XLEN-1:0] program_counter; // Program Counter
-    reg [(XLEN*2)-1:0] latch_fetch; // Latch for Next Stage
+    reg [XLEN-1:0] latch_fetch;     // Latch for Next Stage
     
     wire [XLEN-1:0] curr_pc;        //      PC Address
-    wire [XLEN-1:0] next_pc;        // Next PC Address
 
     /////////////////////////////////////////////
     // Program Counter
@@ -63,17 +62,12 @@ module top_fetch(
         if(!rst_n)
             program_counter <= RESET_VECTOR;
         else if(phase_writeback)
-            if(jump_state_wf)
-                program_counter <= regdata_for_pc;
-            else
-                program_counter <= next_pc;
+            program_counter <= next_pc_wf;
         else
             program_counter <= program_counter;
     end
 
     assign curr_pc = program_counter;
-    // RISC-Vの命令は4byte単位 
-    assign next_pc = program_counter + 4;
     // InstMemory用アドレス / InstMemoryは1Word=4Byteなため下位2bitを捨てる
     assign inst_addr = program_counter[AWIDTH+1:2];
     // Decode用inst
@@ -88,14 +82,14 @@ module top_fetch(
     // 次ステージのためのラッチ
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n)
-            latch_fetch <= {(XLEN*2){1'b0}};
+            latch_fetch <= {(XLEN){1'b0}};
         else if(phase_fetch)
-            latch_fetch <= {curr_pc,next_pc};
+            latch_fetch <= curr_pc;
         else
             latch_fetch <= latch_fetch;
     end
 
-    assign {curr_pc_fd,next_pc_fd} = latch_fetch;
+    assign curr_pc_fd = latch_fetch;
 
 endmodule
 

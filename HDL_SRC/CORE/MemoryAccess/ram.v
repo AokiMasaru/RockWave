@@ -5,7 +5,7 @@
  * File Created: 2018/12/30 06:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 10:12
+ * Last Modified: 2023/10/22 12:13
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -17,6 +17,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/22	Masaru Aoki	32bitメモリに1Byte単位でアクセスする
  * 2019/02/22	Masaru Aoki	ByteWriteEnable付きのBlockRAMに変更
  * 2019/01/24	Masaru Aoki	RV64Iに対応
  * 2019/01/04	Masaru Aoki	Byte / HalfWord / Wordアクセスに対応
@@ -30,21 +31,17 @@ module ram(
     input rst_n,                // Global Reset
     input [AWIDTH-1:0] addr,    // Address
     input [DWIDTH-1:0] qin,     // Read  Data
-    input [2:0] we,             // Memory Write Enable
+    input [3:0] we,             // Memory Write Enable 1stから4thByteまでバイト毎のWriteEnable
     output [DWIDTH-1:0] qout    // Read  Data
 );
     `include "core_general.vh"
 
     wire [3:0] weram;
 
-    assign weram[3] = (we == 3'b1_10); // 4thByte Word Access
-    assign weram[2] = (we == 3'b1_10); // 3rdByte Word Access
-    assign weram[1] = (we == 3'b1_10) || (we == 3'b1_01);// 2ndByte Word / HarlWord
-    assign weram[0] = (we[2] == 1'b1); // 1stByte All Write Access
 
     bytewrite_ram_1b U_ram(
         .clk(clk),
-        .we(weram),
+        .we(we),
         .addr(addr),
         .di(qin),
         .do(qout)

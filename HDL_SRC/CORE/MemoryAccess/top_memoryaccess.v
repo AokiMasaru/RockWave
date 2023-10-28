@@ -5,7 +5,7 @@
  * File Created: 2019/01/02 05:45
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/15 16:36
+ * Last Modified: 2023/10/25 05:18
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/22	Masaru Aoki	32bitメモリに1Byte単位でアクセスする
  * 2023/09/27	Masaru Aoki	CSR機能追加
  * 2019/01/24	Masaru Aoki	RV64I対応
  * 2019/01/02	Masaru Aoki	First Version
@@ -35,13 +36,13 @@ module top_memoryaccess(
     input [OPLEN-1:0] decoded_op_em, // Decoded OPcode
     input jump_state_em,             // PCの次のアドレスがJumpアドレス
     input [4:0] rdsel_em,            // RD選択
-    input [XLEN-1:0] next_pc_em,     // Next PC Address from Execute
+    input [XLEN-1:0] curr_pc_em,     // 現在 PC Address from Execute
     input [XLEN-1:0] alu_out_em,     // ALU output
     input [XLEN-1:0] rs2data_em,     // RS2data
     // For DataMemory
     output [XLEN-1:0] data_mem_addr,// Address
     output [XLEN-1:0] data_mem_wdata,// Write Data
-    output [2:0] data_mem_we,        // Write Enable
+    output [3:0]      data_mem_we,  // Write Enable
     // For CSR
     output [11:0]     csr_addr,     // Address
     output [XLEN-1:0] csr_wdata,    // Write Data
@@ -51,7 +52,7 @@ module top_memoryaccess(
     output [OPLEN-1:0] decoded_op_mw,// Decoded OPcode
     output jump_state_mw,            // PCの次のアドレスがJumpアドレス
     output [4:0] rdsel_mw,           // RD選択
-    output [XLEN-1:0] next_pc_mw,    // Next PC Address for Decode
+    output [XLEN-1:0] curr_pc_mw,    // 元 PC Address for Decode
     output [XLEN-1:0] alu_out_mw,    // ALU output
     output [XLEN-1:0] mem_out_mw,    // Data Memory output
     output [XLEN-1:0] csr_out_mw,    // CSR output
@@ -71,13 +72,16 @@ module top_memoryaccess(
 
     /////////////////////////////////////////////
     // Memory Access STORE系
-    assign data_mem_addr = alu_out_em;
-    assign data_mem_wdata = rs2data_em;
-    assign data_mem_we = {(we & phase_memoryaccess),funct3[1:0]};
+    //     データメモリのアクセスは1Byte単位
+    //      4byteにアライメント　ミスアライメントの例外は後日実装
+    assign data_mem_addr = { 2'b00 , alu_out_em[XLEN-1:2]};
+    assign data_mem_wdata = mem_wdata;
 
     /////////////////////////////////////////////
     // Memory Access LOAD系
-    assign mem_out_mw = func_mem_out(funct3,data_mem_out);
+    assign mem_out_mw = func_mem_out(funct3,mem_out);
+
+    // バイト・ハーフ・ワードアクセス
     function [XLEN-1:0] func_mem_out(
         input [2:0] funct3,
         input [XLEN-1:0] mem_out
@@ -98,6 +102,76 @@ module top_memoryaccess(
     end
     endfunction
 
+    ////////////////////////////////////////////////////
+    // Byte Read Access
+    wire [1:0] addr_sub = alu_out_em[1:0];
+    wire [XLEN-1:0] mem_out = func_read_align(addr_sub, data_mem_out);
+    // ワードメモリに対するメモリアクセスをバイト単位にする
+    function [XLEN-1:0] func_read_align(
+        input [1:0] addr,
+        input [XLEN-1:0] mem_out
+    );
+    begin
+        case(addr)
+            2'b00 : func_read_align =                mem_out[31: 0];
+            2'b01 : func_read_align = {{(8 ){ 1'b0}},mem_out[31: 8]};
+            2'b10 : func_read_align = {{(16){ 1'b0}},mem_out[31:16]};
+            2'b11 : func_read_align = {{(24){ 1'b0}},mem_out[31:24]};
+            default:   func_read_align = {(XLEN-1){1'bx}};
+        endcase
+    end
+    endfunction
+
+    ////////////////////////////////////////////////////
+    // Byte Write Access
+    wire [XLEN-1:0] mem_wdata = func_write_align(addr_sub, rs2data_em);
+    // ワードメモリに対するメモリアクセスをバイト単位にする
+    function [XLEN-1:0] func_write_align(
+        input [1:0] addr,
+        input [XLEN-1:0] mem_in
+    );
+    begin
+        case(addr)
+            2'b00 : func_write_align =  mem_in[31: 0]             ;
+            2'b01 : func_write_align = {mem_in[23: 0],{(8 ){ 1'b0}}};
+            2'b10 : func_write_align = {mem_in[15: 0],{(16){ 1'b0}}};
+            2'b11 : func_write_align = {mem_in[ 7: 0],{(24){ 1'b0}}};
+            default:   func_write_align = {(XLEN-1){1'bx}};
+        endcase
+    end
+    endfunction
+
+    ////////////////////////////////////////////////////
+    // Write Enable作成
+    assign data_mem_we = (we & phase_memoryaccess) ? func_weram({funct3[1:0],addr_sub}) : 4'b0000;
+
+    function [3:0] func_weram(
+        input [3:0] accesstype
+    );
+    begin
+        case(accesstype)
+            // Byte Access
+            4'b00_00 : func_weram = 4'b0001;
+            4'b00_01 : func_weram = 4'b0010;
+            4'b00_10 : func_weram = 4'b0100;
+            4'b00_11 : func_weram = 4'b1000;
+            // Harf Access
+            4'b01_00 : func_weram = 4'b0011;
+            // 4'b01_01 : func_weram = 4'b0110;       // misAlignment
+            4'b01_10 : func_weram = 4'b1100;
+            // 4'b01_11 : func_weram = 4'b1000;       // misAlignment
+            // Word Access
+            4'b10_00 : func_weram = 4'b1111;
+            //4'b10_01 : func_weram = 4'1111;       // misAlignment
+            //4'b10_10 : func_weram = 4'b1111;       // misAlignment
+            //4'b10_11 : func_weram = 4'b1111;       // misAlignment
+            // Dword Access
+            // 4'b11_00
+            default:   func_weram = {(XLEN-1){1'bx}};
+        endcase
+    end
+    endfunction
+
     /////////////////////////////////////////////
     // CSR系
     assign csr_addr = decoded_op_em[CSR_ADR_BIT_H:CSR_ADR_BIT_L];
@@ -111,12 +185,12 @@ module top_memoryaccess(
         if(!rst_n)
             latch_memoryaccess <= {LATCH_LEN{1'b0}};
         else if(phase_memoryaccess)
-            latch_memoryaccess <= {next_pc_em,alu_out_em,jump_state_em,decoded_op_em,rdsel_em,csr_rdata};
+            latch_memoryaccess <= {curr_pc_em,alu_out_em,jump_state_em,decoded_op_em,rdsel_em,csr_rdata};
         else
             latch_memoryaccess <= latch_memoryaccess;
     end
 
-    assign {next_pc_mw,alu_out_mw,jump_state_mw,decoded_op_mw,rdsel_mw,csr_out_mw} = latch_memoryaccess;
+    assign {curr_pc_mw,alu_out_mw,jump_state_mw,decoded_op_mw,rdsel_mw,csr_out_mw} = latch_memoryaccess;
 
     /////////////////////////////////////////////
     // For statemachine

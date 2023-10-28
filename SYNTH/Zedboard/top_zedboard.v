@@ -20,13 +20,22 @@ module top_zedboard(
     wire [XLEN-1:0] data_mem_out;
     wire [XLEN-1:0] data_mem_addr;
     wire [XLEN-1:0] data_mem_wdata;
-    wire [2:0] data_mem_we;
+    wire [3:0]      data_mem_we;
 
 `ifdef __ICARUS__
 initial begin
     //$readmemh(`INST_ROM_FILE_NAME, u_inst_memory.mem);
+`ifdef INST_ROM_FILE_NAME
+    $readmemh(`INST_ROM_FILE_NAME, u_inst_memory.U_ram.ram);
+`else
     $readmemh("../../../fw/martos.rom.hex", u_inst_memory.U_ram.ram);
+`endif
+`ifdef INST_RAM_FILE_NAME
+    $readmemh(`INST_RAM_FILE_NAME, U_localbus.U_data_memory.U_ram.RAM);
+`else
     $readmemh("../../../fw/martos.ram.hex", U_localbus.U_data_memory.U_ram.RAM);
+`endif
+
 end
 `endif
 

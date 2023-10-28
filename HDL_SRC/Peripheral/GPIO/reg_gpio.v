@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 09:29
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/06 05:07
+ * Last Modified: 2023/10/26 05:25
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -26,7 +26,7 @@ module reg_gpio(
     // Local BUS
     input               sel,        // Select this Memory Block
     input [AWIDTH-1:0]  addr,       // Address
-    input [2:0]         we,         // Write Enable
+    input [3:0]         we,         // Write Enable
     input [XLEN-1:0]    wdata,      // Write Data
     output [XLEN-1:0]   rdata,     // Read Data
 
@@ -50,17 +50,17 @@ module reg_gpio(
     wire [ 7:0]     reg20;
 
     // WriteEnable at Position
-    assign we_1st = (we[2] == 1'b1); // 1stByte: All Write Access
-    assign we_2nd = (we == 3'b1_10) || (we == 3'b1_01);// 2ndByte:Word / HarlWord Access
-    assign we_3rd = (we == 3'b1_10); // 3rdByte: Word Access
-    assign we_4th = (we == 3'b1_10); // 4thByte: Word Access
+    assign we_1st = we[0];  // 1stByte:
+    assign we_2nd = we[1];  // 2ndByte:
+    assign we_3rd = we[2];  // 3rdByte:
+    assign we_4th = we[3];  // 4thByte:
 
     // Address Select
-    wire adsel00 = ({addr[7:2],2'b00} == 8'h00) & sel;
-    wire adsel04 = ({addr[7:2],2'b00} == 8'h04) & sel;
-    wire adsel10 = ({addr[7:2],2'b00} == 8'h10) & sel;
-    wire adsel11 = ({addr[7:2],2'b00} == 8'h10) & sel;
-    wire adsel20 = ({addr[7:2],2'b00} == 8'h20) & sel;
+    wire adsel00 = (addr == 8'h00) & sel;
+    wire adsel04 = (addr == 8'h01) & sel;
+    wire adsel10 = (addr == 8'h04) & sel;
+    wire adsel11 = (addr == 8'h04) & sel;
+    wire adsel20 = (addr == 8'h08) & sel;
 
     // Write Enable for RW reg
     wire wenble00 = adsel00 & we_1st;

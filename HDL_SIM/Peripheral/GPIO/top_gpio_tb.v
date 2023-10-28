@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 11:54
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2019/03/03 15:41
+ * Last Modified: 2023/10/28 13:13
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -16,6 +16,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/10/22	Masaru Aoki	32bitメモリに1Byte単位でアクセスする
  * 2019/03/03	Masaru Aoki	First Version
  * *****************************************************************
  */
@@ -27,12 +28,12 @@ module top_gpio_tb;
     reg clk;              // Global Clock
     reg rst_n;            // Global Reset
 
-    reg  [15:0] gpio_pin_in;   // GPIO 端子 (入力)
+    reg  [12:0] gpio_pin_in;   // GPIO 端子 (入力)
     wire [ 7:0] gpio_pin_out;  // GPIO 端子 (出力)
 
     reg           sel;        // Select this Memory Block
-    reg [11:0]    addr;       // Address
-    reg [2:0]     we;         // Write Enable
+    reg [13:0]    addr;       // Address
+    reg [3:0]     we;         // Write Enable
     reg [31:0]    wdata;      // Write Data
     wire [31:0]   rdata;      // Read Data
 
@@ -90,36 +91,36 @@ initial begin
 
     //////////////////////////////////////////////////////////////////
     // Write -> Read
-    // Addr 000 Half word Access
-    addr = 12'h000;    sel = 1;
+    // Addr 000 byte Access
+    addr = 14'h000;    sel = 1;
     wdata = 32'hAAAAAAAA;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h000000AA);
 
-    addr = 12'h000;    sel = 1;
+    addr = 14'h000;    sel = 1;
     wdata = 32'hFFFFFFFF;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h000000FF);
 
-    addr = 12'h000;    sel = 1;
+    addr = 14'h000;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
-    addr = 12'h000;    sel = 1;
+    addr = 14'h000;    sel = 1;
     wdata = 32'h55555555;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h00000055);
 
@@ -128,35 +129,35 @@ initial begin
     assert_eq(rdata,32'h00000000);
 
     // Addr 004
-    addr = 12'h004;    sel = 1;
+    addr = 14'h004;    sel = 1;
     wdata = 32'hAAAAAAAA;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h000000AA);
 
-    addr = 12'h004;    sel = 1;
+    addr = 14'h004;    sel = 1;
     wdata = 32'hFFFFFFFF;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h000000FF);
 
-    addr = 12'h004;    sel = 1;
+    addr = 14'h004;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
-    addr = 12'h004;    sel = 1;
+    addr = 14'h004;    sel = 1;
     wdata = 32'h55555555;
-    we = 3'b1_01;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_01;
+    we = 4'b000;
     #(`STEP)
     assert_eq(rdata,32'h00000055);
 
@@ -165,36 +166,36 @@ initial begin
     assert_eq(rdata,32'h00000000);
 
     // GPIO out
-    // Addr 020 Word Write
-    addr = 12'h020;    sel = 1;
+    // Addr 020 Byte Write
+    addr = 14'h020;    sel = 1;
     wdata = 32'hAAAAAAAA;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h000000AA);
 
-    addr = 12'h020;    sel = 1;
+    addr = 14'h020;    sel = 1;
     wdata = 32'hFFFFFFFF;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h000000FF);
 
-    addr = 12'h020;    sel = 1;
+    addr = 14'h020;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
-    addr = 12'h020;    sel = 1;
+    addr = 14'h020;    sel = 1;
     wdata = 32'h55555555;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000055);
 
@@ -211,19 +212,19 @@ initial begin
     rst_n = 1;
 
     // Dfilter = 0
-    addr = 12'h000;    sel = 1;
+    addr = 14'h000;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
     // refclk
-    addr = 12'h004;    sel = 1;
+    addr = 14'h004;    sel = 1;
     wdata = 32'h00000000;
-    we = 3'b1_10;
+    we = 4'b0001;
     #(`STEP)
-    we = 3'b0_10;
+    we = 4'b0000;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
@@ -231,31 +232,31 @@ initial begin
     sel = 0;
     #(`STEP)
     #(`STEP)
-    addr = 12'h010;    sel = 1;
+    addr = 14'h010;    sel = 1;
     #(`STEP)
-    assert_eq(rdata,32'h0000FFFF);
+    assert_eq(rdata,32'h00001FFF);
 
     gpio_pin_in = 16'h5555;
     sel = 0;
     #(`STEP)
     #(`STEP)
-    addr = 12'h010;    sel = 1;
+    addr = 14'h010;    sel = 1;
     #(`STEP)
-    assert_eq(rdata,32'h00005555);
+    assert_eq(rdata,32'h00001555);
 
     gpio_pin_in = 16'hAAAA;
     sel = 0;
     #(`STEP)
     #(`STEP)
-    addr = 12'h010;    sel = 1;
+    addr = 14'h010;    sel = 1;
     #(`STEP)
-    assert_eq(rdata,32'h0000AAAA);
+    assert_eq(rdata,32'h00000AAA);
 
     gpio_pin_in = 16'h0000;
     sel = 0;
     #(`STEP)
     #(`STEP)
-    addr = 12'h010;    sel = 1;
+    addr = 14'h010;    sel = 1;
     #(`STEP)
     assert_eq(rdata,32'h00000000);
 
