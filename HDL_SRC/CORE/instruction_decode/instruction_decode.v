@@ -5,7 +5,7 @@
  * File Created: 2018/12/17 20:41
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/18 03:02
+ * Last Modified: 2023/11/03 07:27
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -56,6 +56,7 @@ localparam OP_IMM   = 7'b00_100_11;
 localparam OP       = 7'b01_100_11;
 localparam MISC_MEM = 7'b00_011_11;
 localparam SYSTEM   = 7'b11_100_11;
+localparam MRET     = {25'b0011000_00010_00000_000_00000,SYSTEM};
 
 //commom
 assign stall_decode = 1'b0;
@@ -180,6 +181,9 @@ wire [1:0] csr_we = (inst_op == SYSTEM) ? inst_funct3_raw[1:0] : 2'b00;
 //must_jump
 wire must_jump = (inst_op == JAL) || (inst_op == JALR);
 
+// OPCODE = MRET
+wire op_mret = (inst == MRET);
+
 //decoded_op
 wire[OPLEN-1:0] decoded_op_pre;
 assign decoded_op_pre[USE_ALU_IN1_BIT] = use_alu_in1;
@@ -191,7 +195,7 @@ assign decoded_op_pre[DATA_MEM_WE_BIT] = data_mem_we;
 assign decoded_op_pre[MUST_JUMP_BIT] = must_jump;
 assign decoded_op_pre[CSR_ADR_BIT_H:CSR_ADR_BIT_L] = inst_csr_adr;
 assign decoded_op_pre[CSR_WE_BIT_H :CSR_WE_BIT_L ] = csr_we;
-
+assign decoded_op_pre[OP_MRET_BIT] = op_mret;
 
 
 //FF

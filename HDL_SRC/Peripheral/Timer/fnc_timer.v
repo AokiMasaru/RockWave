@@ -5,7 +5,7 @@
  * File Created: 2023/10/09 12:22
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/09 13:22
+ * Last Modified: 2023/10/28 13:29
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -27,7 +27,7 @@ module fnc_timer(
     input  [63:0]   mtimecmp,   // 64bit timer compare register
     output [63:0]   mtime,      // 64bit timer regsiter
 
-    output          int_timer  // GPIO 入力状態
+    output          int_timer  // タイマ割込
 );
 
     reg     [63:0]  internal_counter;

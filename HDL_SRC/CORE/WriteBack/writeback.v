@@ -5,7 +5,7 @@
  * File Created: 2019/01/23 12:25
  * Author: Takuya Shono ( ta.shono+1@gmail.com )
  * *****
- * Last Modified: 2023/10/28 13:24
+ * Last Modified: 2023/11/03 07:34
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -40,6 +40,11 @@ module writeback(
     output [4:0] rdsel_wr,             //RD選択
     //For Fetch
     output [XLEN-1:0] next_pc_wf,       // 次のPC Address
+    //For CSR
+    output [XLEN-1:0] next_pc_wc,       // 次のPC Address
+    input             int_cw,           // 割込発生
+    input  [XLEN-1:0] mtvec,            // 割込ベクタ
+    input  [XLEN-1:0] mepc,             // 割込前PC
    // For StateMachine
     output stall_writeback             // Stall writeback Phase  
 
@@ -57,7 +62,9 @@ module writeback(
 
     // 
     assign next_pc = curr_pc_mw + 4;
-    assign next_pc_wf = select_pc(alu_out_mw, next_pc, jump_state_wf);
+    // For CSR 割込がない場合の次の実行アドレス
+    assign next_pc_wc = select_pc(alu_out_mw, next_pc, jump_state_wf);
+    assign next_pc_wf = int_cw ? mtvec : (decoded_op_mw[OP_MRET_BIT] ? mepc : next_pc_wc);
     function [XLEN-1:0] select_pc;
         input [XLEN-1:0] alu_out_mw;
         input [XLEN-1:0] next_pc;

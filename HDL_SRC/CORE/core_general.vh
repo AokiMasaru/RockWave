@@ -5,7 +5,7 @@
  * File Created: 2018/12/18 04:23
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/15 16:37
+ * Last Modified: 2023/11/03 07:27
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -62,7 +62,7 @@
     /////////////////////////////////////////////
     // Doecode
     /////////////////////////////////////////////
-    parameter OPLEN = 25;
+    parameter OPLEN = 26;
 
     // RS1/RS2
     parameter USE_ALU_IN1_BIT = 0;
@@ -122,6 +122,10 @@
       parameter CSR_CSRW = 2'b01;
       parameter CSR_CSRS = 2'b10;
       parameter CSR_CSRC = 2'b11;
+
+    // op:MRET
+    parameter OP_MRET_BIT = 25;
+
 
     /////////////////////////////////////////////
     // Common

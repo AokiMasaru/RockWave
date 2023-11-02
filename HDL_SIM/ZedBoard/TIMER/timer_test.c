@@ -8,16 +8,20 @@
  */
 
 // TIMER
-volatile unsigned long      * const reg_vga_en    = ((unsigned long *)0x02000000U);
+volatile unsigned char      * const reg_msip      = ((unsigned long *)0x02000000U);
 volatile unsigned long long * const reg_mtimecmp  = ((unsigned long *)0x02004000U);
 volatile unsigned long long * const reg_mtime     = ((unsigned long *)0x0200BFF8U);
 
+extern EnableTimer();
+extern EnableInt();
+extern StartTimer();
+
 void main()
 {
-    *reg_msip      = 0xFFFFFFFF;
-    *reg_msip      = 0x55555555;
-    *reg_msip      = 0xAAAAAAAA;
-    *reg_msip      = 0x00000000;
+    *reg_msip      = 0xFF;
+    *reg_msip      = 0x55;
+    *reg_msip      = 0xAA;
+    *reg_msip      = 0x00;
 
 
 
@@ -26,8 +30,16 @@ void main()
     *reg_mtimecmp  = 0xAAAAAAAAAAAAAAAA;
     *reg_mtimecmp  = 0x0000000000000000;
 
-    for(int i=0;i<10;i++){
-        int inp = *reg_mtime;
-        *reg_mtimecmp = inp;
-    }
+    *reg_mtimecmp  = 0x0000000000000A00;
+
+    // Enable Timer
+    StartTimer();
+
+    while(*reg_mtime < *reg_mtimecmp);
+
+    for(int i=0;i<10;i++);
+
+    *reg_mtimecmp  = 0xFFFFFFFFFFFFFFFF;
+
+    for(int i=0;i<10;i++);
 }

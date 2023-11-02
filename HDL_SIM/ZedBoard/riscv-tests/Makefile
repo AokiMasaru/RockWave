@@ -3,7 +3,7 @@
 # File Created: 2018/12/19 12:12
 # Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
 ######
-# Last Modified: 2023/10/25 05:23
+# Last Modified: 2023/10/30 05:22
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2018  Project top_core
@@ -14,6 +14,7 @@
 ######################################################################
 
 testbench = zedboard_tb.v
+target = zedboard_tb
 
 SRCDIR = ../../../HDL_SRC/
 INCDIR = ../../../HDL_SRC/CORE/
@@ -28,7 +29,7 @@ hexRamFiles := $(wildcard *[a-z].RAM.hex)#
 hexFiles_m := $(wildcard rv32ui-p-lb.hex)#
 
 define F
-	iverilog -o $(1).test -I $(INCDIR) -I $(BOARDDIR) -D INST_ROM_FILE_NAME=\"$(1)\" -D INST_RAM_FILE_NAME=\"$(basename $(1)).RAM.hex\" $(testbench) $(DUT) $(allVerilogFiles)
+	iverilog -o $(1).test -I $(INCDIR) -I $(BOARDDIR) -D TARGET=\"$(target)\" -D INST_ROM_FILE_NAME=\"$(1)\" -D INST_RAM_FILE_NAME=\"$(basename $(1)).RAM.hex\" ../$(testbench) $(DUT) $(allVerilogFiles)
 
 	vvp -N $(1).test>>allResult_tmp.txt
 
@@ -47,8 +48,13 @@ rv32ui-p-lb: rv32ui-p-lb.hex.vcd
 	grep result allResult_tmp.txt>allResult.txt
 	rm allResult_tmp.txt
 
+rv32ui-p-lw: rv32ui-p-lw.hex.vcd
+	$(call F,$(hexFiles_m))
+	grep result allResult_tmp.txt>allResult.txt
+	rm allResult_tmp.txt
+
 wave:
-	gtkwave rv32ui-p-lb.hex.vcd $(testbench).test.gtkw -a $(testbench).test.gtkw
+	gtkwave rv32ui-p-lw.hex.vcd $(testbench).test.gtkw -a $(testbench).test.gtkw
 
 clean:
 	rm *.vcd *.test

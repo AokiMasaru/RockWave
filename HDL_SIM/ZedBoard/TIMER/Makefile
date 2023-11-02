@@ -3,7 +3,7 @@
 # File Created: 2023/10/26 04:39
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2023/10/27 06:59
+# Last Modified: 2023/10/31 05:26
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2023  Project TIMER
@@ -17,6 +17,9 @@ testbench = ../zedboard_tb
 
 # start.oを一番はじめにリンクすること　.textセクションの先頭に置きたい
 OBJS = 	build/start.o   \
+		build/timer_handler.o \
+		build/trap_vector.o \
+		build/systimer.o \
 		build/$(target).o
 
 # Verilog 設定
@@ -37,6 +40,9 @@ all: hex
 hex:
 	riscv32-unknown-elf-gcc -c -ggdb -o build/start.o ../start.s -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
 	riscv32-unknown-elf-gcc -c -ggdb -o build/$(target).o  $(target).c -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
+	riscv32-unknown-elf-gcc -c -ggdb -o build/timer_handler.o timer_handler.s -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
+	riscv32-unknown-elf-gcc -c -ggdb -o build/trap_vector.o trap_vector.s -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
+	riscv32-unknown-elf-gcc -c -ggdb -o build/systimer.o  systimer.c -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
 
 	riscv32-unknown-elf-gcc -ggdb -T ../link.ld $(OBJS) -o $(target) -march=rv32i_zicsr -mabi=ilp32 -fPIC -nostdlib -nostartfiles
 

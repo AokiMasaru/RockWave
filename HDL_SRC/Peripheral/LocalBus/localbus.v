@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/28 13:22
+ * Last Modified: 2023/10/28 13:31
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -33,10 +33,14 @@ module localbus(
     input  [3:0]        we,                 // Write Enable
     output [XLEN-1:0]   qout,               // Read Data
 
+    // Interrupt
+    output              int_timer,          // Timer割込
+
     // PIN output / input
     input  [ INNUM-1:0] gpio_pin_in,   // GPIO 端子 (入力)
     output [OUTNUM-1:0] gpio_pin_out,  // GPIO 端子 (出力)
 
+    // VGA
     output    hsync,
     output    vsync,
     output [3:0]   rdata,
@@ -57,6 +61,9 @@ module localbus(
     wire [XLEN-1:0] vga_qout_sel;              // Selected VRAM Read data out
     wire [XLEN-1:0] timer_qout;                // 常時 Timer Read data out
     wire [XLEN-1:0] timer_qout_sel;            // Selected Timer Read data out
+
+    // 割込信号
+    wire    int_timer;
 
     // Local BUS としてのReadData出力
     assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel | timer_qout_sel;
@@ -130,7 +137,9 @@ module localbus(
         .addr           (addr[15:0]),
         .wdata          (qin),
         .we             (timer_we),
-        .rdata          (timer_qout)
+        .rdata          (timer_qout),
+
+        .int_timer      (int_timer)
     );
     
 

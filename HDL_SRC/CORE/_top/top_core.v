@@ -5,7 +5,7 @@
  * File Created: 2019/01/10 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/28 13:19
+ * Last Modified: 2023/11/03 07:34
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -34,7 +34,10 @@ module top_core(
     input [XLEN-1:0] data_mem_out,//データメモリからのデータ出力を接続する
     output [XLEN-1:0] data_mem_addr,//データメモリへのアドレスを接続する
     output [XLEN-1:0] data_mem_wdata,//データメモリへのデータ入力を接続する
-    output [3:0] data_mem_we//データメモリへのWriteEnable信号を接続する
+    output [3:0] data_mem_we,//データメモリへのWriteEnable信号を接続する
+
+    // Interrupt
+    input   int_timer
 );
 
 `include "core_general.vh"
@@ -50,6 +53,7 @@ wire phase_writeback;
 wire stall_writeback;
 wire jump_state_wf;             // PCの次のアドレスがJumpアドレス//////
 wire [XLEN-1:0] next_pc_wf;     // 次アドレス
+wire [XLEN-1:0] next_pc_wc;     // 次アドレス for CSR 割込からの復帰アドレス
 wire [XLEN-1:0] inst_data;      // InstMemory Data
 wire [AWIDTH-1:0] inst_addr;   // InstMemory Address
 wire [XLEN-1:0] curr_pc_fd;    // Current PC Address for Decode
@@ -85,6 +89,9 @@ wire [11:0]     csr_addr;       // csr アドレス
 wire [XLEN-1:0] csr_wdata;      // CSR ライトデータ
 wire [1:0]      csr_we;         // CSR ライトイネーブル
 wire [XLEN-1:0] csr_rdata;      // CSR リードデータ
+wire            int_cw;         // 割込発生
+wire [XLEN-1:0] mtvec;          // 割込ベクタ
+wire [XLEN-1:0] mepc;           // 割込前アドレス
 
 statemachine u_statemachine(
 	.clk                (clk             ),
@@ -112,8 +119,12 @@ writeback u_writeback(
     .rddata_wr(rddata_wr),
     .rdsel_wr(rdsel_wr),
     .next_pc_wf(next_pc_wf),
+    .next_pc_wc(next_pc_wc),
     .phase_writeback(phase_writeback),
-    .stall_writeback(stall_writeback)
+    .stall_writeback(stall_writeback),
+    .int_cw(int_cw),
+    .mtvec(mtvec),
+    .mepc(mepc)
 );
 
 top_fetch u_top_fetch(
@@ -200,14 +211,23 @@ top_memoryaccess u_top_memoryaccess(
     .stall_memoryaccess (stall_memoryaccess )
 );
 
-reg_csr u_reg_csr(
+top_csr u_top_csr(
 	.clk             (clk             ),
     .rst_n           (rst_n           ),
 
     .csr_addr        (csr_addr        ),
     .csr_wdata       (csr_wdata       ),
     .csr_we          (csr_we          ),
-    .csr_rdata       (csr_rdata       )
+    .csr_rdata       (csr_rdata       ),
+
+    .phase_fetch     (phase_fetch     ),
+    .int_timer       (int_timer       ),
+    .next_pc_wc      (next_pc_wc      ),
+    .mret_ew         (decoded_op_em[OP_MRET_BIT]),
+    
+    .int_cw          (int_cw          ),
+    .mtvec           (mtvec           ),
+    .mepc            (mepc)
 );
 
 
