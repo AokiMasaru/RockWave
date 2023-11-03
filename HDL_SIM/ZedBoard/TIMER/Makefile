@@ -3,7 +3,7 @@
 # File Created: 2023/10/26 04:39
 # Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
-# Last Modified: 2023/10/31 05:26
+# Last Modified: 2023/11/04 08:23
 # Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
 ######
 # Copyright 2018 - 2023  Project TIMER
@@ -60,7 +60,11 @@ hex:
 	cp $(target).ram.hex synth.ram.hex
 
 iverilog:
-	iverilog -o $(testbench).test -I $(INCDIR) -D TARGET=\"$(target)\" -D INST_ROM_FILE_NAME=\"$(target).rom.hex\" -D INST_RAM_FILE_NAME=\"$(basename $(target)).ram.hex\" $(testbench).v $(DUT) $(allVerilogFiles)
+	iverilog -o $(testbench).test -I $(INCDIR) \
+		-D TARGET=\"$(target)\" \
+		-D INST_ROM_FILE_NAME=\"$(target).rom.hex\" \
+		-D INST_RAM_FILE_NAME=\"$(basename $(target)).ram.hex\" \
+		$(testbench).v $(DUT) $(allVerilogFiles)
 	vvp -N $(testbench).test
 	rm $(testbench).test
 

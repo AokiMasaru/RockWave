@@ -5,7 +5,7 @@
  * File Created: 2023/09/14 04:56
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/11/03 07:52
+ * Last Modified: 2023/11/04 08:37
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -73,6 +73,7 @@ module top_csr(
     wire [ XLEN-1:0]     reg341;                // MEPC
     wire [ XLEN-1:0]     reg342;                // Register:   Machine Cause register (mcause).
     wire [ XLEN-1:0]     mcause;                // write_data: Machine Cause register (mcause).
+    wire [ XLEN-1:0]     null_reg342_dataout;
     wire [ XLEN-1:0]     reg343;                // Register:   Machine Trap Value (mtval) Register
     wire [ XLEN-1:0]     mtval;                 // write_data: Machine Trap Value (mtval) Register
     wire [ XLEN-1:0]     null_reg343_dataout;
@@ -141,7 +142,7 @@ endfunction
     wire    wenble342 = phase_fetch & int;
 
     // 3. MEPC に割り込みが発生した時に実行中の PC を設定する。
-    wire    wenble341 = phase_fetch & int;
+    wire    wenble341 = (phase_fetch & int) | (adsel341 & we);
 
     //  4. MTVAL に 0 を設定する。
     assign    mtval = 32'h0000_0000;
@@ -247,9 +248,10 @@ endfunction
 
     // 0x341	MEPC	例外が発生した命令の場所を表す PC を格納する。
     //  mret 命令ではこの値を使って元の処理に復帰する。    
+    wire [XLEN-1:0] wdata341 = int ? next_pc_wc : wdata;
     reg_rw #(XLEN) U_reg341(
         .clk(clk), .rst_n(rst_n),
-        .wdata(next_pc_wc), .we(wenble341), 
+        .wdata(wdata341), .we(wenble341), 
         .rdata(reg341), .re(adsel341),
         .dataout(mepc)
     );

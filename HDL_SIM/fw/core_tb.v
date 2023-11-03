@@ -5,7 +5,7 @@
  * File Created: 2019/01/25 07:14
  * Author: kidtak51 ( 45393331+kidtak51@users.noreply.github.com )
  * *****
- * Last Modified: 2023/10/28 13:08
+ * Last Modified: 2023/11/04 08:46
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -73,76 +73,81 @@ wire [XLEN-1:0] x29_t4 = u_top_core.u_register_file.x29out;
 wire [XLEN-1:0] x30_t5 = u_top_core.u_register_file.x30out;
 wire [XLEN-1:0] x31_t6 = u_top_core.u_register_file.x31out;
 
+
 //gtk wave 波形表示用 CSR
-wire [XLEN-1:0] mstatus     = u_top_core.u_reg_csr.null_reg300_dataout;
-wire [XLEN-1:0] mie         = u_top_core.u_reg_csr.null_reg304_dataout;
-wire [XLEN-1:0] mtvec       = u_top_core.u_reg_csr.null_reg305_dataout;
-wire [XLEN-1:0] mscratch    = u_top_core.u_reg_csr.null_reg340_dataout;
-wire [XLEN-1:0] mepc        = u_top_core.u_reg_csr.null_reg341_dataout;
-wire [XLEN-1:0] mcause      = u_top_core.u_reg_csr.null_reg342_dataout;
-wire [XLEN-1:0] mtval       = u_top_core.u_reg_csr.null_reg343_dataout;
-wire [XLEN-1:0] mip         = u_top_core.u_reg_csr.null_reg344_dataout;
+wire [XLEN-1:0] mstatus     = u_top_core.u_top_csr.mstatus;
+wire [XLEN-1:0] mie         = u_top_core.u_top_csr.mie;
+wire [XLEN-1:0] mtvec       = u_top_core.u_top_csr.mtvec;
+wire [XLEN-1:0] mscratch    = u_top_core.u_top_csr.null_reg340_dataout;
+wire [XLEN-1:0] mepc        = u_top_core.u_top_csr.mepc;
+wire [XLEN-1:0] mcause      = u_top_core.u_top_csr.mcause;
+wire [XLEN-1:0] mtval       = u_top_core.u_top_csr.mtval;
+wire [XLEN-1:0] mip         = u_top_core.u_top_csr.null_reg344_dataout;
 
 // gtkwave 命令表示用
-wire [9:0] op = {u_top_core.u_instruction_decode.inst[14:12],u_top_core.u_instruction_decode.inst[6:0]};
+wire [21:0] op = {u_top_core.u_instruction_decode.inst[31:20],u_top_core.u_instruction_decode.inst[14:12],u_top_core.u_instruction_decode.inst[6:0]};
 wire [9:0][7:0] opcode = decode(op);
 
 function [9:0][7:0] decode(
-    input[9:0] op
+    input[21:0] op
 );
 begin
     casex (op)
-        10'bxxx_0110111: decode = "LUI";
-        10'bxxx_0010111: decode = "AUIPC";
-        10'bxxx_1101111: decode = "JAL";
-        10'b000_1100111: decode = "JALR";
-        10'b000_1100011: decode = "BEQ";
-        10'b001_1100011: decode = "BNE";
-        10'b100_1100011: decode = "BLT";
-        10'b101_1100011: decode = "BGE";
-        10'b110_1100011: decode = "BLTU";
-        10'b111_1100011: decode = "BGEU";
-        10'b000_0000011: decode = "LB";
-        10'b001_0000011: decode = "LH";
-        10'b010_0000011: decode = "LW";
-        10'b100_0000011: decode = "LBU";
-        10'b101_0000011: decode = "LHU";
-        10'b000_0100011: decode = "SB";
-        10'b001_0100011: decode = "SH";
-        10'b010_0100011: decode = "SW";
-        10'b000_0010011: decode = "ADDI";
-        10'b010_0010011: decode = "SLTI";
-        10'b011_0010011: decode = "SLTIU";
-        10'b100_0010011: decode = "XORI";
-        10'b110_0010011: decode = "ORI";
-        10'b111_0010011: decode = "ANDI";
-        10'b001_0010011: decode = "SLLI";
-        10'b101_0010011: decode = "SRLI";
-        10'b101_0010011: decode = "SRAI";
-        10'b000_0110011: decode = "ADD";
-        10'b000_0110011: decode = "SUB";
-        10'b001_0110011: decode = "SLL";
-        10'b010_0110011: decode = "SLT";
-        10'b011_0110011: decode = "SLTU";
-        10'b100_0110011: decode = "XOR";
-        10'b101_0110011: decode = "SRL";
-        10'b101_0110011: decode = "SRA";
-        10'b110_0110011: decode = "OR";
-        10'b111_0110011: decode = "AND";
-        10'b000_0001111: decode = "FENCE";
-        10'b001_0001111: decode = "FENCE.I";
-        10'b000_1110011: decode = "ECALL";
-        10'b000_1110011: decode = "EBREAK";
-        10'b001_1110011: decode = "CSRRW";
-        10'b010_1110011: decode = "CSRRS";
-        10'b011_1110011: decode = "CSRRC";
-        10'b101_1110011: decode = "CSRRWI";
-        10'b110_1110011: decode = "CSRRSI";
-        10'b111_1110011: decode = "CSRRCI";
+        22'bxxxxxxx_xxxxx_xxx_0110111: decode = "LUI";
+        22'bxxxxxxx_xxxxx_xxx_0010111: decode = "AUIPC";
+        22'bxxxxxxx_xxxxx_xxx_1101111: decode = "JAL";
+        22'bxxxxxxx_xxxxx_000_1100111: decode = "JALR";
+        22'bxxxxxxx_xxxxx_000_1100011: decode = "BEQ";
+        22'bxxxxxxx_xxxxx_001_1100011: decode = "BNE";
+        22'bxxxxxxx_xxxxx_100_1100011: decode = "BLT";
+        22'bxxxxxxx_xxxxx_101_1100011: decode = "BGE";
+        22'bxxxxxxx_xxxxx_110_1100011: decode = "BLTU";
+        22'bxxxxxxx_xxxxx_111_1100011: decode = "BGEU";
+        22'bxxxxxxx_xxxxx_000_0000011: decode = "LB";
+        22'bxxxxxxx_xxxxx_001_0000011: decode = "LH";
+        22'bxxxxxxx_xxxxx_010_0000011: decode = "LW";
+        22'bxxxxxxx_xxxxx_100_0000011: decode = "LBU";
+        22'bxxxxxxx_xxxxx_101_0000011: decode = "LHU";
+        22'bxxxxxxx_xxxxx_000_0100011: decode = "SB";
+        22'bxxxxxxx_xxxxx_001_0100011: decode = "SH";
+        22'bxxxxxxx_xxxxx_010_0100011: decode = "SW";
+        22'bxxxxxxx_xxxxx_000_0010011: decode = "ADDI";
+        22'bxxxxxxx_xxxxx_010_0010011: decode = "SLTI";
+        22'bxxxxxxx_xxxxx_011_0010011: decode = "SLTIU";
+        22'bxxxxxxx_xxxxx_100_0010011: decode = "XORI";
+        22'bxxxxxxx_xxxxx_110_0010011: decode = "ORI";
+        22'bxxxxxxx_xxxxx_111_0010011: decode = "ANDI";
+        22'bxxxxxxx_xxxxx_001_0010011: decode = "SLLI";
+        22'bxxxxxxx_xxxxx_101_0010011: decode = "SRLI";
+        22'bxxxxxxx_xxxxx_101_0010011: decode = "SRAI";
+        22'bxxxxxxx_xxxxx_000_0110011: decode = "ADD";
+        22'bxxxxxxx_xxxxx_000_0110011: decode = "SUB";
+        22'bxxxxxxx_xxxxx_001_0110011: decode = "SLL";
+        22'bxxxxxxx_xxxxx_010_0110011: decode = "SLT";
+        22'bxxxxxxx_xxxxx_011_0110011: decode = "SLTU";
+        22'bxxxxxxx_xxxxx_100_0110011: decode = "XOR";
+        22'bxxxxxxx_xxxxx_101_0110011: decode = "SRL";
+        22'bxxxxxxx_xxxxx_101_0110011: decode = "SRA";
+        22'bxxxxxxx_xxxxx_110_0110011: decode = "OR";
+        22'bxxxxxxx_xxxxx_111_0110011: decode = "AND";
+        22'bxxxxxxx_xxxxx_000_0001111: decode = "FENCE";
+        22'bxxxxxxx_xxxxx_001_0001111: decode = "FENCE.I";
+        22'b0000000_00000_000_1110011: decode = "ECALL";
+        22'b0000000_00001_000_1110011: decode = "EBREAK";
+        22'b0011000_00010_000_1110011: decode = "MRET";
+        22'b0001000_00101_000_1110011: decode = "WFI";
+        22'bxxxxxxx_xxxxx_001_1110011: decode = "CSRRW";
+        22'bxxxxxxx_xxxxx_010_1110011: decode = "CSRRS";
+        22'bxxxxxxx_xxxxx_011_1110011: decode = "CSRRC";
+        22'bxxxxxxx_xxxxx_101_1110011: decode = "CSRRWI";
+        22'bxxxxxxx_xxxxx_110_1110011: decode = "CSRRSI";
+        22'bxxxxxxx_xxxxx_111_1110011: decode = "CSRRCI";
         default:         decode = "";
     endcase
 end  
 endfunction
+
+
 
 //clock
 initial
