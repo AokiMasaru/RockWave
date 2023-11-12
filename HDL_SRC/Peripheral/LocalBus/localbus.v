@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/28 13:31
+ * Last Modified: 2023/11/11 09:19
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -25,6 +25,7 @@
  */
 module localbus(
     input               clk,                // Global clock
+    input               pixelclk,           // Pixel Clock
     input               rst_n,              // Global Resest
 
     // Local BUS
@@ -61,17 +62,19 @@ module localbus(
     wire [XLEN-1:0] vga_qout_sel;              // Selected VRAM Read data out
     wire [XLEN-1:0] timer_qout;                // 常時 Timer Read data out
     wire [XLEN-1:0] timer_qout_sel;            // Selected Timer Read data out
+    wire [XLEN-1:0] uart_qout_sel;             // Selected UART Read data out
 
     // 割込信号
     wire    int_timer;
 
     // Local BUS としてのReadData出力
-    assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel | timer_qout_sel;
+    assign qout = ram_qout_sel | gpio_qout_sel | vga_qout_sel | timer_qout_sel | uart_qout_sel;
 
     wire  ram_sel   = ((addr & BASE_MASK>>2) ==   RAM_BASE>>2);
     wire  gpio_sel  = ((addr & BASE_MASK>>2) ==  GPIO_BASE>>2);
     wire  vga_sel   = ((addr & BASE_MASK>>2) ==   VGA_BASE>>2);
     wire  timer_sel = ((addr & BASE_MASK>>2) == TIMER_BASE>>2);
+    wire  uart_sel  = ((addr & BASE_MASK>>2) ==  UART_BASE>>2);
 
 
     ////////////////////////////////////////////////////////////////
@@ -111,6 +114,7 @@ module localbus(
     assign vga_qout_sel = vga_sel ? vga_qout : {XLEN{1'b0}};
     top_vgacontroller U_top_vgacontroller(
         .clk            (clk),
+        .pixelclk       (pixelclk),
         .rst_n          (rst_n),
 
         .hsync          (hsync),
@@ -142,6 +146,17 @@ module localbus(
         .int_timer      (int_timer)
     );
     
+    ////////////////////////////////////////////////////////////////
+    // UART領域
+    top_uart U_top_uart(
+        .clk            (clk),
+        .rst_n          (rst_n),
+        .sel            (uart_sel),
+        .addr           (addr[AWIDTH-1:0]),
+        .wdata          (qin),
+        .we             (we),
+        .rdata          (uart_qout_sel)
+    );
 
 
 endmodule

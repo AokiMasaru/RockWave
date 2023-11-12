@@ -1,0 +1,239 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Fri Nov 10 07:50:04 2023
+# Process ID: 42007
+# Current directory: /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1
+# Command line: vivado -log pll_pixelclock.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source pll_pixelclock.tcl
+# Log file: /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/pll_pixelclock.vds
+# Journal file: /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/vivado.jou
+# Running On: H370HD3, OS: Linux, CPU Frequency: 3800.351 MHz, CPU Physical cores: 6, Host memory: 16618 MB
+#-----------------------------------------------------------
+source pll_pixelclock.tcl -notrace
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1323.340 ; gain = 0.023 ; free physical = 1668 ; free virtual = 10923
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: pll_pixelclock
+Command: synth_design -top pll_pixelclock -part xc7z020clg484-1 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 42128
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2050.531 ; gain = 404.629 ; free physical = 700 ; free virtual = 9948
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'pll_pixelclock' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock.v:65]
+INFO: [Synth 8-6157] synthesizing module 'pll_pixelclock_clk_wiz' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_clk_wiz.v:65]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [/opt/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:1951]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (0#1) [/opt/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:1951]
+INFO: [Synth 8-6157] synthesizing module 'MMCME2_ADV' [/opt/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:82174]
+	Parameter BANDWIDTH bound to: OPTIMIZED - type: string 
+	Parameter CLKFBOUT_MULT_F bound to: 49.875000 - type: double 
+	Parameter CLKFBOUT_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKFBOUT_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKIN1_PERIOD bound to: 10.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE_F bound to: 42.000000 - type: double 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT0_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT4_CASCADE bound to: FALSE - type: string 
+	Parameter COMPENSATION bound to: ZHOLD - type: string 
+	Parameter DIVCLK_DIVIDE bound to: 5 - type: integer 
+	Parameter STARTUP_WAIT bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'MMCME2_ADV' (0#1) [/opt/Xilinx/Vivado/2023.2/scripts/rt/data/unisim_comp.v:82174]
+INFO: [Synth 8-6155] done synthesizing module 'pll_pixelclock_clk_wiz' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_clk_wiz.v:65]
+INFO: [Synth 8-6155] done synthesizing module 'pll_pixelclock' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock.v:65]
+WARNING: [Synth 8-3301] Unused top level parameter/generic Xilinx
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2128.500 ; gain = 482.598 ; free physical = 599 ; free virtual = 9838
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2143.344 ; gain = 497.441 ; free physical = 597 ; free virtual = 9836
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2143.344 ; gain = 497.441 ; free physical = 597 ; free virtual = 9836
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2149.281 ; gain = 0.000 ; free physical = 591 ; free virtual = 9830
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_ooc.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_ooc.xdc] for cell 'inst'
+Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_board.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_board.xdc] for cell 'inst'
+Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xdc] for cell 'inst'
+Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2200.273 ; gain = 0.000 ; free physical = 585 ; free virtual = 9824
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Timing 38-2] Deriving generated clocks
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2200.309 ; gain = 0.000 ; free physical = 585 ; free virtual = 9824
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 573 ; free virtual = 9817
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 573 ; free virtual = 9817
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for inst. (constraint file  /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/dont_touch.xdc, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 573 ; free virtual = 9817
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 572 ; free virtual = 9817
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:11 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 594 ; free virtual = 9837
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 550 ; free virtual = 9800
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 550 ; free virtual = 9800
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 550 ; free virtual = 9800
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----------+------+
+|      |Cell       |Count |
++------+-----------+------+
+|1     |BUFG       |     3|
+|2     |MMCME2_ADV |     1|
++------+-----------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 2200.309 ; gain = 497.441 ; free physical = 564 ; free virtual = 9799
+Synthesis Optimization Complete : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2200.309 ; gain = 554.406 ; free physical = 564 ; free virtual = 9799
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2200.309 ; gain = 0.000 ; free physical = 564 ; free virtual = 9799
+INFO: [Netlist 29-17] Analyzing 1 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2200.309 ; gain = 0.000 ; free physical = 866 ; free virtual = 10101
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 9240dc86
+INFO: [Common 17-83] Releasing license: Synthesis
+27 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:24 ; elapsed = 00:00:22 . Memory (MB): peak = 2200.309 ; gain = 876.969 ; free physical = 866 ; free virtual = 10101
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1810.882; main = 1482.971; forked = 378.784
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3176.535; main = 2184.270; forked = 992.266
+INFO: [Common 17-1381] The checkpoint '/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/pll_pixelclock.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP pll_pixelclock, cache-ID = 170c40d1a6d24801
+INFO: [Common 17-1381] The checkpoint '/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/pll_pixelclock_synth_1/pll_pixelclock.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file pll_pixelclock_utilization_synth.rpt -pb pll_pixelclock_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Nov 10 07:50:35 2023...

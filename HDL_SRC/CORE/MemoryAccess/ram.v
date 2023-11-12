@@ -5,7 +5,7 @@
  * File Created: 2018/12/30 06:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/22 12:13
+ * Last Modified: 2023/11/12 15:51
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -17,6 +17,7 @@
  * HISTORY:
  * Date      	By        	Comments
  * ----------	----------	----------------------------------------
+ * 2023/11/12	Masaru Aoki	Xilinxでは、CoreGeneratorで生成したBlockRAMを使用する
  * 2023/10/22	Masaru Aoki	32bitメモリに1Byte単位でアクセスする
  * 2019/02/22	Masaru Aoki	ByteWriteEnable付きのBlockRAMに変更
  * 2019/01/24	Masaru Aoki	RV64Iに対応
@@ -38,7 +39,18 @@ module ram(
 
     wire [3:0] weram;
 
-
+`ifndef __ICARUS__
+// Xilinx Vivadoでは、Core Generaterで生成したBlockRAMを読み込む
+// 初期値 は、COEファイルで準備して CoreGeneraterで読み込むこと
+    blk_mem_gen_1 U_ram (
+        .clka(clk),                 // input wire clka
+        .ena(1'b1),                 // input wire enaa
+        .wea(we),                   // input wire [3 : 0] wea
+        .addra(addr),               // input wire [11 : 0] addra
+        .dina(qin),                 // input wire [31 : 0] dina
+        .douta(qout)                // output wire [31 : 0] douta
+    );
+`else
     bytewrite_ram_1b U_ram(
         .clk(clk),
         .we(we),
@@ -46,6 +58,7 @@ module ram(
         .di(qin),
         .do(qout)
     );
+`endif
 endmodule
 
 // Single-Port BRAM with Byte-wide Write Enable
@@ -90,5 +103,8 @@ begin
     end 
 end
 endgenerate
+
+
+
 
 endmodule

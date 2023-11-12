@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1552595653">
+<GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1699817801">
+  <File Type="POSTROUTE-PHYSOPT-RQS-RPT" Name="postroute_physopt_report_qor_suggestions_0.rpt"/>
+  <File Type="ROUTE-RQS-RPT" Name="route_report_qor_suggestions_0.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-RQS" Name="top_zedboard_postroute_physopted.rqs"/>
+  <File Type="ROUTE-RQS" Name="top_zedboard_routed.rqs"/>
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="RDI-RDI" Name="top_zedboard.vdi"/>
   <File Type="BG-DRC" Name="top_zedboard.drc"/>
   <File Type="BG-BGN" Name="top_zedboard.bgn"/>
   <File Type="BITSTR-SYSDEF" Name="top_zedboard.sysdef"/>
   <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
   <File Type="BITSTR-LTX" Name="top_zedboard.ltx"/>
+  <File Type="RBD_FILE" Name="top_zedboard.rbd"/>
+  <File Type="NPI_FILE" Name="top_zedboard.npi"/>
+  <File Type="RNPI_FILE" Name="top_zedboard.rnpi"/>
+  <File Type="CFI_FILE" Name="top_zedboard.cfi"/>
+  <File Type="RCFI_FILE" Name="top_zedboard.rcfi"/>
+  <File Type="PL-PDI-FILE" Name="top_zedboard_pld.pdi"/>
+  <File Type="BOOT-PDI-FILE" Name="top_zedboard_boot.pdi"/>
+  <File Type="PDI-FILE" Name="top_zedboard.pdi"/>
   <File Type="BITSTR-MMI" Name="top_zedboard.mmi"/>
   <File Type="BITSTR-BMM" Name="top_zedboard_bd.bmm"/>
   <File Type="BITSTR-NKY" Name="top_zedboard.nky"/>
@@ -16,12 +29,14 @@
   <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="top_zedboard_bus_skew_postroute_physopted.rpx"/>
   <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="top_zedboard_bus_skew_postroute_physopted.pb"/>
   <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="top_zedboard_bus_skew_postroute_physopted.rpt"/>
-  <File Type="RDI-RDI" Name="top_zedboard.vdi"/>
   <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="top_zedboard_timing_summary_postroute_physopted.rpx"/>
   <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="top_zedboard_timing_summary_postroute_physopted.pb"/>
   <File Type="POSTROUTE-PHYSOPT-TIMING" Name="top_zedboard_timing_summary_postroute_physopted.rpt"/>
   <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="top_zedboard_postroute_physopt_bb.dcp"/>
   <File Type="POSTROUTE-PHYSOPT-DCP" Name="top_zedboard_postroute_physopt.dcp"/>
+  <File Type="ROUTE-RQS-PB" Name="top_zedboard_rqs_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="top_zedboard_bus_skew_routed.rpx"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="top_zedboard_bus_skew_routed.pb"/>
   <File Type="ROUTE-BUS-SKEW" Name="top_zedboard_bus_skew_routed.rpt"/>
   <File Type="ROUTE-CLK" Name="top_zedboard_clock_utilization_routed.rpt"/>
   <File Type="ROUTE-SIMILARITY" Name="top_zedboard_incremental_reuse_routed.rpt"/>
@@ -47,6 +62,7 @@
   <File Type="PHYSOPT-DCP" Name="top_zedboard_physopt.dcp"/>
   <File Type="POSTPLACE-PWROPT-TIMING" Name="top_zedboard_timing_summary_postplace_pwropted.rpt"/>
   <File Type="POSTPLACE-PWROPT-DCP" Name="top_zedboard_postplace_pwropt.dcp"/>
+  <File Type="PLACE-RQA-PB" Name="top_zedboard_rqa_placed.pb"/>
   <File Type="PLACE-TIMING" Name="top_zedboard_timing_summary_placed.rpt"/>
   <File Type="PLACE-PRE-SIMILARITY" Name="top_zedboard_incremental_reuse_pre_placed.rpt"/>
   <File Type="PLACE-SIMILARITY" Name="top_zedboard_incremental_reuse_placed.rpt"/>
@@ -59,25 +75,17 @@
   <File Type="PWROPT-TIMING" Name="top_zedboard_timing_summary_pwropted.rpt"/>
   <File Type="PWROPT-DRC" Name="top_zedboard_drc_pwropted.rpt"/>
   <File Type="PWROPT-DCP" Name="top_zedboard_pwropt.dcp"/>
+  <File Type="OPT-RQA-PB" Name="top_zedboard_rqa_opted.pb"/>
   <File Type="OPT-TIMING" Name="top_zedboard_timing_summary_opted.rpt"/>
   <File Type="OPT-HWDEF" Name="top_zedboard.hwdef"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="top_zedboard_methodology_drc_opted.rpt"/>
   <File Type="OPT-DRC" Name="top_zedboard_drc_opted.rpt"/>
   <File Type="OPT-DCP" Name="top_zedboard_opt.dcp"/>
   <File Type="INIT-TIMING" Name="top_zedboard_timing_summary_init.rpt"/>
-  <File Type="ROUTE-BUS-SKEW-RPX" Name="top_zedboard_bus_skew_routed.rpx"/>
   <File Type="REPORTS-TCL" Name="top_zedboard_reports.tcl"/>
-  <File Type="ROUTE-BUS-SKEW-PB" Name="top_zedboard_bus_skew_routed.pb"/>
   <File Type="PA-TCL" Name="top_zedboard.tcl"/>
-  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xci">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -89,6 +97,7 @@
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
+        <Attr Name="IsVisible" Val="1"/>
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../HDL_SRC/CORE/Execute/alu.v">
@@ -105,6 +114,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../../HDL_SRC/CORE/CSR/csr.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../../HDL_SRC/Board_Common/dfilter.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -113,6 +129,20 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../HDL_SRC/Peripheral/GPIO/fnc_gpio.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/Timer/fnc_timer.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/UART/fnc_uart.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -176,6 +206,27 @@
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../HDL_SRC/Board_Common/reg_rw.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/Timer/reg_timer.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/UART/reg_uart.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/reg_vga.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
@@ -252,6 +303,20 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/Timer/top_timer.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../HDL_SRC/Peripheral/UART/top_uart.v">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/top_vgacontroller.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -275,11 +340,27 @@
     </File>
     <File Path="$PPRDIR/../../fw/night.coe">
       <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../fw/night.coe"/>
+        <Attr Name="ImportTime" Val="1697562593"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
     <File Path="$PPRDIR/../../HDL_SRC/Peripheral/VGA/vga.coe">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../HDL_SRC/Peripheral/VGA/vga.coe"/>
+        <Attr Name="ImportTime" Val="1694462070"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../fw/night.rom.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../../fw/night.ram.coe">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -291,7 +372,7 @@
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>
-  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1" RelGenDir="$PGENDIR/constrs_1">
     <Filter Type="Constrs"/>
     <File Path="$PSRCDIR/constrs_1/new/pin.xdc">
       <FileInfo>
@@ -304,7 +385,7 @@
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
-  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1" RelGenDir="$PGENDIR/utils_1">
     <Filter Type="Utils"/>
     <Config>
       <Option Name="TopAutoSet" Val="TRUE"/>
@@ -322,5 +403,7 @@
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
   </Strategy>
+  <BlockFileSet Type="BlockSrcs" Name="blk_mem_gen_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="main_clk"/>
   <BlockFileSet Type="BlockSrcs" Name="vram"/>
 </GenRun>

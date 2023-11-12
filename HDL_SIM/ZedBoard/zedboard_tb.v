@@ -85,6 +85,9 @@ wire [XLEN-1:0] mcause      = U_top_zedboard.u_top_core.u_top_csr.mcause;
 wire [XLEN-1:0] mtval       = U_top_zedboard.u_top_core.u_top_csr.mtval;
 wire [XLEN-1:0] mip         = U_top_zedboard.u_top_core.u_top_csr.null_reg344_dataout;
 
+wire [XLEN-1:0] bus_addr    = U_top_zedboard.U_localbus.U_data_memory.addr<<2;
+
+
 // gtkwave 命令表示用
 wire [21:0] op = {U_top_zedboard.u_top_core.u_instruction_decode.inst[31:20],U_top_zedboard.u_top_core.u_instruction_decode.inst[14:12],U_top_zedboard.u_top_core.u_instruction_decode.inst[6:0]};
 wire [9:0][7:0] opcode = decode(op);

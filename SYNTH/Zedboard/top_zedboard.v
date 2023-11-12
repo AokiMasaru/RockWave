@@ -1,5 +1,5 @@
 module top_zedboard(
-    input clk,
+    input clk_in,
 
     input [12:0]   gpio_pin_in,
     output [7:0]   gpio_pin_out,
@@ -24,6 +24,7 @@ module top_zedboard(
 
     // localbus
     wire int_timer;
+    wire    pixelclk;
 
 `ifdef __ICARUS__
 initial begin
@@ -79,6 +80,7 @@ rom u_inst_memory
 
 localbus U_localbus(
     .clk(clk),
+    .pixelclk(pixelclk),
     .rst_n(rst_n),
     .addr(data_mem_addr),
     .qin(data_mem_wdata),
@@ -96,5 +98,17 @@ localbus U_localbus(
     .int_timer(int_timer)
 );
 
-
+`ifdef __ICARUS__
+    assign clk = clk_in;
+    assign pixelclk = clk_in;
+`else
+  main_clk U_main_clk
+  (
+  // Clock out ports  
+  .clk(clk),
+  .pixelclk(pixelclk),
+ // Clock in ports
+  .clk_in(clk_in)
+  );
+`endif
 endmodule

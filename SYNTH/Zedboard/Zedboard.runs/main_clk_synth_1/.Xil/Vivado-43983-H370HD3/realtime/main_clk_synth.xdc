@@ -1,0 +1,17 @@
+set_property SRC_FILE_INFO {cfile:/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/main_clk/main_clk_ooc.xdc rfile:../../../../../Zedboard.gen/sources_1/ip/main_clk/main_clk_ooc.xdc id:1 order:EARLY scoped_inst:inst} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/main_clk/main_clk.xdc rfile:../../../../../Zedboard.gen/sources_1/ip/main_clk/main_clk.xdc id:2 order:EARLY scoped_inst:inst} [current_design]
+set_property SRC_FILE_INFO {cfile:/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/main_clk_synth_1/dont_touch.xdc rfile:../../../dont_touch.xdc id:3} [current_design]
+set_property src_info {type:SCOPED_XDC file:1 line:54 export:INPUT save:INPUT read:FILTER_OUT_OF_CONTEXT} [current_design]
+create_clock -period 10.000 -name clk_in [get_ports clk_in]
+current_instance inst
+set_property src_info {type:SCOPED_XDC file:2 line:56 export:INPUT save:INPUT read:READ} [current_design]
+set_property PHASESHIFT_MODE WAVEFORM [get_cells plle2_adv_inst]
+current_instance
+set_property src_info {type:XDC file:3 line:9 export:INPUT save:INPUT read:READ} [current_design]
+set_property KEEP_HIERARCHY SOFT [get_cells inst]
+set_property src_info {type:PI file:{} line:-1 export:INPUT save:INPUT read:READ} [current_design]
+create_generated_clock -name clkfbout_main_clk -source [get_pins inst/plle2_adv_inst/CLKIN1] -edges {1 2 3} -edge_shift {0.000 5.000 10.000} -add -master_clock [get_clocks clk_in] [get_pins inst/plle2_adv_inst/CLKFBOUT]
+set_property src_info {type:PI file:{} line:-1 export:INPUT save:INPUT read:READ} [current_design]
+create_generated_clock -name clk_main_clk -source [get_pins inst/plle2_adv_inst/CLKIN1] -edges {1 2 3} -edge_shift {0.000 5.000 10.000} -add -master_clock [get_clocks clk_in] [get_pins inst/plle2_adv_inst/CLKOUT0]
+set_property src_info {type:PI file:{} line:-1 export:INPUT save:INPUT read:READ} [current_design]
+create_generated_clock -name pixelclk_main_clk -source [get_pins inst/plle2_adv_inst/CLKIN1] -edges {1 2 3} -edge_shift {0.000 16.053 32.105} -add -master_clock [get_clocks clk_in] [get_pins inst/plle2_adv_inst/CLKOUT1]

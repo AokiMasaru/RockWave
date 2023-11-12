@@ -5,7 +5,7 @@
  * File Created: 2023/09/14 04:56
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/11/04 08:37
+ * Last Modified: 2023/11/12 14:34
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -61,7 +61,7 @@ module top_csr(
 
     localparam WPRI = 1'b0;         // Reserved Writes Preserve Values, Reads Ignore Values (WPRI);
 
-    wire    int;            // 条件を満たした状態で割込が発生した
+    wire    irq;            // 条件を満たした状態で割込が発生した
 
     wire [ XLEN-1:0]     reg300;                // Register: Machine Status Register (mstatus)
     wire [ XLEN-1:0]     mstatus;               // data_out: Machine Status Register (mstatus)
@@ -134,15 +134,15 @@ endfunction
 
     // 1. 条件を満たした状態で割り込みが発生する。
     assign mtip = mie_mtie & int_timer;     // Machine interrupt-pending register 現状割込はタイマのみ
-    assign int = mtip & mstatus_mie;
-    wire int_cw = int;
+    assign irq = mtip & mstatus_mie;
+    assign int_cw = irq;
 
     // 2. MCAUSE に割り込みコードを設定し、最上位ビットを 1 にする。
     assign  mcause = {1'b1, 31'h0007};   //Machine timer interrupt
-    wire    wenble342 = phase_fetch & int;
+    wire    wenble342 = phase_fetch & irq;
 
     // 3. MEPC に割り込みが発生した時に実行中の PC を設定する。
-    wire    wenble341 = (phase_fetch & int) | (adsel341 & we);
+    wire    wenble341 = (phase_fetch & irq) | (adsel341 & we);
 
     //  4. MTVAL に 0 を設定する。
     assign    mtval = 32'h0000_0000;
@@ -150,7 +150,7 @@ endfunction
     //  5. MSTATUS を現在の状態に合わせて更新する。
     //      MIE / HIE / SIE / UIE を MPIE / HPIE / SPIE / UPIEに退避
     //      MIE = 0 (割込み禁止)
-    wire    int_wenble = phase_fetch & int;
+    wire    int_wenble = phase_fetch & irq;
     wire [XLEN-1:0]   int_mstatus;
     assign int_mstatus[31]    = mstatus[31];  // SD
     assign int_mstatus[30:23] = {8{WPRI}};    // 
@@ -248,7 +248,7 @@ endfunction
 
     // 0x341	MEPC	例外が発生した命令の場所を表す PC を格納する。
     //  mret 命令ではこの値を使って元の処理に復帰する。    
-    wire [XLEN-1:0] wdata341 = int ? next_pc_wc : wdata;
+    wire [XLEN-1:0] wdata341 = irq ? next_pc_wc : wdata;
     reg_rw #(XLEN) U_reg341(
         .clk(clk), .rst_n(rst_n),
         .wdata(wdata341), .we(wenble341), 

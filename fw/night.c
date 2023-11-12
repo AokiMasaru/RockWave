@@ -5,7 +5,7 @@
  * File Created: 2019/02/17 07:13
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: Wed Mar 06 2019
+ * Last Modified: Mon Nov 13 2023
  * Modified By: Masaru Aoki
  * *****
  * Copyright 2018 - 2018  Project RockWave
@@ -23,6 +23,7 @@
 
 #define GPIO_IN  (0x70000000+0x0010)
 #define GPIO_OUT (0x70000000+0x0020)
+#define VGA_EN   (0x60000000+0x0000)
   
 
 void wait(unsigned int wait);
@@ -31,6 +32,9 @@ void main()
 {
     int i;
     int led;
+
+    *(volatile unsigned char *)(VGA_EN) = 0x01;
+
 
     while(1){
         led = 1;

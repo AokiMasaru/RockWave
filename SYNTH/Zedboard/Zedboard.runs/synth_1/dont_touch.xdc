@@ -3,10 +3,7 @@
 
 # XDC: new/pin.xdc
 
-# IP: ip/pll_pixelclock_1/pll_pixelclock.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==pll_pixelclock || ORIG_REF_NAME==pll_pixelclock} -quiet] -quiet
-
 # IP: ip/blk_mem_gen_0/blk_mem_gen_0.xci
-set_property DONT_TOUCH TRUE [get_cells -hier -filter {REF_NAME==blk_mem_gen_0 || ORIG_REF_NAME==blk_mem_gen_0} -quiet] -quiet
+set_property KEEP_HIERARCHY SOFT [get_cells -hier -filter {REF_NAME==blk_mem_gen_0 || ORIG_REF_NAME==blk_mem_gen_0} -quiet] -quiet
 
-# XDC: ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc
+# XDC: /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc

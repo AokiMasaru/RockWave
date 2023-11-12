@@ -1,22 +1,25 @@
+transcript off
+onbreak {quit -force}
+onerror {quit -force}
+transcript on
+
 vlib work
-vlib riviera
-
-vlib riviera/xil_defaultlib
 vlib riviera/xpm
+vlib riviera/xil_defaultlib
 
-vmap xil_defaultlib riviera/xil_defaultlib
 vmap xpm riviera/xpm
+vmap xil_defaultlib riviera/xil_defaultlib
 
-vlog -work xil_defaultlib  -sv2k12 "+incdir+../../../ipstatic" \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+vlog -work xpm  -incr "+incdir+../../../ipstatic" -l xpm -l xil_defaultlib \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 
-vcom -work xpm -93 \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_VCOMP.vhd" \
+vcom -work xpm -93  -incr \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_VCOMP.vhd" \
 
-vlog -work xil_defaultlib  -v2k5 "+incdir+../../../ipstatic" \
-"../../../../Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock_clk_wiz.v" \
-"../../../../Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock.v" \
+vlog -work xil_defaultlib  -incr -v2k5 "+incdir+../../../ipstatic" -l xpm -l xil_defaultlib \
+"../../../../Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock_clk_wiz.v" \
+"../../../../Zedboard.gen/sources_1/ip/pll_pixelclock_1/pll_pixelclock.v" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

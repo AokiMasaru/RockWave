@@ -1,26 +1,26 @@
 vlib questa_lib/work
 vlib questa_lib/msim
 
-vlib questa_lib/msim/xil_defaultlib
 vlib questa_lib/msim/xpm
-vlib questa_lib/msim/blk_mem_gen_v8_4_2
+vlib questa_lib/msim/blk_mem_gen_v8_4_7
+vlib questa_lib/msim/xil_defaultlib
 
-vmap xil_defaultlib questa_lib/msim/xil_defaultlib
 vmap xpm questa_lib/msim/xpm
-vmap blk_mem_gen_v8_4_2 questa_lib/msim/blk_mem_gen_v8_4_2
+vmap blk_mem_gen_v8_4_7 questa_lib/msim/blk_mem_gen_v8_4_7
+vmap xil_defaultlib questa_lib/msim/xil_defaultlib
 
-vlog -work xil_defaultlib -64 -sv \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
+vlog -work xpm -64 -incr -mfcu  -sv \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_cdc/hdl/xpm_cdc.sv" \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_memory/hdl/xpm_memory.sv" \
 
-vcom -work xpm -64 -93 \
-"/opt/Xilinx/Vivado/2018.3/data/ip/xpm/xpm_VCOMP.vhd" \
+vcom -work xpm -64 -93  \
+"/opt/Xilinx/Vivado/2023.2/data/ip/xpm/xpm_VCOMP.vhd" \
 
-vlog -work blk_mem_gen_v8_4_2 -64 \
+vlog -work blk_mem_gen_v8_4_7 -64 -incr -mfcu  \
 "../../../ipstatic/simulation/blk_mem_gen_v8_4.v" \
 
-vlog -work xil_defaultlib -64 \
-"../../../../Zedboard.srcs/sources_1/ip/vram_1/sim/vram.v" \
+vlog -work xil_defaultlib -64 -incr -mfcu  \
+"../../../../Zedboard.gen/sources_1/ip/vram_1/sim/vram.v" \
 
 vlog -work xil_defaultlib \
 "glbl.v"

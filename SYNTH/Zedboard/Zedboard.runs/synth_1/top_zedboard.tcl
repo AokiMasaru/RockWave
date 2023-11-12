@@ -3,6 +3,58 @@
 # 
 
 set TIME_start [clock seconds] 
+namespace eval ::optrace {
+  variable script "/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/top_zedboard.tcl"
+  variable category "vivado_synth"
+}
+
+# Try to connect to running dispatch if we haven't done so already.
+# This code assumes that the Tcl interpreter is not using threads,
+# since the ::dispatch::connected variable isn't mutex protected.
+if {![info exists ::dispatch::connected]} {
+  namespace eval ::dispatch {
+    variable connected false
+    if {[llength [array get env XILINX_CD_CONNECT_ID]] > 0} {
+      set result "true"
+      if {[catch {
+        if {[lsearch -exact [package names] DispatchTcl] < 0} {
+          set result [load librdi_cd_clienttcl[info sharedlibextension]] 
+        }
+        if {$result eq "false"} {
+          puts "WARNING: Could not load dispatch client library"
+        }
+        set connect_id [ ::dispatch::init_client -mode EXISTING_SERVER ]
+        if { $connect_id eq "" } {
+          puts "WARNING: Could not initialize dispatch client"
+        } else {
+          puts "INFO: Dispatch client connection id - $connect_id"
+          set connected true
+        }
+      } catch_res]} {
+        puts "WARNING: failed to connect to dispatch server - $catch_res"
+      }
+    }
+  }
+}
+if {$::dispatch::connected} {
+  # Remove the dummy proc if it exists.
+  if { [expr {[llength [info procs ::OPTRACE]] > 0}] } {
+    rename ::OPTRACE ""
+  }
+  proc ::OPTRACE { task action {tags {} } } {
+    ::vitis_log::op_trace "$task" $action -tags $tags -script $::optrace::script -category $::optrace::category
+  }
+  # dispatch is generic. We specifically want to attach logging.
+  ::vitis_log::connect_client
+} else {
+  # Add dummy proc if it doesn't exist.
+  if { [expr {[llength [info procs ::OPTRACE]] == 0}] } {
+    proc ::OPTRACE {{arg1 \"\" } {arg2 \"\"} {arg3 \"\" } {arg4 \"\"} {arg5 \"\" } {arg6 \"\"}} {
+        # Do nothing
+    }
+  }
+}
+
 proc create_report { reportName command } {
   set status "."
   append status $reportName ".fail"
@@ -17,63 +69,83 @@ proc create_report { reportName command } {
     send_msg_id runtcl-5 warning "$msg"
   }
 }
+OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 1
+set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
+OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
 set_msg_config -source 4 -id {IP_Flow 19-2162} -severity warning -new_severity info
-set_property webtalk.parent_dir /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.cache/wt [current_project]
-set_property parent.project_path /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.xpr [current_project]
+set_property webtalk.parent_dir /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.cache/wt [current_project]
+set_property parent.project_path /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.xpr [current_project]
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
-set_property ip_output_repo /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.cache/ip [current_project]
+set_property ip_output_repo /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 set_property generic Xilinx [current_fileset]
-add_files /home/aokim/RockWave/fw/night.coe
-add_files /home/aokim/RockWave/HDL_SRC/Peripheral/VGA/vga.coe
-read_verilog /home/aokim/RockWave/HDL_SRC/CORE/core_general.vh
+OPTRACE "Creating in-memory project" END { }
+OPTRACE "Adding files" START { }
+add_files /home/aokim/Company/RISCV/RockWave/fw/night.coe
+add_files /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/vga.coe
+add_files /home/aokim/Company/RISCV/RockWave/fw/night.rom.coe
+add_files /home/aokim/Company/RISCV/RockWave/fw/night.ram.coe
+read_verilog /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/core_general.vh
 read_verilog -library xil_defaultlib {
-  /home/aokim/RockWave/HDL_SRC/CORE/Execute/alu.v
-  /home/aokim/RockWave/HDL_SRC/CORE/Execute/comp.v
-  /home/aokim/RockWave/HDL_SRC/Board_Common/dfilter.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/fnc_gpio.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/VGA/fnc_vgacontroller.v
-  /home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v
-  /home/aokim/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v
-  /home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v
-  /home/aokim/RockWave/HDL_SRC/Board_Common/refclk.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/reg_gpio.v
-  /home/aokim/RockWave/HDL_SRC/Board_Common/reg_ronly.v
-  /home/aokim/RockWave/HDL_SRC/Board_Common/reg_rw.v
-  /home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register.v
-  /home/aokim/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v
-  /home/aokim/RockWave/HDL_SRC/CORE/Fetch/rom.v
-  /home/aokim/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v
-  /home/aokim/RockWave/HDL_SRC/Board_Common/synchronizer.v
-  /home/aokim/RockWave/HDL_SRC/CORE/_top/top_core.v
-  /home/aokim/RockWave/HDL_SRC/CORE/Execute/top_execute.v
-  /home/aokim/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v
-  /home/aokim/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v
-  /home/aokim/RockWave/HDL_SRC/Peripheral/VGA/top_vgacontroller.v
-  /home/aokim/RockWave/HDL_SRC/CORE/WriteBack/writeback.v
-  /home/aokim/RockWave/SYNTH/Zedboard/top_zedboard.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/alu.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/comp.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/dfilter.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/GPIO/fnc_gpio.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/Timer/fnc_timer.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/UART/fnc_uart.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/fnc_vgacontroller.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/obuf.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/refclk.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/GPIO/reg_gpio.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/reg_ronly.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/reg_rw.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/Timer/reg_timer.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/UART/reg_uart.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/reg_vga.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/RegisterFile/register.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/RegisterFile/register_file.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Fetch/rom.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/synchronizer.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/_top/top_core.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/top_execute.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Fetch/top_fetch.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/MemoryAccess/top_memoryaccess.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/Timer/top_timer.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/UART/top_uart.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/top_vgacontroller.v
+  /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/WriteBack/writeback.v
+  /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/top_zedboard.v
 }
-read_ip -quiet /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xci
-set_property used_in_implementation false [get_files -all /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock_board.xdc]
-set_property used_in_implementation false [get_files -all /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock.xdc]
-set_property used_in_implementation false [get_files -all /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/pll_pixelclock_1/pll_pixelclock_ooc.xdc]
+read_ip -quiet /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
 
-read_ip -quiet /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-set_property used_in_implementation false [get_files -all /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
+read_ip -quiet /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/vram_1/vram.xci
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/vram_1/vram_ooc.xdc]
 
-read_ip -quiet /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/vram_1/vram.xci
-set_property used_in_implementation false [get_files -all /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/vram_1/vram_ooc.xdc]
+read_ip -quiet /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/main_clk/main_clk.xci
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/main_clk/main_clk_board.xdc]
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/main_clk/main_clk.xdc]
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/main_clk/main_clk_ooc.xdc]
 
+read_ip -quiet /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci
+set_property used_in_implementation false [get_files -all /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1_ooc.xdc]
+
+OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the
 # design are intentionally left as such for best results. Dcp files will be
@@ -82,20 +154,30 @@ set_property used_in_implementation false [get_files -all /home/aokim/RockWave/S
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc
-set_property used_in_implementation false [get_files /home/aokim/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
+read_xdc /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc
+set_property used_in_implementation false [get_files /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
 
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
+OPTRACE "synth_design" START { }
 synth_design -top top_zedboard -part xc7z020clg484-1 -verilog_define INST_ROM_FILE_NAME=rv32ui-p-add.hex
+OPTRACE "synth_design" END { }
+if { [get_msg_config -count -severity {CRITICAL WARNING}] > 0 } {
+ send_msg_id runtcl-6 info "Synthesis results are not added to the cache due to CRITICAL_WARNING"
+}
 
 
+OPTRACE "write_checkpoint" START { CHECKPOINT }
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
 write_checkpoint -force -noxdef top_zedboard.dcp
+OPTRACE "write_checkpoint" END { }
+OPTRACE "synth reports" START { REPORT }
 create_report "synth_1_synth_report_utilization_0" "report_utilization -file top_zedboard_utilization_synth.rpt -pb top_zedboard_utilization_synth.pb"
+OPTRACE "synth reports" END { }
 file delete __synthesis_is_running__
 close [open __synthesis_is_complete__ w]
+OPTRACE "synth_1" END { }

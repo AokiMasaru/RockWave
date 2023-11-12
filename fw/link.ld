@@ -1,7 +1,7 @@
 OUTPUT_ARCH( "riscv" )
 ENTRY(_start)
 
-_estack = 0x90000FFF;
+_estack = 0x90000FFC;
 
 MEMORY {
     RAM  ( rw): ORIGIN = 0x90000000, LENGTH =  4K /* Data RAM Area */

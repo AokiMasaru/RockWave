@@ -1,5 +1,5 @@
 ################################################################################
-# Vivado (TM) v2018.3 (64-bit)
+# Vivado (TM) v2023.2 (64-bit)
 #
 # README.txt: Please read the sections below to understand the steps required
 #             to simulate the design for a simulator, the directory structure
@@ -16,7 +16,7 @@ For example:-
 % cd questa
 % ./top.sh
 
-The export simulation flow requires the Xilinx pre-compiled simulation library
+The export simulation flow requires the AMD pre-compiled simulation library
 components for the target simulator. These components are referred using the
 '-lib_map_path' switch. If this switch is specified, then the export simulation
 will automatically set this library path in the generated script and update,
@@ -77,7 +77,7 @@ will create the following script name:-
 Export simulation will create the setup files for the target simulator specified
 with the -simulator switch.
 
-For example, if the target simulator is "ies", export_simulation will create the
+For example, if the target simulator is "xcelium", export_simulation will create the
 'cds.lib', 'hdl.var' and design library diectories and mappings in the 'cds.lib'
 file.
 

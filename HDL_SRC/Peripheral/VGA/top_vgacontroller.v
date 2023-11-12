@@ -5,7 +5,7 @@
  * File Created: 2019/03/12 04:06
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/10/23 04:15
+ * Last Modified: 2023/11/11 09:20
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -21,6 +21,7 @@
  */
 module top_vgacontroller(
     input           clk,            // Global Clock
+    input           pixelclk,       // Pixel Clock
     input           rst_n,          // Global Reset
 
     // Display
@@ -39,7 +40,6 @@ module top_vgacontroller(
 );
     `include "core_general.vh"
 
-    wire            pixel_clk;
     wire [18:0]     addrb;
     wire [11:0]     datab;
 
@@ -52,20 +52,8 @@ module top_vgacontroller(
 
     assign qout = qout_reg | qout_vram;
 
-    // Pixel Clock生成
-`ifdef __ICARUS__
-    assign pixel_clk = clk;
-`else
-    pll_pixelclock U_pll_pixelclock
-    (
-    // Clock out ports
-    .pixelclk(pixel_clk),     // output pixelclk
-    // Clock in ports
-    .clk(clk));      // input clk
-`endif
-
     fnc_vgacontroller U_fnc_vgacontroller(
-        .clk            (pixel_clk),
+        .clk            (pixelclk),
         .rst_n          (rst_n),
         .module_en      (vga_en),
         .hblank         (hblank),
@@ -102,7 +90,7 @@ module top_vgacontroller(
           .addra        (addr[18:0]),
           .dina         (qin[11:0]),
           .douta        (douta),
-          .clkb         (pixel_clk),
+          .clkb         (pixelclk),
           .web          (1'b0),
           .addrb        (addrb),
           .dinb         (12'h000),
