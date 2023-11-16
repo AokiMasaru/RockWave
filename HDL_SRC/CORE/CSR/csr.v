@@ -5,7 +5,7 @@
  * File Created: 2023/09/14 04:56
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/11/12 14:34
+ * Last Modified: 2023/11/14 04:40
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2023  Project RockWave
@@ -229,7 +229,7 @@ endfunction
     // 0x305	MTVEC	割り込み・例外が発生した場合にジャンプする PC を格納する。
     wire [XLEN-1:0] wdata_mtvec = {wdata[XLEN-1:1],1'b0};
     wire [XLEN-1:0] dataout_mtvec;
-    wire [XLEN-1:0] mtvec = dataout_mtvec+(mcause<<2);
+    assign mtvec = dataout_mtvec+(mcause<<2);
     reg_rw #(XLEN) U_reg305(
         .clk(clk), .rst_n(rst_n),
         .wdata(wdata_mtvec), .we(wenble305), 

@@ -11,20 +11,17 @@
     ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source top_zedboard.tcl -notrace
-create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1323.855 ; gain = 0.023 ; free physical = 2786 ; free virtual = 10978
+create_project: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1323.344 ; gain = 0.023 ; free physical = 3660 ; free virtual = 7707
 Command: synth_design -top top_zedboard -part xc7z020clg484-1 -verilog_define INST_ROM_FILE_NAME=rv32ui-p-add.hex
 Starting synth_design
-WARNING: [Vivado_Tcl 4-393] The 'Synthesis' target of the following IPs are stale, please generate the output products using the generate_target or synth_ip command before running synth_design.
-/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1.xci
-
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 25789
+INFO: [Synth 8-7075] Helper process launched with PID 41855
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2052.070 ; gain = 404.684 ; free physical = 1779 ; free virtual = 9976
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 2051.559 ; gain = 402.715 ; free physical = 2668 ; free virtual = 6760
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/alu.v:24]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/alu.v:25]
@@ -33,7 +30,6 @@ WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/comp.v:26]
 WARNING: [Synth 8-6901] identifier 'OPLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/comp.v:27]
 INFO: [Synth 8-11241] undeclared symbol 'mtip', assumed default net type 'wire' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:136]
-WARNING: [Synth 8-11121] redeclaration of ANSI port 'mtvec' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:47]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:50]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:56]
@@ -60,7 +56,7 @@ WARNING: [Synth 8-6901] identifier 'OPLEN' is used before its declaration [/home
 WARNING: [Synth 8-6901] identifier 'inst_funct3' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:66]
 WARNING: [Synth 8-6901] identifier 'inst_funct3' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:99]
 WARNING: [Synth 8-6901] identifier 'inst_funct3' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:99]
-WARNING: [Synth 8-11121] redeclaration of ANSI port 'int_timer' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:68]
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'int_timer' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:70]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:32]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:33]
 WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:35]
@@ -151,7 +147,7 @@ WARNING: [Synth 8-6901] identifier 'XLEN' is used before its declaration [/home/
 INFO: [Common 17-14] Message 'Synth 8-6901' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-11241] undeclared symbol 'jump_state_wf', assumed default net type 'wire' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/WriteBack/writeback.v:81]
 INFO: [Synth 8-11241] undeclared symbol 'regdata_for_pc', assumed default net type 'wire' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/WriteBack/writeback.v:107]
-INFO: [Synth 8-11241] undeclared symbol 'clk', assumed default net type 'wire' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/top_zedboard.v:61]
+INFO: [Synth 8-11241] undeclared symbol 'clk', assumed default net type 'wire' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/top_zedboard.v:63]
 INFO: [Synth 8-6157] synthesizing module 'top_zedboard' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/top_zedboard.v:1]
 INFO: [Synth 8-6157] synthesizing module 'top_core' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/_top/top_core.v:24]
 INFO: [Synth 8-6157] synthesizing module 'statemachine' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/StateMachine/statemachine.v:23]
@@ -282,8 +278,8 @@ WARNING: [Synth 8-689] width (14) of port connection 'addra' does not match port
 INFO: [Synth 8-6155] done synthesizing module 'rom' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Fetch/rom.v:26]
 INFO: [Synth 8-6157] synthesizing module 'localbus' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:26]
 INFO: [Synth 8-6157] synthesizing module 'ram' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:30]
-INFO: [Synth 8-6157] synthesizing module 'blk_mem_gen_1' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/blk_mem_gen_1_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'blk_mem_gen_1' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/blk_mem_gen_1_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'blk_mem_gen_1' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/blk_mem_gen_1_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'blk_mem_gen_1' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/blk_mem_gen_1_stub.v:6]
 INFO: [Synth 8-6155] done synthesizing module 'ram' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/MemoryAccess/ram.v:30]
 INFO: [Synth 8-6157] synthesizing module 'top_gpio' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/GPIO/top_gpio.v:23]
 	Parameter INNUM bound to: 13 - type: integer 
@@ -328,8 +324,8 @@ INFO: [Synth 8-6157] synthesizing module 'reg_ronly__parameterized1' [/home/aoki
 	Parameter BW bound to: 1 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'reg_ronly__parameterized1' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
 INFO: [Synth 8-6155] done synthesizing module 'reg_vga' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/reg_vga.v:22]
-INFO: [Synth 8-6157] synthesizing module 'vram' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/vram_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'vram' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/vram_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'vram' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/vram_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'vram' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/vram_stub.v:6]
 INFO: [Synth 8-6155] done synthesizing module 'top_vgacontroller' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/top_vgacontroller.v:22]
 INFO: [Synth 8-6157] synthesizing module 'top_timer' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/Timer/top_timer.v:23]
 INFO: [Synth 8-6157] synthesizing module 'fnc_timer' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/Timer/fnc_timer.v:23]
@@ -350,15 +346,11 @@ INFO: [Synth 8-6157] synthesizing module 'reg_ronly__parameterized3' [/home/aoki
 INFO: [Synth 8-6155] done synthesizing module 'reg_ronly__parameterized3' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Board_Common/reg_ronly.v:24]
 INFO: [Synth 8-6155] done synthesizing module 'reg_uart' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/UART/reg_uart.v:23]
 INFO: [Synth 8-6155] done synthesizing module 'top_uart' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/UART/top_uart.v:23]
-WARNING: [Synth 8-7071] port 'txd' of module 'top_uart' is unconnected for instance 'U_top_uart' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:151]
-WARNING: [Synth 8-7023] instance 'U_top_uart' of module 'top_uart' has 8 connections declared, but only 7 given [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:151]
 INFO: [Synth 8-6155] done synthesizing module 'localbus' (0#1) [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:26]
-INFO: [Synth 8-6157] synthesizing module 'main_clk' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/main_clk_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'main_clk' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-25733-H370HD3/realtime/main_clk_stub.v:6]
+INFO: [Synth 8-6157] synthesizing module 'main_clk' [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/main_clk_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'main_clk' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/.Xil/Vivado-41806-H370HD3/realtime/main_clk_stub.v:6]
 INFO: [Synth 8-6155] done synthesizing module 'top_zedboard' (0#1) [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/top_zedboard.v:1]
 WARNING: [Synth 8-3301] Unused top level parameter/generic Xilinx
-WARNING: [Synth 8-3848] Net dataout_mtvec in module/entity top_csr does not have driver. [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:231]
-WARNING: [Synth 8-3848] Net mcause in module/entity top_csr does not have driver. [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:75]
 WARNING: [Synth 8-7129] Port addr[31] in module reg_vga is either unconnected or has no load
 WARNING: [Synth 8-7129] Port addr[30] in module reg_vga is either unconnected or has no load
 WARNING: [Synth 8-7129] Port addr[29] in module reg_vga is either unconnected or has no load
@@ -461,18 +453,18 @@ WARNING: [Synth 8-7129] Port DOUTB_I[24] in module blk_mem_output_block is eithe
 WARNING: [Synth 8-7129] Port DOUTB_I[23] in module blk_mem_output_block is either unconnected or has no load
 INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.516 ; gain = 692.129 ; free physical = 1491 ; free virtual = 9675
+Finished RTL Elaboration : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.004 ; gain = 690.160 ; free physical = 2317 ; free virtual = 6432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.516 ; gain = 692.129 ; free physical = 1486 ; free virtual = 9670
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.004 ; gain = 690.160 ; free physical = 2316 ; free virtual = 6432
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.516 ; gain = 692.129 ; free physical = 1486 ; free virtual = 9670
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2339.004 ; gain = 690.160 ; free physical = 2316 ; free virtual = 6432
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2339.516 ; gain = 0.000 ; free physical = 1486 ; free virtual = 9671
+Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2339.004 ; gain = 0.000 ; free physical = 2314 ; free virtual = 6428
 INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -486,8 +478,12 @@ Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zed
 Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1/blk_mem_gen_1_in_context.xdc] for cell 'U_localbus/U_data_memory/U_ram'
 Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1/blk_mem_gen_1_in_context.xdc] for cell 'U_localbus/U_data_memory/U_ram'
 Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
-WARNING: [Vivado 12-508] No pins matched 'U_main_clk/inst/plle2_adv_inst/CLKOUT0'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:85]
-WARNING: [Vivado 12-508] No pins matched 'U_main_clk/inst/plle2_adv_inst/CLKOUT1'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:87]
+WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 33]]'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:61]
+WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 34]]'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:66]
+WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 35]]'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:71]
+WARNING: [Vivado 12-584] No ports matched '[get_ports -of_objects [get_iobanks 13]]'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:74]
+WARNING: [Vivado 12-508] No pins matched 'U_main_clk/inst/plle2_adv_inst/CLKOUT0'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:82]
+WARNING: [Vivado 12-508] No pins matched 'U_main_clk/inst/plle2_adv_inst/CLKOUT1'. [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc:84]
 Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]
 WARNING: [Project 1-498] One or more constraints failed evaluation while reading constraint file [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc] and the design contains unresolved black boxes. These constraints will be read post-synthesis (as long as their source constraint file is marked as used_in_implementation) and should be applied correctly then. You should review the constraints listed in the file [.Xil/top_zedboard_propImpl.xdc] and check the run log file to verify that these constraints were correctly applied.
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.srcs/constrs_1/new/pin.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/top_zedboard_propImpl.xdc].
@@ -496,20 +492,20 @@ Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.run
 Finished Parsing XDC File [/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2393.477 ; gain = 0.000 ; free physical = 1484 ; free virtual = 9669
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2401.902 ; gain = 0.000 ; free physical = 2311 ; free virtual = 6429
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2393.512 ; gain = 0.000 ; free physical = 1484 ; free virtual = 9669
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2401.938 ; gain = 0.000 ; free physical = 2310 ; free virtual = 6429
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2393.512 ; gain = 746.125 ; free physical = 1489 ; free virtual = 9689
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2301 ; free virtual = 6436
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2393.512 ; gain = 746.125 ; free physical = 1489 ; free virtual = 9689
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2301 ; free virtual = 6436
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -519,7 +515,7 @@ Applied set_property KEEP_HIERARCHY = SOFT for U_localbus/U_top_vgacontroller/U_
 Applied set_property KEEP_HIERARCHY = SOFT for U_main_clk. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for U_localbus/U_data_memory/U_ram. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2393.512 ; gain = 746.125 ; free physical = 1489 ; free virtual = 9689
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2301 ; free virtual = 6436
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'current_reg' in module 'statemachine'
 ---------------------------------------------------------------------------------------------------
@@ -534,14 +530,14 @@ INFO: [Synth 8-802] inferred FSM for state register 'current_reg' in module 'sta
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'current_reg' using encoding 'one-hot' in module 'statemachine'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:21 . Memory (MB): peak = 2393.512 ; gain = 746.125 ; free physical = 1463 ; free virtual = 9687
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2295 ; free virtual = 6434
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   32 Bit       Adders := 5     
+	   2 Input   32 Bit       Adders := 4     
 	   3 Input   32 Bit       Adders := 1     
 	   2 Input   19 Bit       Adders := 1     
 	   2 Input   10 Bit       Adders := 2     
@@ -596,119 +592,26 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_168/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_170/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_172/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_174/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_176/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_178/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_180/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_182/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_184/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_186/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_188/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_190/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_192/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_194/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_196/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_198/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_200/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_202/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_204/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_206/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_208/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_210/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_212/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_214/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_216/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_218/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_220/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_222/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_224/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_226/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 1st driver pin 'i_1/u_top_core/u_top_csr/i_227/O' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin O with 2nd driver pin 'GND' [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
-CRITICAL WARNING: [Synth 8-6858] multi-driven net O is connected to at least one constant driver which has been preserved, other driver is ignored [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:29 ; elapsed = 00:00:30 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1440 ; free virtual = 9653
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2245 ; free virtual = 6447
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1439 ; free virtual = 9650
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:36 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2136 ; free virtual = 6405
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:36 ; elapsed = 00:00:38 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1442 ; free virtual = 9664
+Finished Timing Optimization : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2125 ; free virtual = 6406
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:38 ; elapsed = 00:00:40 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1433 ; free virtual = 9663
+Finished Technology Mapping : Time (s): cpu = 00:00:40 ; elapsed = 00:00:42 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2088 ; free virtual = 6400
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -726,37 +629,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1428 ; free virtual = 9657
+Finished IO Insertion : Time (s): cpu = 00:00:44 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2060 ; free virtual = 6401
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1428 ; free virtual = 9657
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:44 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2059 ; free virtual = 6401
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:44 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2056 ; free virtual = 6399
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:42 ; elapsed = 00:00:43 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:44 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2056 ; free virtual = 6399
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2069 ; free virtual = 6407
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2068 ; free virtual = 6405
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -792,48 +695,47 @@ Report Cell Usage:
 |1     |blk_mem_gen |     1|
 |2     |main_clk    |     1|
 |3     |vram        |     1|
-|4     |CARRY4      |    87|
-|5     |LUT1        |     4|
-|6     |LUT2        |   116|
-|7     |LUT3        |   132|
-|8     |LUT4        |   362|
-|9     |LUT5        |   495|
-|10    |LUT6        |  1432|
+|4     |CARRY4      |    95|
+|5     |LUT1        |     7|
+|6     |LUT2        |    66|
+|7     |LUT3        |   164|
+|8     |LUT4        |   397|
+|9     |LUT5        |   498|
+|10    |LUT6        |  1389|
 |11    |MUXF7       |   256|
 |12    |RAMB36E1    |     4|
 |16    |SRL16E      |     1|
 |17    |FDCE        |  2145|
-|18    |FDPE        |    43|
+|18    |FDPE        |    53|
 |19    |FDRE        |     4|
 |20    |FDSE        |     8|
 |21    |IBUF        |    14|
-|22    |OBUF        |    22|
+|22    |OBUF        |    23|
 +------+------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 2401.484 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2068 ; free virtual = 6405
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 93 critical warnings and 281 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:40 ; elapsed = 00:00:41 . Memory (MB): peak = 2401.484 ; gain = 700.102 ; free physical = 1426 ; free virtual = 9657
-Synthesis Optimization Complete : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 2401.492 ; gain = 754.098 ; free physical = 1426 ; free virtual = 9657
+Synthesis finished with 0 errors, 0 critical warnings and 281 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:42 ; elapsed = 00:00:44 . Memory (MB): peak = 2401.938 ; gain = 690.160 ; free physical = 2067 ; free virtual = 6405
+Synthesis Optimization Complete : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 2401.938 ; gain = 753.094 ; free physical = 2067 ; free virtual = 6405
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2401.492 ; gain = 0.000 ; free physical = 1713 ; free virtual = 9946
-INFO: [Netlist 29-17] Analyzing 347 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2401.938 ; gain = 0.000 ; free physical = 2349 ; free virtual = 6690
+INFO: [Netlist 29-17] Analyzing 355 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2417.492 ; gain = 0.000 ; free physical = 1710 ; free virtual = 9946
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2417.910 ; gain = 0.000 ; free physical = 2316 ; free virtual = 6683
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Synth Design complete | Checksum: b45cd3a0
+Synth Design complete | Checksum: 53b1908
 INFO: [Common 17-83] Releasing license: Synthesis
-145 Infos, 216 Warnings, 93 Critical Warnings and 0 Errors encountered.
+145 Infos, 214 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:49 ; elapsed = 00:00:48 . Memory (MB): peak = 2417.527 ; gain = 1093.672 ; free physical = 1710 ; free virtual = 9944
-INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2029.636; main = 1699.983; forked = 372.677
-INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3393.754; main = 2417.496; forked = 992.266
-INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
-Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2441.504 ; gain = 0.000 ; free physical = 1710 ; free virtual = 9944
+synth_design: Time (s): cpu = 00:00:52 ; elapsed = 00:00:51 . Memory (MB): peak = 2417.945 ; gain = 1094.602 ; free physical = 2304 ; free virtual = 6670
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2097.038; main = 1787.309; forked = 398.609
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3394.168; main = 2417.914; forked = 992.262
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 2441.922 ; gain = 0.000 ; free physical = 2294 ; free virtual = 6666
 INFO: [Common 17-1381] The checkpoint '/home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.runs/synth_1/top_zedboard.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file top_zedboard_utilization_synth.rpt -pb top_zedboard_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Nov 13 04:36:03 2023...
+INFO: [Common 17-206] Exiting Vivado at Fri Nov 17 05:21:16 2023...

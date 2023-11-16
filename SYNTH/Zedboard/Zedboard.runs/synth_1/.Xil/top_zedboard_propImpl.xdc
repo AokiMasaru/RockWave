@@ -71,7 +71,15 @@ set_property src_info {type:XDC file:1 line:38 export:INPUT save:INPUT read:READ
 set_property PACKAGE_PIN AB20 [get_ports {bdata[2]}]
 set_property src_info {type:XDC file:1 line:39 export:INPUT save:INPUT read:READ} [current_design]
 set_property PACKAGE_PIN AB19 [get_ports {bdata[3]}]
-set_property src_info {type:XDC file:1 line:85 export:INPUT save:INPUT read:READ} [current_design]
+set_property src_info {type:XDC file:1 line:61 export:INPUT save:INPUT read:READ} [current_design]
+set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 33]];
+set_property src_info {type:XDC file:1 line:66 export:INPUT save:INPUT read:READ} [current_design]
+set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 34]];
+set_property src_info {type:XDC file:1 line:71 export:INPUT save:INPUT read:READ} [current_design]
+set_property IOSTANDARD LVCMOS18 [get_ports -of_objects [get_iobanks 35]];
+set_property src_info {type:XDC file:1 line:74 export:INPUT save:INPUT read:READ} [current_design]
+set_property IOSTANDARD LVCMOS33 [get_ports -of_objects [get_iobanks 13]];
+set_property src_info {type:XDC file:1 line:82 export:INPUT save:INPUT read:READ} [current_design]
 set_false_path -from [get_clocks -of_objects [get_pins U_main_clk/inst/plle2_adv_inst/CLKOUT0]] -to [get_clocks -of_objects [get_pins U_main_clk/inst/plle2_adv_inst/CLKOUT1]]
-set_property src_info {type:XDC file:1 line:87 export:INPUT save:INPUT read:READ} [current_design]
+set_property src_info {type:XDC file:1 line:84 export:INPUT save:INPUT read:READ} [current_design]
 set_false_path -from [get_clocks -of_objects [get_pins U_main_clk/inst/plle2_adv_inst/CLKOUT1]] -to [get_clocks -of_objects [get_pins U_main_clk/inst/plle2_adv_inst/CLKOUT0]]

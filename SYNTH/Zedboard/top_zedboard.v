@@ -8,7 +8,9 @@ module top_zedboard(
     output         vsync,
     output [3:0]   rdata,
     output [3:0]   gdata,
-    output [3:0]   bdata
+    output [3:0]   bdata,
+
+    output          txd
 );
 `include "core_general.vh"
 
@@ -94,6 +96,8 @@ localbus U_localbus(
     .rdata(rdata),
     .gdata(gdata),
     .bdata(bdata),
+
+    .txd(txd),
 
     .int_timer(int_timer)
 );

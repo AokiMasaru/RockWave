@@ -70,9 +70,10 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param checkpoint.writeSynthRtdsInDcp 1
 set_param chipscope.maxJobs 1
-set_param xicom.use_bs_reader 1
-set_msg_config -id {Common 17-41} -limit 10000000
+set_msg_config -id {Synth 8-256} -limit 10000
+set_msg_config -id {Synth 8-638} -limit 10000
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7z020clg484-1
 
@@ -94,6 +95,8 @@ add_files /home/aokim/Company/RISCV/RockWave/fw/night.coe
 add_files /home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/VGA/vga.coe
 add_files /home/aokim/Company/RISCV/RockWave/fw/night.rom.coe
 add_files /home/aokim/Company/RISCV/RockWave/fw/night.ram.coe
+add_files /home/aokim/Company/RISCV/RockWave/fw/martos.rom.coe
+add_files /home/aokim/Company/RISCV/RockWave/fw/martos.ram.coe
 read_verilog /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/core_general.vh
 read_verilog -library xil_defaultlib {
   /home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/alu.v

@@ -5,7 +5,7 @@
  * File Created: 2019/03/03 15:04
  * Author: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
- * Last Modified: 2023/11/11 09:19
+ * Last Modified: 2023/11/13 05:06
  * Modified By: Masaru Aoki ( masaru.aoki.1972@gmail.com )
  * *****
  * Copyright 2018 - 2019  Project RockWave
@@ -46,8 +46,10 @@ module localbus(
     output    vsync,
     output [3:0]   rdata,
     output [3:0]   gdata,
-    output [3:0]   bdata
+    output [3:0]   bdata,
 
+    // UART
+    output          txd
 
 );
     parameter INNUM = 13;      // 入力端子 本数
@@ -155,7 +157,8 @@ module localbus(
         .addr           (addr[AWIDTH-1:0]),
         .wdata          (qin),
         .we             (we),
-        .rdata          (uart_qout_sel)
+        .rdata          (uart_qout_sel),
+        .txd            (txd)
     );
 
 

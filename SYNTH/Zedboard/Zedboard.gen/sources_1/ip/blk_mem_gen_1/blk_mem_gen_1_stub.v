@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Mon Nov 13 03:16:54 2023
+// Date        : Fri Nov 17 05:12:27 2023
 // Host        : H370HD3 running 64-bit Ubuntu 22.04.3 LTS
-// Command     : write_verilog -force -mode synth_stub
-//               /home/aokim/Company/RISCV/RockWave/SYNTH/Zedboard/Zedboard.gen/sources_1/ip/blk_mem_gen_1/blk_mem_gen_1_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top blk_mem_gen_1 -prefix
+//               blk_mem_gen_1_ blk_mem_gen_1_stub.v
 // Design      : blk_mem_gen_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg484-1

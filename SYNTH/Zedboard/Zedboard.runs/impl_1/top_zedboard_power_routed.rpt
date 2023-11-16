@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-| Date             : Mon Nov 13 04:38:05 2023
+| Date             : Fri Nov 17 05:22:52 2023
 | Host             : H370HD3 running 64-bit Ubuntu 22.04.3 LTS
 | Command          : report_power -file top_zedboard_power_routed.rpt -pb top_zedboard_power_summary_routed.pb -rpx top_zedboard_power_routed.rpx
 | Design           : top_zedboard
@@ -33,7 +33,7 @@ Table of Contents
 | Total On-Chip Power (W)  | 0.238        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.124        |
+| Dynamic (W)              | 0.123        |
 | Device Static (W)        | 0.114        |
 | Effective TJA (C/W)      | 11.5         |
 | Max Ambient (C)          | 82.3         |
@@ -52,18 +52,18 @@ Table of Contents
 +-------------------------+-----------+----------+-----------+-----------------+
 | On-Chip                 | Power (W) | Used     | Available | Utilization (%) |
 +-------------------------+-----------+----------+-----------+-----------------+
-| Clocks                  |     0.007 |        6 |       --- |             --- |
-| Slice Logic             |    <0.001 |     6373 |       --- |             --- |
-|   LUT as Logic          |    <0.001 |     2842 |     53200 |            5.34 |
-|   CARRY4                |    <0.001 |       87 |     13300 |            0.65 |
-|   Register              |    <0.001 |     2232 |    106400 |            2.10 |
+| Clocks                  |     0.006 |        6 |       --- |             --- |
+| Slice Logic             |    <0.001 |     6372 |       --- |             --- |
+|   LUT as Logic          |    <0.001 |     2817 |     53200 |            5.30 |
+|   CARRY4                |    <0.001 |       95 |     13300 |            0.71 |
+|   Register              |    <0.001 |     2242 |    106400 |            2.11 |
 |   F7/F8 Muxes           |    <0.001 |      514 |     53200 |            0.97 |
-|   Others                |     0.000 |      377 |       --- |             --- |
+|   Others                |     0.000 |      378 |       --- |             --- |
 |   LUT as Shift Register |     0.000 |        1 |     17400 |           <0.01 |
-| Signals                 |    <0.001 |     6013 |       --- |             --- |
+| Signals                 |    <0.001 |     6030 |       --- |             --- |
 | Block RAM               |     0.010 |    123.5 |       140 |           88.21 |
 | PLL                     |     0.103 |        1 |         4 |           25.00 |
-| I/O                     |     0.003 |       36 |       200 |           18.00 |
+| I/O                     |     0.004 |       37 |       200 |           18.50 |
 | Static Power            |     0.114 |          |           |                 |
 | Total                   |     0.238 |          |           |                 |
 +-------------------------+-----------+----------+-----------+-----------------+
@@ -154,7 +154,7 @@ Table of Contents
 +-------------------------+-----------+
 | Name                    | Power (W) |
 +-------------------------+-----------+
-| top_zedboard            |     0.124 |
+| top_zedboard            |     0.123 |
 |   U_localbus            |     0.009 |
 |     U_data_memory       |     0.004 |
 |       U_ram             |     0.004 |

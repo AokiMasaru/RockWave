@@ -20,7 +20,6 @@ WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/
 WARNING: [VRFC 10-3380] identifier 'OPLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/Execute/comp.v:27]
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module top_csr
-WARNING: [VRFC 10-9336] redeclaration of ANSI port 'mtvec' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:232]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:47]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:50]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/CSR/csr.v:56]
@@ -60,7 +59,7 @@ WARNING: [VRFC 10-3380] identifier 'inst_funct3' is used before its declaration 
 WARNING: [VRFC 10-3380] identifier 'inst_funct3' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/CORE/instruction_decode/instruction_decode.v:99]
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module localbus
-WARNING: [VRFC 10-9336] redeclaration of ANSI port 'int_timer' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:68]
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'int_timer' is not allowed [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:70]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:32]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:33]
 WARNING: [VRFC 10-3380] identifier 'XLEN' is used before its declaration [/home/aokim/Company/RISCV/RockWave/HDL_SRC/Peripheral/LocalBus/localbus.v:35]

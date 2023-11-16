@@ -11,17 +11,21 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="406,649.877 ns"></ZoomStartTime>
-      <ZoomEndTime time="406,983.878 ns"></ZoomEndTime>
-      <Cursor1Time time="406,928.211 ns"></Cursor1Time>
+      <ZoomStartTime time="2,382.059946 us"></ZoomStartTime>
+      <ZoomEndTime time="2,555.458370 us"></ZoomEndTime>
+      <Cursor1Time time="2,526.558632 us"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="193"></NameColumnWidth>
-      <ValueColumnWidth column_width="68"></ValueColumnWidth>
+      <NameColumnWidth column_width="166"></NameColumnWidth>
+      <ValueColumnWidth column_width="98"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="14" />
    <wave_markers>
       <marker label="" time="2805252000000" />
+      <marker label="" time="3164516000" />
+      <marker label="" time="1755125333" />
+      <marker label="" time="955108000" />
+      <marker label="" time="696612000" />
    </wave_markers>
    <wvobject type="logic" fp_name="/top_zedboard_tb/clk">
       <obj_property name="ElementShortName">clk</obj_property>
@@ -62,22 +66,98 @@
    <wvobject type="group" fp_name="group117">
       <obj_property name="label">Register</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="array" fp_name="/top_zedboard_tb/x01_ra">
+         <obj_property name="ElementShortName">x01_ra[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x01_ra[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/x10_a0">
+         <obj_property name="ElementShortName">x10_a0[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x10_a0[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/x11_a1">
+         <obj_property name="ElementShortName">x11_a1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">x11_a1[31:0]</obj_property>
+      </wvobject>
       <wvobject type="array" fp_name="/top_zedboard_tb/x14_a4">
          <obj_property name="ElementShortName">x14_a4[31:0]</obj_property>
          <obj_property name="ObjectShortName">x14_a4[31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject type="array" fp_name="/top_zedboard_tb/x15_a5">
          <obj_property name="ElementShortName">x15_a5[31:0]</obj_property>
          <obj_property name="ObjectShortName">x15_a5[31:0]</obj_property>
-         <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group25">
+      <obj_property name="label">CSR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="array" fp_name="/top_zedboard_tb/mtvec">
+         <obj_property name="ElementShortName">mtvec[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mtvec[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/mtvec">
+         <obj_property name="ElementShortName">mtvec[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mtvec[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/mcause">
+         <obj_property name="ElementShortName">mcause[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mcause[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_timer/mtime">
+         <obj_property name="ElementShortName">mtime[63:0]</obj_property>
+         <obj_property name="ObjectShortName">mtime[63:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_timer/mtimecmp">
+         <obj_property name="ElementShortName">mtimecmp[63:0]</obj_property>
+         <obj_property name="ObjectShortName">mtimecmp[63:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/csr_addr">
+         <obj_property name="ElementShortName">csr_addr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">csr_addr[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/csr_wdata">
+         <obj_property name="ElementShortName">csr_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">csr_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/csr_we">
+         <obj_property name="ElementShortName">csr_we[1:0]</obj_property>
+         <obj_property name="ObjectShortName">csr_we[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/csr_rdata">
+         <obj_property name="ElementShortName">csr_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">csr_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/adsel305">
+         <obj_property name="ElementShortName">adsel305</obj_property>
+         <obj_property name="ObjectShortName">adsel305</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/wenble305">
+         <obj_property name="ElementShortName">wenble305</obj_property>
+         <obj_property name="ObjectShortName">wenble305</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/dataout_mtvec">
+         <obj_property name="ElementShortName">dataout_mtvec[31:0]</obj_property>
+         <obj_property name="ObjectShortName">dataout_mtvec[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/reg305">
+         <obj_property name="ElementShortName">reg305[31:0]</obj_property>
+         <obj_property name="ObjectShortName">reg305[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/wdata">
+         <obj_property name="ElementShortName">wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/u_top_core/u_top_csr/wdata_mtvec">
+         <obj_property name="ElementShortName">wdata_mtvec[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata_mtvec[31:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group46">
       <obj_property name="label">GPIO</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="array" fp_name="/top_zedboard_tb/gpio_pin_in">
          <obj_property name="ElementShortName">gpio_pin_in[12:0]</obj_property>
          <obj_property name="ObjectShortName">gpio_pin_in[12:0]</obj_property>
@@ -110,5 +190,66 @@
          <obj_property name="ElementShortName">bdata[3:0]</obj_property>
          <obj_property name="ObjectShortName">bdata[3:0]</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group77">
+      <obj_property name="label">UART</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/rst_n">
+         <obj_property name="ElementShortName">rst_n</obj_property>
+         <obj_property name="ObjectShortName">rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/sel">
+         <obj_property name="ElementShortName">sel</obj_property>
+         <obj_property name="ObjectShortName">sel</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/addr">
+         <obj_property name="ElementShortName">addr[13:0]</obj_property>
+         <obj_property name="ObjectShortName">addr[13:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/we">
+         <obj_property name="ElementShortName">we[3:0]</obj_property>
+         <obj_property name="ObjectShortName">we[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/wdata">
+         <obj_property name="ElementShortName">wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/rdata">
+         <obj_property name="ElementShortName">rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/txd">
+         <obj_property name="ElementShortName">txd</obj_property>
+         <obj_property name="ObjectShortName">txd</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/uart_en">
+         <obj_property name="ElementShortName">uart_en</obj_property>
+         <obj_property name="ObjectShortName">uart_en</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/refclk_st">
+         <obj_property name="ElementShortName">refclk_st[31:0]</obj_property>
+         <obj_property name="ObjectShortName">refclk_st[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/tx_reg">
+         <obj_property name="ElementShortName">tx_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_reg[7:0]</obj_property>
+         <obj_property name="Radix">ASCIIRADIX</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_reg_uart/tx_strt">
+         <obj_property name="ElementShortName">tx_strt</obj_property>
+         <obj_property name="ObjectShortName">tx_strt</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/U_localbus/U_top_uart/U_fnc_uart/tx_busy">
+         <obj_property name="ElementShortName">tx_busy</obj_property>
+         <obj_property name="ObjectShortName">tx_busy</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/txd">
+         <obj_property name="ElementShortName">txd</obj_property>
+         <obj_property name="ObjectShortName">txd</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/top_zedboard_tb/U_top_zedboard/txd">
+      <obj_property name="ElementShortName">txd</obj_property>
+      <obj_property name="ObjectShortName">txd</obj_property>
    </wvobject>
 </wave_config>
